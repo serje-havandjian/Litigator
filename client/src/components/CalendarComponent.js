@@ -25,7 +25,7 @@ function CalendarComponent(){
         }
     })
 
-    // console.log(events)
+    
 
     console.log(events)
     console.log(test)
