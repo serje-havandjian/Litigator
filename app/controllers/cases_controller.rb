@@ -2,7 +2,7 @@ class CasesController < ApplicationController
 
     def index
         cases = Case.all
-        render json: cases
+        render json: cases, include: "*.*"
     end
 
 end

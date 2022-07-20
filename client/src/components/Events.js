@@ -17,7 +17,6 @@
 
 // export default Events
 
-   
 
 export default [
         {
