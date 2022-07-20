@@ -1,0 +1,2 @@
+class MilestonesIfDemurrerDelaysController < ApplicationController
+end

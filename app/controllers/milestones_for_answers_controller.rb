@@ -1,0 +1,2 @@
+class MilestonesForAnswersController < ApplicationController
+end

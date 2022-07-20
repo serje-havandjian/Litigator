@@ -1,0 +1,2 @@
+class MilestonesForDemurrersController < ApplicationController
+end
