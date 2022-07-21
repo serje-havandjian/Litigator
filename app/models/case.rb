@@ -3,4 +3,6 @@ class Case < ApplicationRecord
     has_many :deadlines
     has_many :triggers, through: :deadlines
 
+    validates :name, :counsel, :date_case_filed, :date_complaint_served, presence: true
+
 end

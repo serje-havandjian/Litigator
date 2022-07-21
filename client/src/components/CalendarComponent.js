@@ -1,13 +1,16 @@
-import React, {Fragment, useMemo, useState, useEffect } from "react"
-import {Calendar, momentLocalizer } from "react-big-calendar"
+import React, {useMemo, useState, useEffect } from "react"
+import {Calendar, momentLocalizer, Views } from "react-big-calendar"
 import moment from "moment"
+import {Button, Image, List} from "semantic-ui-react"
 import events from "./Events"
+
 
 
 function CalendarComponent(){
     const localizer = momentLocalizer(moment)
     const [ lawsuits, setLawSuits ] = useState([])
     const [myMoment, setMyMoment] = useState(moment())
+
 
     useEffect(()=>{
         fetch("/cases")
@@ -19,19 +22,36 @@ function CalendarComponent(){
     console.log(moment())
 
     function handleMoment(){
+      
         setMyMoment(moment().set("month", 9))
 
-        // myMoment == moment() ? setMyMoment(moment().set("month", 9)) : setMyMoment(moment())
+        // moment() !== myMoment ? setMyMoment(moment().set("month", 9)) : setMyMoment(moment().set("month", 1))
 
         // if(myMoment === moment()){
         //     setMyMoment(moment().set("month", 9))
         // }else{
         //     setMyMoment(moment())
         // }
-
     }
 
-  
+    function resetMoment(){
+        setMyMoment(moment())
+    }
+
+    function handleDisplayIndividualCase(){
+        console.log("test")
+    }
+
+    const renderLawSuitsInList = lawsuits.map((lawsuit)=>{
+        return <List animated verticalAlign="middle">
+            <List.Item>
+                <List.Icon name="folder" />
+                <List.Content>
+                    <List.Header onClick={handleDisplayIndividualCase}>{lawsuit.name}</List.Header>
+                </List.Content>
+            </List.Item>
+        </List>
+    })
 
     
 
@@ -105,7 +125,7 @@ function CalendarComponent(){
             // CONDITIONALLY RENDERING DEMURRER V. LATE DEMURRER MILSTONES
             const deadlineDate = moment(deadline.deadline)
 //START OF CONDITIONAL RENDER
-            console.log(myMoment)
+
             if(myMoment < deadlineDate.subtract(15, "days")){
                 deadline.milestones_for_demurrers.map((milestone)=>{
                     const deadlineDate = moment(deadline.deadline)
@@ -389,7 +409,18 @@ function CalendarComponent(){
     // //     lawsuit.title.includes("Miller")}) 
     //     then setLawsuits(MillerCases)
 
- 
+  
+
+
+
+
+
+
+
+    useMemo(()=>{
+        views: Object.keys(Views).map((k)=> Views[k])
+    })
+
 
     return(
         <>
@@ -403,10 +434,20 @@ function CalendarComponent(){
                 />
             </div>
 
-            <div><button id="momentButton" onClick={handleMoment}>Moment Button</button></div>
+            <div>
+                <Button primary id="momentButton" onClick={handleMoment}>Moment Button</Button>
+                <Button secondary onClick={resetMoment}>Reset Moment Button</Button>
+            </div>
 
+            <div>
+                {renderLawSuitsInList}
+            </div>
+
+            
+     
         </>
     )
-}
+    }
+
 
 export default CalendarComponent;
