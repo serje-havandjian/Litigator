@@ -7,6 +7,7 @@ import events from "./Events"
 function CalendarComponent(){
     const localizer = momentLocalizer(moment)
     const [ lawsuits, setLawSuits ] = useState([])
+    const [myMoment, setMyMoment] = useState(moment())
 
     useEffect(()=>{
         fetch("/cases")
@@ -14,7 +15,26 @@ function CalendarComponent(){
         .then(result => setLawSuits(result))
     },[])
 
-    console.log(lawsuits, "all lawsuits")
+    console.log(myMoment)
+    console.log(moment())
+
+    function handleMoment(){
+        setMyMoment(moment().set("month", 9))
+
+        // myMoment == moment() ? setMyMoment(moment().set("month", 9)) : setMyMoment(moment())
+
+        // if(myMoment === moment()){
+        //     setMyMoment(moment().set("month", 9))
+        // }else{
+        //     setMyMoment(moment())
+        // }
+
+    }
+
+  
+
+    
+
 
     let eventsArray = []
 
@@ -84,8 +104,9 @@ function CalendarComponent(){
             
             // CONDITIONALLY RENDERING DEMURRER V. LATE DEMURRER MILSTONES
             const deadlineDate = moment(deadline.deadline)
-
-            if(moment() < deadlineDate.subtract(15, "days")){
+//START OF CONDITIONAL RENDER
+            console.log(myMoment)
+            if(myMoment < deadlineDate.subtract(15, "days")){
                 deadline.milestones_for_demurrers.map((milestone)=>{
                     const deadlineDate = moment(deadline.deadline)
                     
@@ -174,6 +195,7 @@ function CalendarComponent(){
                     })                
                 })
             }
+//ELSE OF CONDITIONAL RENDER
             else {
                 deadline.milestones_if_demurrer_delays.map((milestone)=>{
                     const deadlineDate = moment(deadline.deadline)
@@ -367,62 +389,7 @@ function CalendarComponent(){
     // //     lawsuit.title.includes("Miller")}) 
     //     then setLawsuits(MillerCases)
 
-
-
-
-    console.log(eventsArray, "eventsArray")
-
-
-    // const test = lawsuit.map((suit)=>{
-    //     return{
-    //         title: `"${suit.name}"`,
-    //         start: `"${suit.date_case_filed}"`,
-    //         end: `"${suit.date_case_filed}"`,
-    //         up_down_ind: "Y"
-    //     }
-    // })
-
-    // const test2 = lawsuit.map((suit)=>{
-    //     return{
-    //         title: `"${suit.deadlines.map((deadline)=>{
-    //             return deadline.title
-    //         })}"`,
-    //         start: `"${suit.date_case_filed}"`,
-    //         end: `"${suit.date_case_filed}"`,
-    //         up_down_ind: "Y"
-    //     }
-    // })
-
-
-    // const test3 = lawsuits.map((lawsuit)=>{
-    //     return {
-    //         title: lawsuit.deadlines.map((deadline)=>{
-    //             return deadline.title
-    //         }),
-    //         start: lawsuit.date_case_filed,
-    //         end: lawsuit.date_case_filed,
-    //         up_down_ind: "Y"
-    //     }
-    // })
-      
-    // console.log(test3, "test 3")
-
-
-            // title: `"${suit.deadlines.map((deadline)=>{
-            //     return deadline.title
-            // })}"`,
-            // start: `"${suit.date_case_filed}"`,
-            // end: `"${suit.date_case_filed}"`,
-            // up_down_ind: "Y"
  
-
-
-    function handleMoment(){
-        console.log(moment().set("month", 9))
-        
-    }
-
-    console.log(moment())
 
     return(
         <>
