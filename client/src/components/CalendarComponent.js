@@ -33,25 +33,341 @@ function CalendarComponent(){
                 end: `${deadline.deadline}`,
                 up_down_ind: "Y"
             })
-
+            //start of rendering of Answer Milestones
             deadline.milestones_for_answers.map((milestone)=>{
+                const deadlineDate = moment(deadline.deadline)
                 
-                let deadlineDate = moment(deadline.deadline)
-                let milestone1Date = deadlineDate.subtract(25, "days")
-
                 eventsArray.push({
                     title: `${milestone.m1}-${lawsuit.name}`,
-                    start: milestone1Date,
-                    end: milestone1Date,
+                    start: deadlineDate,
+                    end: deadlineDate.subtract(25, "days"),
+                    up_down_ind: "Y"
+                })                
+            })
+            deadline.milestones_for_answers.map((milestone)=>{
+                const deadlineDate = moment(deadline.deadline)
+
+                eventsArray.push({
+                    title: `${milestone.m2}-${lawsuit.name}`,
+                    start: deadlineDate,
+                    end: deadlineDate.subtract(20, "days"),
                     up_down_ind: "Y"
                 })
+
             })
-        
-        })
+            deadline.milestones_for_answers.map((milestone)=>{
+                const deadlineDate = moment(deadline.deadline)
 
-        
+                eventsArray.push({
+                    title: `${milestone.m3}-${lawsuit.name}`,
+                    start: deadlineDate,
+                    end: deadlineDate.subtract(10, "days"),
+                    up_down_ind: "Y"
+                })
 
-    })
+            })
+            deadline.milestones_for_answers.map((milestone)=>{
+                const deadlineDate = moment(deadline.deadline)
+
+                eventsArray.push({
+                    title: `${milestone.m4}-${lawsuit.name}`,
+                    start: deadlineDate,
+                    end: deadlineDate.subtract(1, "days"),
+                    up_down_ind: "Y"
+                })
+
+            })
+            //end of rendering of Answer Milestones
+
+
+
+            
+            // CONDITIONALLY RENDERING DEMURRER V. LATE DEMURRER MILSTONES
+            const deadlineDate = moment(deadline.deadline)
+
+            if(moment() < deadlineDate.subtract(15, "days")){
+                deadline.milestones_for_demurrers.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m1}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(28, "days"),
+                        up_down_ind: "Y"
+                    })                
+                })
+
+                deadline.milestones_for_demurrers.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m2}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(25, "days"),
+                        up_down_ind: "Y"
+                    })                
+                });
+    
+                deadline.milestones_for_demurrers.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m3}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(14, "days"),
+                        up_down_ind: "Y"
+                    })                
+                });
+    
+                deadline.milestones_for_demurrers.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m4}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(7, "days"),
+                        up_down_ind: "Y"
+                    })                
+                });
+    
+                deadline.milestones_for_demurrers.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m5}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(5, "days"),
+                        up_down_ind: "Y"
+                    })                
+                });
+    
+                deadline.milestones_for_demurrers.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m6}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(5,"days"),
+                        up_down_ind: "Y"
+                    })                
+                });
+    
+                deadline.milestones_for_demurrers.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m7}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(2, "days"),
+                        up_down_ind: "Y"
+                    })                
+                });
+    
+                deadline.milestones_for_demurrers.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m8}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(1, "days"),
+                        up_down_ind: "Y"
+                    })                
+                })
+            }
+            else {
+                deadline.milestones_if_demurrer_delays.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m1}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(15, "days"),
+                        up_down_ind: "Y"
+                    })                
+                })
+    
+                deadline.milestones_if_demurrer_delays.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m2}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(15, "days"),
+                        up_down_ind: "Y"
+                    })                
+                })
+    
+                deadline.milestones_if_demurrer_delays.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m3}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(15, "days"),
+                        up_down_ind: "Y"
+                    })                
+                })
+    
+                deadline.milestones_if_demurrer_delays.map((milestone)=>{
+                    const deadlineDate = moment(deadline.deadline)
+                    
+                    eventsArray.push({
+                        title: `${milestone.m4}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(15, "days"),
+                        up_down_ind: "Y"
+                    })                
+                })
+            }
+
+            // deadline.milestones_for_demurrers.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m1}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(28, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // })
+
+            // deadline.milestones_for_demurrers.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m2}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(25, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // });
+
+            // deadline.milestones_for_demurrers.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m3}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(14, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // });
+
+            // deadline.milestones_for_demurrers.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m4}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(7, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // });
+
+            // deadline.milestones_for_demurrers.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m5}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(5, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // });
+
+            // deadline.milestones_for_demurrers.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m6}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(5,"days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // });
+
+            // deadline.milestones_for_demurrers.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m7}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(2, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // });
+
+            // deadline.milestones_for_demurrers.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m8}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(1, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // })
+            // end of map on demurrer milestones
+
+            //start of map on if demurrer delayed milestones
+
+            
+
+            // deadline.milestones_if_demurrer_delays.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m1}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(15, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // })
+
+            // deadline.milestones_if_demurrer_delays.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m2}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(15, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // })
+
+            // deadline.milestones_if_demurrer_delays.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m3}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(15, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // })
+
+            // deadline.milestones_if_demurrer_delays.map((milestone)=>{
+            //     const deadlineDate = moment(deadline.deadline)
+                
+            //     eventsArray.push({
+            //         title: `${milestone.m4}-${lawsuit.name}`,
+            //         start: deadlineDate,
+            //         end: deadlineDate.subtract(15, "days"),
+            //         up_down_ind: "Y"
+            //     })                
+            // })
+
+        })//end of Map on all lawsuits.deadlines
+
+    })//end of map on all Lawsuits state
+
+
+    //on click of "Miller" case button
+    // // //if const MillerCases = Lawsuits.map((lawsuit)=>{
+    // //     lawsuit.title.includes("Miller")}) 
+    //     then setLawsuits(MillerCases)
+
+
 
 
     console.log(eventsArray, "eventsArray")
@@ -101,10 +417,15 @@ function CalendarComponent(){
  
 
 
+    function handleMoment(){
+        console.log(moment().set("month", 9))
+        
+    }
 
+    console.log(moment())
 
     return(
-        <Fragment>
+        <>
             <h1>Calendar</h1>
             <div className="Calendar">
                 <Calendar
@@ -114,7 +435,10 @@ function CalendarComponent(){
                 endAccessor="end"
                 />
             </div>
-        </Fragment>
+
+            <div><button id="momentButton" onClick={handleMoment}>Moment Button</button></div>
+
+        </>
     )
 }
 
