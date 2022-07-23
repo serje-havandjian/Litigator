@@ -18,6 +18,8 @@ function Case(){
     const [yearServedState, setYearDocumentServed] = useState()
     const [monthServedState, setMonthServedState] = useState()
     const [dateServedState, setDateServedState] = useState()
+    const [complaintServedOption, setComplaintServedOption] = useState(false)
+    const [discoveryServedOption, setDiscoveryServedOption] = useState(false)
     
      
 
@@ -93,21 +95,17 @@ function Case(){
             date: dateServedState
         }
 
-        console.log(dateServedObject)
 
         let dateServedMoment = moment({
             year: `${dateServedObject.year}`, month: `${dateServedObject.month}`, date: `${dateServedObject.date}`
         })
 
-        // let useMoment = moment({year: yearServedState})
 
         const newTriggerObject ={
             title: "Complaint Served",
             date_served: dateServedMoment,
             method_of_service: "Personal Service / Hand"
         }
-
-        console.log(newTriggerObject)
         
         fetch(`/triggers/`,{
             method: "POST",
@@ -119,9 +117,6 @@ function Case(){
         .then(result => result.json())
         .then(result => setNewTrigger(result))
 
-        console.log(newTrigger)
-
-
         const newDeadlineObject = {
             title: "File & Serve Demurrer",
             deadline: dateServedMoment,
@@ -130,7 +125,6 @@ function Case(){
         }
 // newDeadlineObject IS GIVING IS USING dateServedMoment, and that is taking from the form, but the month passed into the form corresponds to one month later in moment, so everything is 1 month after than the month expected
 
-        console.log(newDeadlineObject, "newDeadlineObject IS GIVING IS USING dateServedMoment, and that is taking from the form, but the month passed into the form corresponds to one month later in moment, so everything is 1 month after than the month expected")
 
         fetch(`/deadlines/`,{
             method: "POST",
@@ -183,7 +177,6 @@ function Case(){
         .then(result => result.json())
         .then(result => console.log(result))
 
-
     }
 
 
@@ -208,6 +201,23 @@ function Case(){
         console.log(dateServedState)
     }
 
+    function handleComplaintServedChosen(e){
+        
+        console.log(e.target.value)
+        if(e.target.value === "Complaint Served"){
+            setComplaintServedOption(true)
+        } else{
+            setComplaintServedOption(false)
+        }
+
+        if (e.target.value = "Form Interrogatory Served"){
+            setDiscoveryServedOption(true)
+        } else{
+            setDiscoveryServedOption(false)
+        }
+
+    }
+
 
 
     const renderLawSuit = lawsuit.map((lawsuit)=>{
@@ -225,17 +235,14 @@ function Case(){
                 <p>Opposing Counsel: {lawsuit.counsel}</p>
                 <p>Date Case Filed:{lawsuit.date_case_filed}</p>
                 <p>Date Complaint Served: {lawsuit.date_complaint_served}</p>
-                    {displayEditForm ? <Form succes onSubmit={handleCaseEdit}>
-                        {/* <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleCaseName} value={lawsuit.name}/>
-                        <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState} value={lawsuit.counsel}/>
-                        <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} value={lawsuit.date_case_filed} />
-                        <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} value={lawsuit.date_complaint_served} /> */}
-                        <select class="ui dropdown" >
-                            <option value="">Triggers</option>
-                            <option value={lawsuit.id}>Complaint Served</option>
-                            <option value={lawsuit.id}>Form Interrogatory Served</option>
-                        </select>
-                        <Form.Input 
+                    {displayEditForm ? <select onChange={handleComplaintServedChosen} class="ui dropdown" >
+                            <option >Triggers</option>
+                            <option >Complaint Served</option>
+                            <option >Form Interrogatory Served</option>
+                        </select> : null}
+                    {complaintServedOption ? 
+                    <Form onSubmit={handleCaseEdit}>
+                        < Form.Input 
                         onChange={handleYearDocumentServed}
                         label="Year Complaint Served" 
                         placeholder="Enter Year Of Service" />
@@ -248,11 +255,47 @@ function Case(){
                         label="Date Complaint Served" 
                         placeholder="Enter Date Of Service" />
                         <Button >Submit</Button>
-                    </Form> : null}
+                    </Form>
+                    : null}
+                    {discoveryServedOption ? 
+                    <Form>
+                        <Form.Input
+                        label = "Date Discovery Served"
+                        placeholder = "Enter Date Discovery Served"
+                        />
+                    </Form>
+                    : null}
             </Card> 
             </div>
             
     })
+
+
+    // <Form succes onSubmit={handleCaseEdit}>
+    //                     {/* <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleCaseName} value={lawsuit.name}/>
+    //                     <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState} value={lawsuit.counsel}/>
+    //                     <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} value={lawsuit.date_case_filed} />
+    //                     <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} value={lawsuit.date_complaint_served} /> */}
+    //                     < Form.Input 
+    //                     onChange={handleYearDocumentServed}
+    //                     label="Year Complaint Served" 
+    //                     placeholder="Enter Year Of Service" />
+    //                     <Form.Input
+    //                     onChange={handleMonthDocumentServed}
+    //                     label="Month Complaint Served" 
+    //                     placeholder="Enter Month Of Service" />
+    //                     <Form.Input 
+    //                     onChange={handleDateDocumentServed}
+    //                     label="Date Complaint Served" 
+    //                     placeholder="Enter Date Of Service" />
+    //                     <Button >Submit</Button>
+    //                 </Form>
+
+
+
+
+
+
 
     return(
         <>

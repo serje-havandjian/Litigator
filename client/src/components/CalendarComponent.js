@@ -10,6 +10,7 @@ function CalendarComponent(){
     const localizer = momentLocalizer(moment)
     const [ lawsuits, setLawSuits ] = useState([])
     const [myMoment, setMyMoment] = useState(moment())
+    const [displayIndividualCase, setDisplayIndividualCase] = useState([])
 
 
     useEffect(()=>{
@@ -18,36 +19,35 @@ function CalendarComponent(){
         .then(result => setLawSuits(result))
     },[])
 
-    console.log(myMoment)
-    console.log(moment())
-
     function handleMoment(){
-      
         setMyMoment(moment().set("month", 9))
-
-        // moment() !== myMoment ? setMyMoment(moment().set("month", 9)) : setMyMoment(moment().set("month", 1))
-
-        // if(myMoment === moment()){
-        //     setMyMoment(moment().set("month", 9))
-        // }else{
-        //     setMyMoment(moment())
-        // }
     }
 
     function resetMoment(){
         setMyMoment(moment())
     }
 
-    function handleDisplayIndividualCase(){
-        console.log("test")
+    function handleDisplayLawsuit(e){
+        console.log(e.target.id)
+
+        fetch(`/cases/${e.target.id}`)
+        .then(result => result.json())
+        .then(result => setDisplayIndividualCase(result))
+
+        // lawsuits.filter((lawsuit)=>{
+        //     if (lawsuit.name !== displayIndividualCase.name){
+        //         console.log(lawsuits)
+        //     }
+        // })
+
     }
 
     const renderLawSuitsInList = lawsuits.map((lawsuit)=>{
-        return <List animated verticalAlign="middle">
-            <List.Item>
+        return <List animated verticalAlign="middle" >
+            <List.Item >
                 <List.Icon name="folder" />
-                <List.Content>
-                    <List.Header onClick={handleDisplayIndividualCase}>{lawsuit.name}</List.Header>
+                <List.Content value={lawsuit.id}>
+                    <List.Header onClick={handleDisplayLawsuit} id={lawsuit.id} >{lawsuit.name}</List.Header>
                 </List.Content>
             </List.Item>
         </List>
