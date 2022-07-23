@@ -10,6 +10,7 @@ import Cases from "./components/Cases";
 
 function App() {
   const [ user, setUser ] = useState(null);
+  const [caseNames, setCaseName ] = useState([])
 
     useEffect(() => {
       fetch("/me").then((r) => {
@@ -18,6 +19,22 @@ function App() {
         }
       });
     }, []);
+
+
+    useEffect(()=>{
+      fetch("/cases")
+      .then(result => result.json())
+      .then(result => setCaseName(result))
+  },[])
+
+  useEffect(()=>{
+    fetch("/cases")
+    .then(result => result.json())
+    .then(result => setCaseName(result))
+},[])
+
+ 
+
 
     return (
         <> 

@@ -1,15 +1,24 @@
 
 import React, {useState, useEffect} from "react"
 import { render } from "react-dom"
-import { Button, Card, Form, Message, TextArea, Input } from 'semantic-ui-react'
+import { Button, Card, Form, Message, List, Header } from 'semantic-ui-react'
+import moment from "moment"
 
 function Case(){
-    const [ lawsuit, setLawSuit ] = useState([])
+    const [lawsuit, setLawSuit ] = useState([])
     const [nameState, setNameState] = useState("")
     const [counselState, setCounselState] = useState("")
     const [dateCaseFiledState, setDateCaseFiledState] = useState()
     const [dateComplaintServedState, setDateComplaintFiledState] = useState()
-    const [displayEditForm, setDisplayEditForm ] =useState(false)
+    const [displayEditForm, setDisplayEditForm ] = useState(false)
+    const [individualCase, setIndividualCase] = useState([])
+    const [complaintState, setComplaintState] = useState()
+    const [newTrigger, setNewTrigger] = useState()
+    const [newDeadline, setNewDeadline] = useState()
+     
+
+
+
 
     useEffect(()=>{
         fetch("/cases")
@@ -42,7 +51,7 @@ function Case(){
 
 
 
-    function handleSubmit(e){
+    function createNewCase(e){
         e.preventDefault()
 
         let newCaseObject = {
@@ -65,39 +74,127 @@ function Case(){
         .then(result => setLawSuit(result)))
 
         e.target.reset();
+
     }
+
+    
 
     function handleCaseEdit(e){
         e.preventDefault()
-        console.log("test")
+        console.log(e)
+
+        const newTriggerObject ={
+            title: "Complaint Served",
+            date_served: moment(),
+            method_of_service: "Personal Service / Hand"
+        }
+        
+        fetch(`/triggers/`,{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify(newTriggerObject)
+        })
+        .then(result => result.json())
+        .then(result => setNewTrigger(result))
+
+        console.log(newTrigger)
+
+
+        const newDeadlineObject = {
+            title: "File & Serve Demurrer",
+            deadline: moment().add(30, "days"),
+            case_id: individualCase.id,
+            trigger_id: newTrigger.id
+        }
+
+        fetch(`/deadlines/`,{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify(newDeadlineObject)
+        })
+        .then(result => result.json())
+        .then(result => setNewDeadline(result))
+
+
+        const milestonesForDemurrer = {
+            m1: "Analyze Complaint", 
+            m2: "Begin Drafting Demurrer", 
+            m3: "Provide Draft Demurrer to Partner", 
+            m4: "Provide Draft Demurrer to Client", 
+            m5: "Meet and Confer With Opposing Counsel", 
+            m6: "Draft Client Declaration, Counsel Declaration, Potential Request for Judicial Notice, and Proposed Order", 
+            m7: "Finalize Demurrer & Related Documents for File and Service", 
+            m8: "File and Serve Demurrer", 
+            deadline_id: newDeadline.id
+        }
+
+        fetch(`/milestones_for_demurrers`,{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify(milestonesForDemurrer)
+        })
+        .then(result => result.json())
+        .then(result => console.log(result))
+
+
     }
 
-    function handleShowEditForm(e){
-        displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true)
+
+
+
+
+
+
+
+    function handleComplaintState(e){
+        console.log(e.target.value)
+
+
+        // fetch(`/triggers/${e.target.value}`)
+        // .then(result => result.json())
+        // .then(result => console.log(result))
+
     }
 
 
 
     const renderLawSuit = lawsuit.map((lawsuit)=>{
-        return <Card>
-            <h1>Case Name: {lawsuit.name}</h1> 
-            <h2>Opposing Counsel: {lawsuit.counsel}</h2>
-            <h3>Date Case Filed:{lawsuit.date_case_filed}</h3>
-            <h3>Date Complaint Served: {lawsuit.date_complaint_served}</h3>
-                {displayEditForm ? <Form succes onSubmit={handleCaseEdit}>
-                    <Form.Input label="Name" placeholder="Enter Case Name Here" value={lawsuit.name}/>
-                    <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState} value={lawsuit.counsel}/>
-                    <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} value={lawsuit.date_case_filed} />
-                    <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} value={lawsuit.date_complaint_served} />
-                    <Message
-                    success
-                    header="Case Completed"
-                    content="New Case Entered, Happy Hunting!"
-                    />
-                    <Button>Submit</Button>
-                </Form> : null}
-                <Button onClick={handleShowEditForm}>Edit</Button>
+
+        return <div> 
+            <Card>
+                <List.Item>
+                    <Button onClick={(e)=>{
+                        displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true);
+                        fetch(`/cases/${e.target.id}`)
+                        .then(result => result.json())
+                        .then(result => setIndividualCase(result))
+                    }} id={lawsuit.id}> Case Name: {lawsuit.name} </Button>
+                </List.Item> 
+                <p>Opposing Counsel: {lawsuit.counsel}</p>
+                <p>Date Case Filed:{lawsuit.date_case_filed}</p>
+                <p>Date Complaint Served: {lawsuit.date_complaint_served}</p>
+                    {displayEditForm ? <Form succes onSubmit={handleCaseEdit}>
+                        {/* <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleCaseName} value={lawsuit.name}/>
+                        <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState} value={lawsuit.counsel}/>
+                        <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} value={lawsuit.date_case_filed} />
+                        <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} value={lawsuit.date_complaint_served} /> */}
+                        <select class="ui dropdown" onChange={handleComplaintState}>
+                            <option value="">Triggers</option>
+                            <option value={lawsuit.id}>Complaint Served</option>
+                            <option value={lawsuit.id}>Form Interrogatory Served</option>
+                        </select>
+                        <Form.Input label="Date Complaint Served" placeholder="Enter Date Of Service YYYY-MM-DD"/>
+                        <Button >Submit</Button>
+                    </Form> : null}
             </Card> 
+            </div>
+            
     })
 
     return(
@@ -105,16 +202,11 @@ function Case(){
             <h1>Cases</h1>
             <div>{renderLawSuit}</div>
             <div id="createNewCase">
-                <Form succes onSubmit={handleSubmit}>
-                    <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleNameState}/>
+                <Form succes onSubmit={createNewCase}>
+                    <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleNameState} />
                     <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState}/>
                     <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} />
-                    <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} />
-                    <select class="ui dropdown">
-                        <option value="">Deadlines</option>
-                        <option value="1">Demurrer</option>
-                        <option value="0">Answer</option>
-                    </select>
+                    <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} onChange={handleDateComplaintServedDate} />
                     <Message
                     success
                     header="Case Completed"
