@@ -189,7 +189,6 @@ function Case(){
                             <option value={lawsuit.id}>Complaint Served</option>
                             <option value={lawsuit.id}>Form Interrogatory Served</option>
                         </select>
-                        <Form.Input label="Date Complaint Served" placeholder="Enter Date Of Service YYYY-MM-DD"/>
                         <Button >Submit</Button>
                     </Form> : null}
             </Card> 
