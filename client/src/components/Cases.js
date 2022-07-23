@@ -9,12 +9,16 @@ function Case(){
     const [nameState, setNameState] = useState("")
     const [counselState, setCounselState] = useState("")
     const [dateCaseFiledState, setDateCaseFiledState] = useState()
-    const [dateComplaintServedState, setDateComplaintFiledState] = useState()
+    const [dateComplaintServedState, setDateComplaintServedState] = useState()
     const [displayEditForm, setDisplayEditForm ] = useState(false)
     const [individualCase, setIndividualCase] = useState([])
     const [complaintState, setComplaintState] = useState()
     const [newTrigger, setNewTrigger] = useState()
     const [newDeadline, setNewDeadline] = useState()
+    const [yearServedState, setYearDocumentServed] = useState()
+    const [monthServedState, setMonthServedState] = useState()
+    const [dateServedState, setDateServedState] = useState()
+    
      
 
 
@@ -45,7 +49,7 @@ function Case(){
 
     function handleDateComplaintServedDate(e){
         e.preventDefault()
-        setDateComplaintFiledState(e.target.value)
+        setDateComplaintServedState(e.target.value)
         console.log(dateComplaintServedState)
     }
 
@@ -83,9 +87,23 @@ function Case(){
         e.preventDefault()
         console.log(e)
 
+        let dateServedObject = {
+            year: yearServedState,
+            month: monthServedState,
+            date: dateServedState
+        }
+
+        console.log(dateServedObject)
+
+        let dateServedMoment = moment({
+            year: `${dateServedObject.year}`, month: `${dateServedObject.month}`, date: `${dateServedObject.date}`
+        })
+
+        // let useMoment = moment({year: yearServedState})
+
         const newTriggerObject ={
             title: "Complaint Served",
-            date_served: moment(),
+            date_served: dateServedMoment,
             method_of_service: "Personal Service / Hand"
         }
 
@@ -106,10 +124,13 @@ function Case(){
 
         const newDeadlineObject = {
             title: "File & Serve Demurrer",
-            deadline: moment().add(30, "days"),
+            deadline: dateServedMoment,
             case_id: individualCase.id,
             trigger_id: newTrigger.id
         }
+// newDeadlineObject IS GIVING IS USING dateServedMoment, and that is taking from the form, but the month passed into the form corresponds to one month later in moment, so everything is 1 month after than the month expected
+
+        console.log(newDeadlineObject, "newDeadlineObject IS GIVING IS USING dateServedMoment, and that is taking from the form, but the month passed into the form corresponds to one month later in moment, so everything is 1 month after than the month expected")
 
         fetch(`/deadlines/`,{
             method: "POST",
@@ -172,8 +193,19 @@ function Case(){
 
 
 
-    function handleComplaintState(e){
+    function handleYearDocumentServed(e){
+        setYearDocumentServed(e.target.value)
+        console.log(yearServedState)
+    }
 
+    function handleMonthDocumentServed(e){
+        setMonthServedState(e.target.value)
+        console.log(monthServedState)
+    }
+
+    function handleDateDocumentServed(e){
+        setDateServedState(e.target.value)
+        console.log(dateServedState)
     }
 
 
@@ -198,12 +230,23 @@ function Case(){
                         <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState} value={lawsuit.counsel}/>
                         <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} value={lawsuit.date_case_filed} />
                         <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} value={lawsuit.date_complaint_served} /> */}
-                        <select class="ui dropdown" onChange={handleComplaintState}>
+                        <select class="ui dropdown" >
                             <option value="">Triggers</option>
                             <option value={lawsuit.id}>Complaint Served</option>
                             <option value={lawsuit.id}>Form Interrogatory Served</option>
                         </select>
-                        <Form.Input label="Date Complaint Served" placeholder="Enter Date Of Service YYYY-MM-DD"/>
+                        <Form.Input 
+                        onChange={handleYearDocumentServed}
+                        label="Year Complaint Served" 
+                        placeholder="Enter Year Of Service" />
+                        <Form.Input
+                        onChange={handleMonthDocumentServed}
+                        label="Month Complaint Served" 
+                        placeholder="Enter Month Of Service" />
+                        <Form.Input 
+                        onChange={handleDateDocumentServed}
+                        label="Date Complaint Served" 
+                        placeholder="Enter Date Of Service" />
                         <Button >Submit</Button>
                     </Form> : null}
             </Card> 
@@ -220,7 +263,7 @@ function Case(){
                     <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleNameState} />
                     <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState}/>
                     <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} />
-                    <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} onChange={handleDateComplaintServedDate} />
+                    <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} />
                     <Message
                     success
                     header="Case Completed"
