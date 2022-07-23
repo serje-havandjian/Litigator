@@ -27,11 +27,6 @@ function App() {
       .then(result => setCaseName(result))
   },[])
 
-  useEffect(()=>{
-    fetch("/cases")
-    .then(result => result.json())
-    .then(result => setCaseName(result))
-},[])
 
  
 

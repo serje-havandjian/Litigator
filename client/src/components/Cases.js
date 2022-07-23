@@ -88,6 +88,8 @@ function Case(){
             date_served: moment(),
             method_of_service: "Personal Service / Hand"
         }
+
+        console.log(newTriggerObject)
         
         fetch(`/triggers/`,{
             method: "POST",
@@ -142,6 +144,24 @@ function Case(){
         .then(result => result.json())
         .then(result => console.log(result))
 
+        const milestonesIfDemurrerDelay = {
+            m1: "NOTE: You are getting this warning because Milestones For Demurrer have not been met. Change in strategy!", 
+            m2: "Ask Opposing Counsel for a 30-day extension to Responsive Pleading Deadline.  Confirm extension in writing via e-mail and store for your records.", 
+            m3: "If Opposing Counsel does not grant extension, file an Answer on the Responsive Pleading Deadline, making avialable the option to file a Motion for Judgment on the Pleadings. Inform client that same arguments and theories for demurrer are avaialble in the form of a Motion for Judgment on the Pleadings, which can be drafted, filed, and served immediately.", 
+            m4: "Pray for forgiveness",
+            deadline_id: newDeadline.id
+        }
+
+        fetch(`/milestones_if_demurrer_delays`,{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify(milestonesIfDemurrerDelay)
+        })
+        .then(result => result.json())
+        .then(result => console.log(result))
+
 
     }
 
@@ -153,12 +173,6 @@ function Case(){
 
 
     function handleComplaintState(e){
-        console.log(e.target.value)
-
-
-        // fetch(`/triggers/${e.target.value}`)
-        // .then(result => result.json())
-        // .then(result => console.log(result))
 
     }
 
@@ -189,6 +203,7 @@ function Case(){
                             <option value={lawsuit.id}>Complaint Served</option>
                             <option value={lawsuit.id}>Form Interrogatory Served</option>
                         </select>
+                        <Form.Input label="Date Complaint Served" placeholder="Enter Date Of Service YYYY-MM-DD"/>
                         <Button >Submit</Button>
                     </Form> : null}
             </Card> 
