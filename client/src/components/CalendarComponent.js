@@ -27,38 +27,45 @@ function CalendarComponent(){
         setMyMoment(moment())
     }
 
-    function handleDisplayLawsuit(e){
-        console.log(e.target.id)
+    // function handleDisplayLawsuit(e){
+    //     console.log(e.target.id)
 
-        fetch(`/cases/${e.target.id}`)
-        .then(result => result.json())
-        .then(result => setDisplayIndividualCase(result))
+        
 
-        // lawsuits.filter((lawsuit)=>{
-        //     if (lawsuit.name !== displayIndividualCase.name){
-        //         console.log(lawsuits)
-        //     }
-        // })
+    //     console.log(displayIndividualCase)
+    // }
 
-    }
+ 
+
 
     const renderLawSuitsInList = lawsuits.map((lawsuit)=>{
         return <List animated verticalAlign="middle" >
             <List.Item >
                 <List.Icon name="folder" />
                 <List.Content value={lawsuit.id}>
-                    <List.Header onClick={handleDisplayLawsuit} id={lawsuit.id} >{lawsuit.name}</List.Header>
+                    <List.Header onClick={(e)=>{
+                        fetch(`/cases/${e.target.id}`)
+                        .then(result => result.json())
+                        .then(result => setDisplayIndividualCase(result))}} 
+                    id={lawsuit.id} >{lawsuit.name}</List.Header>
                 </List.Content>
             </List.Item>
         </List>
     })
 
+   const individualCase = lawsuits.filter((lawsuit)=>{
+        return lawsuit.name.includes(displayIndividualCase.name)
+    })
+    
+    
+    console.log(displayIndividualCase)
+    console.log(individualCase)
     
 
-
     let eventsArray = []
+    console.log(eventsArray)
 
-    lawsuits.map((lawsuit)=>{
+    individualCase.map((lawsuit)=>{
         eventsArray.push({
             title: `${lawsuit.name}`,
             start: `${lawsuit.date_case_filed}`,
