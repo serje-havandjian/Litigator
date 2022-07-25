@@ -30,7 +30,7 @@ function SignUp({setUser}){
       <div>
         <form onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">Enter Email Address</label>
         <input
             type="text"
             id="username"

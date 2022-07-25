@@ -4,19 +4,23 @@ import moment from "moment"
 import {Button, Image, List} from "semantic-ui-react"
 import events from "./Events"
 
+//Ability to assign milestones to individual attorney
+// Attorney assigned this case gets an email (a pop up for now) that outlines what needs to happen, maybe even as a check list. 
 
 
 function CalendarComponent(){
     const localizer = momentLocalizer(moment)
-    const [ lawsuits, setLawSuits ] = useState([])
+    const [lawsuits, setLawSuits ] = useState([])
     const [myMoment, setMyMoment] = useState(moment())
     const [displayIndividualCase, setDisplayIndividualCase] = useState([])
+    const [displayFilteredCase, setDisplayFilteredCase] = useState(true)
 
 
     useEffect(()=>{
         fetch("/cases")
         .then(result => result.json())
         .then(result => setLawSuits(result))
+        
     },[])
 
     function handleMoment(){
@@ -34,16 +38,27 @@ function CalendarComponent(){
 
     //     console.log(displayIndividualCase)
     // }
+    
+    console.log(displayIndividualCase)
 
  
 
 
     const renderLawSuitsInList = lawsuits.map((lawsuit)=>{
+        console.log(lawsuit)
         return <List animated verticalAlign="middle" >
             <List.Item >
                 <List.Icon name="folder" />
                 <List.Content value={lawsuit.id}>
                     <List.Header onClick={(e)=>{
+
+                        // if(displayFilteredCase === true){
+                        //     setDisplayFilteredCase(false)
+                        // }else{
+                        //     setDisplayFilteredCase(true)
+                        // }
+
+
                         fetch(`/cases/${e.target.id}`)
                         .then(result => result.json())
                         .then(result => setDisplayIndividualCase(result))}} 
@@ -53,19 +68,24 @@ function CalendarComponent(){
         </List>
     })
 
-   const individualCase = lawsuits.filter((lawsuit)=>{
-        return lawsuit.name.includes(displayIndividualCase.name)
-    })
-    
+   
+    const individualCase = lawsuits.filter((lawsuit)=>{
+            return lawsuit.name.includes(displayIndividualCase.name)
+        })
+
     
     console.log(displayIndividualCase)
     console.log(individualCase)
     
 
     let eventsArray = []
-    console.log(eventsArray)
 
-    individualCase.map((lawsuit)=>{
+
+    
+//Rendering Milestones
+
+
+    lawsuits.map((lawsuit)=>{
         eventsArray.push({
             title: `${lawsuit.name}`,
             start: `${lawsuit.date_case_filed}`,
@@ -73,13 +93,34 @@ function CalendarComponent(){
             up_down_ind: "Y"
         })
 
-        lawsuit.deadlines.map((deadline)=>{
-            eventsArray.push({
-                title: `${deadline.title}-${lawsuit.name}`,
-                start: `${deadline.deadline}`,
-                end: `${deadline.deadline}`,
-                up_down_ind: "Y"
+            lawsuit.deadlines.map((deadline)=>{
+                const deadlineDate = moment(deadline.deadline)
+                eventsArray.push({
+                    title: `${lawsuit.name} - ${deadline.trigger.title}`,
+                    start: deadlineDate,
+                    end: deadlineDate.subtract(30, "days"),
+                    up_down_ind: "Y"
+                })
             })
+
+            lawsuit.deadlines.map((deadline)=>{
+                eventsArray.push({
+                    title: `${deadline.title}-${lawsuit.name}`,
+                    start: `${deadline.trigger.date_served}`,
+                    end: `${deadline.trigger.date_served}`,
+                    up_down_ind: "Y"
+                })
+
+            lawsuit.deadlines.map((trigger)=>{
+                eventsArray.push({
+                    title: `${lawsuit.name}${trigger.title}`,
+                    start: `${trigger.date_served}`,
+                    end: `${trigger.date_served}`,
+                    up_down_ind: "Y"
+                })
+            })
+
+
             //start of rendering of Answer Milestones
             deadline.milestones_for_answers.map((milestone)=>{
                 const deadlineDate = moment(deadline.deadline)
@@ -423,10 +464,19 @@ function CalendarComponent(){
 
 
 
+//What's this do?
+    // useMemo(()=>{
+    //     views: Object.keys(Views).map((k)=> Views[k])
+    // })
 
-    useMemo(()=>{
-        views: Object.keys(Views).map((k)=> Views[k])
-    })
+
+    console.log(eventsArray)
+
+    // HEY SERJE:
+
+    //THIS IS WHAT YOU NEED TO DO OVER THE NEXT MONTH:
+    // Title: Miller v. Wtv
+    //Tasks: 
 
 
     return(
@@ -438,6 +488,7 @@ function CalendarComponent(){
                 events={eventsArray}
                 startAccessor="start"
                 endAccessor="end"
+                views={["month"]}
                 />
             </div>
 

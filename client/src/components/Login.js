@@ -19,11 +19,13 @@ function Login({setUser}){
         });
     }
 
+    console.log(username)
+
     return (   
       <>
         <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">Enter Email Address</label>
               <input
                 type="text"
                 id="username"

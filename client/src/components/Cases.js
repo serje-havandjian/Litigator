@@ -1,8 +1,10 @@
 
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useReducer} from "react"
 import { render } from "react-dom"
 import { Button, Card, Form, Message, List, Header } from 'semantic-ui-react'
 import moment from "moment"
+import emailjs from "emailjs-com"
+
 
 function Case(){
     const [lawsuit, setLawSuit ] = useState([])
@@ -18,11 +20,22 @@ function Case(){
     const [yearServedState, setYearDocumentServed] = useState()
     const [monthServedState, setMonthServedState] = useState()
     const [dateServedState, setDateServedState] = useState()
+    
     const [complaintServedOption, setComplaintServedOption] = useState(false)
     const [discoveryServedOption, setDiscoveryServedOption] = useState(false)
+
+    const [getUserEmail, setGetUserEmail] = useState()
     
      
 
+
+    useEffect(()=>{
+        fetch("/users")
+        .then(result => result.json())
+        .then(result => setGetUserEmail(result))
+    },[])
+
+    console.log(getUserEmail)
 
 
 
@@ -83,18 +96,32 @@ function Case(){
 
     }
 
+
+    function handleYearDocumentServed(e){
+        setYearDocumentServed(e.target.value)
+        console.log(yearServedState)
+    }
+
+    function handleMonthDocumentServed(e){
+        setMonthServedState(e.target.value)
+        console.log(monthServedState)
+    }
+
+    function handleDateDocumentServed(e){
+        setDateServedState(e.target.value)
+        console.log(dateServedState)
+    }
+
     
 
-    function handleCaseEdit(e){
+    function handleRenderComplaintServed(e){
         e.preventDefault()
-        console.log(e)
 
         let dateServedObject = {
             year: yearServedState,
             month: monthServedState,
             date: dateServedState
         }
-
 
         let dateServedMoment = moment({
             year: `${dateServedObject.year}`, month: `${dateServedObject.month}`, date: `${dateServedObject.date}`
@@ -124,7 +151,6 @@ function Case(){
             trigger_id: newTrigger.id
         }
 // newDeadlineObject IS GIVING IS USING dateServedMoment, and that is taking from the form, but the month passed into the form corresponds to one month later in moment, so everything is 1 month after than the month expected
-
 
         fetch(`/deadlines/`,{
             method: "POST",
@@ -183,25 +209,64 @@ function Case(){
 
 
 
+    function handleRenderDiscoveryServed(e){
+        e.preventDefault()
+        console.log(e)
+       
+        let dateServedObject = {
+            year: yearServedState,
+            month: monthServedState,
+            date: dateServedState
+        }
 
+        let dateServedMoment = moment({
+            year: `${dateServedObject.year}`, month: `${dateServedObject.month}`, date: `${dateServedObject.date}`
+        })
 
+        const newTriggerObject ={
+            title: "Discovery Served",
+            date_served: dateServedMoment,
+            method_of_service: "Personal Service / Hand"
+        }
 
-    function handleYearDocumentServed(e){
-        setYearDocumentServed(e.target.value)
-        console.log(yearServedState)
+        fetch(`/triggers/`,{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify(newTriggerObject)
+        })
+        .then(result => result.json())
+        .then(result => setNewTrigger(result))
+
+        const newDeadlineObject = {
+            title: "Respond To Discovery",
+            deadline: dateServedMoment,
+            case_id: individualCase.id,
+            trigger_id: newTrigger.id
+        }
+
+        fetch(`/deadlines/`,{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify(newDeadlineObject)
+        })
+        .then(result => result.json())
+        .then(result => setNewDeadline(result))
+
     }
 
-    function handleMonthDocumentServed(e){
-        setMonthServedState(e.target.value)
-        console.log(monthServedState)
-    }
+    
 
-    function handleDateDocumentServed(e){
-        setDateServedState(e.target.value)
-        console.log(dateServedState)
-    }
 
-    function handleComplaintServedChosen(e){
+
+
+
+
+
+    function handleChosenTrigger(e){
         
         console.log(e.target.value)
         if(e.target.value === "Complaint Served"){
@@ -230,18 +295,21 @@ function Case(){
                         fetch(`/cases/${e.target.id}`)
                         .then(result => result.json())
                         .then(result => setIndividualCase(result))
+
+                        console.log(e)
+
                     }} id={lawsuit.id}> Case Name: {lawsuit.name} </Button>
                 </List.Item> 
                 <p>Opposing Counsel: {lawsuit.counsel}</p>
                 <p>Date Case Filed:{lawsuit.date_case_filed}</p>
                 <p>Date Complaint Served: {lawsuit.date_complaint_served}</p>
-                    {displayEditForm ? <select onChange={handleComplaintServedChosen} class="ui dropdown" >
+                    {displayEditForm ? <select onChange={handleChosenTrigger} class="ui dropdown" >
                             <option >Triggers</option>
                             <option >Complaint Served</option>
-                            <option >Form Interrogatory Served</option>
+                            <option  >Form Interrogatory Served</option>
                         </select> : null}
                     {complaintServedOption ? 
-                    <Form onSubmit={handleCaseEdit}>
+                    <Form onSubmit={handleRenderComplaintServed}>
                         < Form.Input 
                         onChange={handleYearDocumentServed}
                         label="Year Complaint Served" 
@@ -258,11 +326,21 @@ function Case(){
                     </Form>
                     : null}
                     {discoveryServedOption ? 
-                    <Form>
+                    // add onSubmit={handleRenderDiscoveryServed} to Form below
+                    <Form onSubmit={handleRenderDiscoveryServed} >
+                        < Form.Input 
+                        onChange={handleYearDocumentServed}
+                        label="Year Discovery Served" 
+                        placeholder="Enter Year Of Service" />
                         <Form.Input
-                        label = "Date Discovery Served"
-                        placeholder = "Enter Date Discovery Served"
-                        />
+                        onChange={handleMonthDocumentServed}
+                        label="Month Discovery Served" 
+                        placeholder="Enter Month Of Service" />
+                        <Form.Input 
+                        onChange={handleDateDocumentServed}
+                        label="Date Discovery Served" 
+                        placeholder="Enter Date Of Service" />
+                        <Button>Submit</Button>
                     </Form>
                     : null}
             </Card> 
@@ -271,7 +349,7 @@ function Case(){
     })
 
 
-    // <Form succes onSubmit={handleCaseEdit}>
+    // <Form succes onSubmit={handleRenderComplaintServed}>
     //                     {/* <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleCaseName} value={lawsuit.name}/>
     //                     <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState} value={lawsuit.counsel}/>
     //                     <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} value={lawsuit.date_case_filed} />
@@ -293,8 +371,41 @@ function Case(){
 
 
 
+    // function sendEmail(e) {
+        
+    
+    //     emailjs.sendForm('service_2u8n5o9', 'template_gfxw4yn', e.target, 'PyCkV6cE8y1sfaKm9')
+    //       .then((result) => {
+    //           window.location.reload()  //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior) 
+    //       }, (error) => {
+    //           console.log(error.text);
+    //       });
+    //   }
 
 
+    
+
+    
+      function sendMail() {
+        const link = "mailto:litigator.sph@gmail.com"
+                + "?cc=myCCaddress@example.com"
+                 + "&subject=" + encodeURIComponent("This is Your Case Tasks")
+                 + "&body=" + encodeURIComponent(document.getElementById('myText').value);
+        
+        window.location.href = link;
+    }
+
+
+    console.log(lawsuit)
+
+    const emailText = lawsuit.map((lawsuit)=>{
+        return `Case Name: ${lawsuit.name}
+        Case Tasks: ${lawsuit.deadlines.map((deadline)=>{
+            return `${deadline.title} - ${deadline.milestones_for_answers}`
+        })}`
+    })
+
+    console.log(emailText)
 
 
     return(
@@ -315,6 +426,26 @@ function Case(){
                     <Button>Submit</Button>
                 </Form>
             </div>
+
+
+            {/* <form className="contact-form" onSubmit={sendEmail}>
+                <input type="hidden" name="contact_number" />
+                <label>Name</label>
+                <input type="text" name="from_name" />
+                <label>Email</label>
+                <input type="email" name="from_email" />
+                <label>Subject</label>
+                <input type="text" name="subject" />
+                <label>Message</label>
+                <textarea name="html_message" />
+                <input type="submit" value="Send" />
+            </form> */}
+
+            <Form>
+                <Form.Input id="myText" value={emailText} type="hidden"/>
+                <Button onClick={sendMail}>Email Your Cases and Tasks To Yourself</Button>
+            </Form>
+            
         </>
     )
 }
