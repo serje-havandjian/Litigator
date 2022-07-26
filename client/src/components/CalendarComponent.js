@@ -3,6 +3,8 @@ import {Calendar, momentLocalizer, Views } from "react-big-calendar"
 import moment from "moment"
 import {Button, Image, List} from "semantic-ui-react"
 import events from "./Events"
+import CheckList from "./CheckList"
+import ListOfCases from "./ListOfCases.js"
 
 //Ability to assign milestones to individual attorney
 // Attorney assigned this case gets an email (a pop up for now) that outlines what needs to happen, maybe even as a check list. 
@@ -12,7 +14,6 @@ function CalendarComponent(){
     const localizer = momentLocalizer(moment)
     const [lawsuits, setLawSuits ] = useState([])
     const [myMoment, setMyMoment] = useState(moment())
-    const [displayIndividualCase, setDisplayIndividualCase] = useState([])
     const [displayFilteredCase, setDisplayFilteredCase] = useState(true)
 
 
@@ -30,60 +31,18 @@ function CalendarComponent(){
     function resetMoment(){
         setMyMoment(moment())
     }
-
-    // function handleDisplayLawsuit(e){
-    //     console.log(e.target.id)
-
-        
-
-    //     console.log(displayIndividualCase)
-    // }
-    
-    console.log(displayIndividualCase)
-
  
 
 
-    const renderLawSuitsInList = lawsuits.map((lawsuit)=>{
-        console.log(lawsuit)
-        return <List animated verticalAlign="middle" >
-            <List.Item >
-                <List.Icon name="folder" />
-                <List.Content value={lawsuit.id}>
-                    <List.Header onClick={(e)=>{
-
-                        // if(displayFilteredCase === true){
-                        //     setDisplayFilteredCase(false)
-                        // }else{
-                        //     setDisplayFilteredCase(true)
-                        // }
-
-
-                        fetch(`/cases/${e.target.id}`)
-                        .then(result => result.json())
-                        .then(result => setDisplayIndividualCase(result))}} 
-                    id={lawsuit.id} >{lawsuit.name}</List.Header>
-                </List.Content>
-            </List.Item>
-        </List>
-    })
+    
 
    
-    const individualCase = lawsuits.filter((lawsuit)=>{
-            return lawsuit.name.includes(displayIndividualCase.name)
-        })
-
-    
-    console.log(displayIndividualCase)
-    console.log(individualCase)
-    
-
-    let eventsArray = []
 
 
     
 //Rendering Milestones
 
+    let eventsArray = []
 
     lawsuits.map((lawsuit)=>{
         eventsArray.push({
@@ -172,7 +131,8 @@ function CalendarComponent(){
             
             // CONDITIONALLY RENDERING DEMURRER V. LATE DEMURRER MILSTONES
             const deadlineDate = moment(deadline.deadline)
-//START OF CONDITIONAL RENDER
+
+            //START OF CONDITIONAL RENDER
 
             if(myMoment < deadlineDate.subtract(15, "days")){
                 deadline.milestones_for_demurrers.map((milestone)=>{
@@ -263,7 +223,8 @@ function CalendarComponent(){
                     })                
                 })
             }
-//ELSE OF CONDITIONAL RENDER
+            
+            //ELSE OF CONDITIONAL RENDER
             else {
                 deadline.milestones_if_demurrer_delays.map((milestone)=>{
                     const deadlineDate = moment(deadline.deadline)
@@ -310,142 +271,7 @@ function CalendarComponent(){
                 })
             }
 
-            // deadline.milestones_for_demurrers.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m1}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(28, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // })
-
-            // deadline.milestones_for_demurrers.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m2}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(25, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // });
-
-            // deadline.milestones_for_demurrers.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m3}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(14, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // });
-
-            // deadline.milestones_for_demurrers.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m4}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(7, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // });
-
-            // deadline.milestones_for_demurrers.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m5}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(5, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // });
-
-            // deadline.milestones_for_demurrers.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m6}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(5,"days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // });
-
-            // deadline.milestones_for_demurrers.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m7}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(2, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // });
-
-            // deadline.milestones_for_demurrers.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m8}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(1, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // })
-            // end of map on demurrer milestones
-
-            //start of map on if demurrer delayed milestones
-
-            
-
-            // deadline.milestones_if_demurrer_delays.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m1}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(15, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // })
-
-            // deadline.milestones_if_demurrer_delays.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m2}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(15, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // })
-
-            // deadline.milestones_if_demurrer_delays.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m3}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(15, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // })
-
-            // deadline.milestones_if_demurrer_delays.map((milestone)=>{
-            //     const deadlineDate = moment(deadline.deadline)
-                
-            //     eventsArray.push({
-            //         title: `${milestone.m4}-${lawsuit.name}`,
-            //         start: deadlineDate,
-            //         end: deadlineDate.subtract(15, "days"),
-            //         up_down_ind: "Y"
-            //     })                
-            // })
+            //CONDITIONALLY RENDER OTHER DEADLINES/MILESTONES
 
         })//end of Map on all lawsuits.deadlines
 
@@ -458,25 +284,12 @@ function CalendarComponent(){
     //     then setLawsuits(MillerCases)
 
   
-
-
-
-
-
-
 //What's this do?
     // useMemo(()=>{
     //     views: Object.keys(Views).map((k)=> Views[k])
     // })
 
 
-    console.log(eventsArray)
-
-    // HEY SERJE:
-
-    //THIS IS WHAT YOU NEED TO DO OVER THE NEXT MONTH:
-    // Title: Miller v. Wtv
-    //Tasks: 
 
 
     return(
@@ -498,9 +311,12 @@ function CalendarComponent(){
             </div>
 
             <div>
-                {renderLawSuitsInList}
+               <ListOfCases lawsuits={lawsuits} />
             </div>
 
+            <div>
+                <CheckList />
+            </div>
             
      
         </>

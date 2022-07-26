@@ -14,5 +14,9 @@ code {
 
 .Calendar{
   height: 1000px;
-  width: 2000px;
+  width: 35%;
+}
+
+.List{
+  width: 20%;
 }

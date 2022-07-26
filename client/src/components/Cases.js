@@ -4,6 +4,7 @@ import { render } from "react-dom"
 import { Button, Card, Form, Message, List, Header } from 'semantic-ui-react'
 import moment from "moment"
 import emailjs from "emailjs-com"
+import Email from "./Email"
 
 
 function Case(){
@@ -28,14 +29,6 @@ function Case(){
     
      
 
-
-    useEffect(()=>{
-        fetch("/users")
-        .then(result => result.json())
-        .then(result => setGetUserEmail(result))
-    },[])
-
-    console.log(getUserEmail)
 
 
 
@@ -112,7 +105,6 @@ function Case(){
         console.log(dateServedState)
     }
 
-    
 
     function handleRenderComplaintServed(e){
         e.preventDefault()
@@ -260,12 +252,6 @@ function Case(){
 
     
 
-
-
-
-
-
-
     function handleChosenTrigger(e){
         
         console.log(e.target.value)
@@ -349,113 +335,6 @@ function Case(){
     })
 
 
-    // <Form succes onSubmit={handleRenderComplaintServed}>
-    //                     {/* <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleCaseName} value={lawsuit.name}/>
-    //                     <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState} value={lawsuit.counsel}/>
-    //                     <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} value={lawsuit.date_case_filed} />
-    //                     <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} value={lawsuit.date_complaint_served} /> */}
-    //                     < Form.Input 
-    //                     onChange={handleYearDocumentServed}
-    //                     label="Year Complaint Served" 
-    //                     placeholder="Enter Year Of Service" />
-    //                     <Form.Input
-    //                     onChange={handleMonthDocumentServed}
-    //                     label="Month Complaint Served" 
-    //                     placeholder="Enter Month Of Service" />
-    //                     <Form.Input 
-    //                     onChange={handleDateDocumentServed}
-    //                     label="Date Complaint Served" 
-    //                     placeholder="Enter Date Of Service" />
-    //                     <Button >Submit</Button>
-    //                 </Form>
-
-
-
-    // function sendEmail(e) {
-        
-    
-    //     emailjs.sendForm('service_2u8n5o9', 'template_gfxw4yn', e.target, 'PyCkV6cE8y1sfaKm9')
-    //       .then((result) => {
-    //           window.location.reload()  //This is if you still want the page to reload (since e.preventDefault() cancelled that behavior) 
-    //       }, (error) => {
-    //           console.log(error.text);
-    //       });
-    //   }
-
-
-    
-
-    
-      function sendMail() {
-        const link = "mailto:litigator.sph@gmail.com"
-                + "?cc=myCCaddress@example.com"
-                 + "&subject=" + encodeURIComponent("This is Your Case Tasks")
-                 + "&body=" + encodeURIComponent(document.getElementById('myText').value);
-        
-        window.location.href = link;
-    }
-
-
-//    ADD OTHER TASKS AND MILESTONES TO THIS FOR EMAIL FUNCTIONALITY
-
-    const emailText = lawsuit.map((lawsuit)=>{
-        return `Case Name: ${lawsuit.name}
-                Case Task: ${lawsuit.deadlines.map((deadline)=>{
-                    return `${deadline.title}:
-                    Case Milestones:
-                    ${deadline.milestones_for_answers.map((m)=>{
-                        return `${m.m1} 
-                                ${m.m2}
-                                ${m.m3}
-                                ${m.m4}`
-                    })}
-                    Case Task: ${deadline.title}
-                    Case Milestones:
-                    ${deadline.milestones_for_demurrers.map((m)=>{
-                                return `${m.m1}
-                                        ${m.m2}
-                                        ${m.m3}
-                                        ${m.m4}
-                                        ${m.m5}
-                                        ${m.m6}
-                                        ${m.m7}
-                                        ${m.m8}
-                                            `
-                    })}
-                        *IF YOU ARE BURNED ON DEMURRER DEADLINE*
-                        Case Task: ${deadline.title}
-                        Case Milestones:
-                        ${deadline.milestones_if_demurrer_delays.map((m)=>{
-                                    return `${m.m1}
-                                            ${m.m2}
-                                            ${m.m3}
-                                            ${m.m4}
-                                                `
-                        })}`
-                })}`
-    })
-
-//     
-//     }),
-//     `${deadline.milestones_if_demurrer_delays.map((m)=>{
-//         return `${m.m1}
-//                 ${m.m2}
-//                 ${m.m3}
-//                 ${m.m4}
-//                     `
-//     })}`
-// }`
-// }` 
-// })}`
-
-    // const emailText = lawsuit.map((lawsuit)=>{
-    //     return `Case Name: ${lawsuit.name}`
-    // })
-
-
-
-    console.log(emailText)
-
 
     return(
         <>
@@ -477,23 +356,10 @@ function Case(){
             </div>
 
 
-            {/* <form className="contact-form" onSubmit={sendEmail}>
-                <input type="hidden" name="contact_number" />
-                <label>Name</label>
-                <input type="text" name="from_name" />
-                <label>Email</label>
-                <input type="email" name="from_email" />
-                <label>Subject</label>
-                <input type="text" name="subject" />
-                <label>Message</label>
-                <textarea name="html_message" />
-                <input type="submit" value="Send" />
-            </form> */}
-
-            <Form>
-                <Form.Input id="myText" value={emailText} type="hidden"/>
-                <Button onClick={sendMail}>Email Your Cases and Tasks To Yourself</Button>
-            </Form>
+    
+            <div>
+                <Email lawsuit={lawsuit} />
+            </div>
             
         </>
     )
