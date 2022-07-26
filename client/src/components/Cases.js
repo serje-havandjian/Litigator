@@ -396,14 +396,63 @@ function Case(){
     }
 
 
-    console.log(lawsuit)
+//    ADD OTHER TASKS AND MILESTONES TO THIS FOR EMAIL FUNCTIONALITY
 
     const emailText = lawsuit.map((lawsuit)=>{
         return `Case Name: ${lawsuit.name}
-        Case Tasks: ${lawsuit.deadlines.map((deadline)=>{
-            return `${deadline.title} - ${deadline.milestones_for_answers}`
-        })}`
+                Case Task: ${lawsuit.deadlines.map((deadline)=>{
+                    return `${deadline.title}:
+                    Case Milestones:
+                    ${deadline.milestones_for_answers.map((m)=>{
+                        return `${m.m1} 
+                                ${m.m2}
+                                ${m.m3}
+                                ${m.m4}`
+                    })}
+                    Case Task: ${deadline.title}
+                    Case Milestones:
+                    ${deadline.milestones_for_demurrers.map((m)=>{
+                                return `${m.m1}
+                                        ${m.m2}
+                                        ${m.m3}
+                                        ${m.m4}
+                                        ${m.m5}
+                                        ${m.m6}
+                                        ${m.m7}
+                                        ${m.m8}
+                                            `
+                    })}
+                        *IF YOU ARE BURNED ON DEMURRER DEADLINE*
+                        Case Task: ${deadline.title}
+                        Case Milestones:
+                        ${deadline.milestones_if_demurrer_delays.map((m)=>{
+                                    return `${m.m1}
+                                            ${m.m2}
+                                            ${m.m3}
+                                            ${m.m4}
+                                                `
+                        })}`
+                })}`
     })
+
+//     
+//     }),
+//     `${deadline.milestones_if_demurrer_delays.map((m)=>{
+//         return `${m.m1}
+//                 ${m.m2}
+//                 ${m.m3}
+//                 ${m.m4}
+//                     `
+//     })}`
+// }`
+// }` 
+// })}`
+
+    // const emailText = lawsuit.map((lawsuit)=>{
+    //     return `Case Name: ${lawsuit.name}`
+    // })
+
+
 
     console.log(emailText)
 
