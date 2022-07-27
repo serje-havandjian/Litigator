@@ -14,7 +14,6 @@ function CalendarComponent(){
     const localizer = momentLocalizer(moment)
     const [lawsuits, setLawSuits ] = useState([])
     const [myMoment, setMyMoment] = useState(moment())
-    const [displayFilteredCase, setDisplayFilteredCase] = useState(true)
 
 
     useEffect(()=>{
@@ -70,6 +69,7 @@ function CalendarComponent(){
                     up_down_ind: "Y"
                 })
 
+                // Not sure what this is doing here right now
             lawsuit.deadlines.map((trigger)=>{
                 eventsArray.push({
                     title: `${lawsuit.name}${trigger.title}`,
@@ -278,11 +278,6 @@ function CalendarComponent(){
     })//end of map on all Lawsuits state
 
 
-    //on click of "Miller" case button
-    // // //if const MillerCases = Lawsuits.map((lawsuit)=>{
-    // //     lawsuit.title.includes("Miller")}) 
-    //     then setLawsuits(MillerCases)
-
   
 //What's this do?
     // useMemo(()=>{
@@ -311,11 +306,11 @@ function CalendarComponent(){
             </div>
 
             <div>
-               <ListOfCases lawsuits={lawsuits} />
+               <ListOfCases lawsuits={lawsuits} setLawSuits={setLawSuits} />
             </div>
 
             <div>
-                <CheckList />
+                <CheckList myMoment={myMoment} lawsuits={lawsuits} />
             </div>
             
      

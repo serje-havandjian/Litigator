@@ -24,7 +24,7 @@ class CasesController < ApplicationController
     def destroy
         oneCase = Case.find(params[:id])
         oneCase.destroy
-        head :no_content
+        head 
     end
 
     private

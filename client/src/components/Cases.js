@@ -44,19 +44,19 @@ function Case(){
     }
 
     function handleCounselState(e){
-        e.preventDefault()
+        
         setCounselState(e.target.value)
         console.log(counselState)
     }
 
     function handleDateCaseFiledState(e){
-        e.preventDefault()
+      
         setDateCaseFiledState(e.target.value)
         console.log(dateCaseFiledState)
     }
 
     function handleDateComplaintServedDate(e){
-        e.preventDefault()
+      
         setDateComplaintServedState(e.target.value)
         console.log(dateComplaintServedState)
     }
@@ -109,14 +109,10 @@ function Case(){
     function handleRenderComplaintServed(e){
         e.preventDefault()
 
-        let dateServedObject = {
-            year: yearServedState,
-            month: monthServedState,
-            date: dateServedState
-        }
+       
 
         let dateServedMoment = moment({
-            year: `${dateServedObject.year}`, month: `${dateServedObject.month}`, date: `${dateServedObject.date}`
+            year: `${yearServedState}`, month: `${monthServedState}`, date: `${dateServedState}`
         })
 
 
@@ -195,7 +191,7 @@ function Case(){
         .then(result => result.json())
         .then(result => console.log(result))
 
-    }
+    } 
 
 
 
@@ -289,11 +285,9 @@ function Case(){
                 <p>Opposing Counsel: {lawsuit.counsel}</p>
                 <p>Date Case Filed:{lawsuit.date_case_filed}</p>
                 <p>Date Complaint Served: {lawsuit.date_complaint_served}</p>
-                    {displayEditForm ? <select onChange={handleChosenTrigger} class="ui dropdown" >
-                            <option >Triggers</option>
-                            <option >Complaint Served</option>
-                            <option  >Form Interrogatory Served</option>
-                        </select> : null}
+
+                    {/* FORM USED TO BE HERE AND NOW IT IS IN THE RETURN */}
+
                     {complaintServedOption ? 
                     <Form onSubmit={handleRenderComplaintServed}>
                         < Form.Input 
@@ -355,7 +349,17 @@ function Case(){
                 </Form>
             </div>
 
-
+            <div>
+            {/* THIS NEEDS WORK */}
+            <Form> 
+            {displayEditForm ? <select onChange={handleChosenTrigger} class="ui dropdown" >
+                            <option >Triggers</option>
+                            <option >Complaint Served</option>
+                            <option  >Form Interrogatory Served</option>
+                        </select> : null}
+            </Form>
+            </div>
+           
     
             <div>
                 <Email lawsuit={lawsuit} />
