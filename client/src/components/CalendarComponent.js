@@ -310,7 +310,7 @@ function CalendarComponent(){
             </div>
 
             <div>
-                <CheckList myMoment={myMoment} lawsuits={lawsuits} />
+                <CheckList myMoment={myMoment} setMyMoment={setMyMoment} lawsuits={lawsuits} />
             </div>
             
      
