@@ -16,23 +16,23 @@ function ListOfCases({lawsuits, setLawSuits}){
         .then(result => setLawSuits(result))
     }
 
-    const dropdownOptions = lawsuits.map((lawsuit)=>{
-        return {
-                key: lawsuit.id,
-                text: lawsuit.name,
-                value: lawsuit.id
-                }
-    })
+        const dropdownOptions = lawsuits.map((lawsuit)=>{
+            return {
+                    key: lawsuit.id,
+                    text: lawsuit.name,
+                    value: lawsuit.id
+                    }
+        })
 
     
+     let arrayOfCases = []
 
-    function handleDisplayIndividualCase(e, data){
+     function handleDisplayIndividualCase(e, data){
         setValue(data.value)
-        
     }
 
-    console.log({value}, "weird value object")
-    console.log(value, "value")
+    console.log(value)
+
     
     // const individualCase = value.map((v)=>{
     //     return v.value.map((value)=>{
@@ -41,16 +41,34 @@ function ListOfCases({lawsuits, setLawSuits}){
     // })
     // console.log(individualCase, "individual case is this")
 
-
-    
-        
         
         function handleClick(){
 
-           
+            //THIS WORKS
+            // Promise.all(
+            //     value.map((v)=>{
+            //         return fetch(`/cases/${v}`)
+            //         .then(result => result.json())
+            //     })
+            // ).then(result => setLawSuits(result.flat()))
 
+            //THIS ALSO WORKS
+                const filteredCases = lawsuits.filter((lawsuit)=>{
+                    return value.includes(lawsuit.id)
+                })
 
-            let arrayOfCases = []
+                setLawSuits(filteredCases)
+    
+    //THIS IS A REMINDER TO STEP AWAY ONCE IN A WHILE 
+
+            // value.forEach( async (v)=>{
+            //     const response = await fetch(`/cases/${v}`)
+            //     const data = await response.json()
+               
+            //     arrayOfCases.push(data)
+            //     console.log(arrayOfCases)
+            // })
+            // setLawSuits(arrayOfCases)
             
             // value.forEach((v)=>{
             //     fetch(`/cases/${v}`)
@@ -62,37 +80,14 @@ function ListOfCases({lawsuits, setLawSuits}){
             //     console.log(lawsuits)
             // })
 
-            
-
-            value.forEach( async (v)=>{
-                const response = await fetch(`/cases/${v}`)
-                const data = await response.json()
-                arrayOfCases.push(data)
-            })
-
-            console.log(arrayOfCases)
-            
-
-
-            setLawSuits(arrayOfCases)
-            
-
-
+        
             // value.forEach((v)=>{
             //     fetch(`/cases/${v}`)
             //     .then(result => result.json())
             //     .then(result => arrayOfCases.push(result))
             // })
             
-           
-
-      
-
         
-
-
-           
-
             // console.log(listOfcaseNames, "This is array of just case names")
 
             // const anotherArray = []
@@ -112,8 +107,6 @@ function ListOfCases({lawsuits, setLawSuits}){
             // setLawSuits(anotherArray)
             
             // console.log(lawsuits, "all lawsuits")
-            
-        
         }
 
   
@@ -136,9 +129,7 @@ function ListOfCases({lawsuits, setLawSuits}){
             options={dropdownOptions}>
         </Dropdown>
         <Button onClick={handleClick}>Search For Case</Button>
-        <Button onClick={resetCaseList}>
-            Display All Cases
-        </Button>
+        <Button onClick={resetCaseList}> Display All Cases </Button>
         </>
     )
 }
@@ -158,15 +149,11 @@ export default ListOfCases
     //                     <List.Icon name="folder" />
     //                     <List.Content value={lawsuit.id}>
     //                         <List.Header onClick={(e)=>{
-
-
     //                             fetch(`/cases/${e.target.id}`)
     //                             .then(result => result.json())
     //                             .then(result => setDisplayIndividualCase(result))}}
-
-
     //                         id={lawsuit.id} >{lawsuit.name}</List.Header>
-    //                         <Button onClick={handleSetState}>Click Me Second So {lawsuit.name} Renders You Stupid Shit</Button>
+    //                         <Button onClick={handleSetState}>Click Me Second So {lawsuit.name} Renders</Button>
     //                     </List.Content>
     //                 </List.Item>
     //             </List>

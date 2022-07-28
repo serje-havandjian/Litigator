@@ -7,7 +7,7 @@ class CasesController < ApplicationController
 
     def show
         oneCase = Case.find(params[:id])
-        render json: oneCase, status: :ok
+        render json: oneCase, include: "*.*", status: :ok
     end
 
     def create

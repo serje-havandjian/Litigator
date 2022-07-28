@@ -110,12 +110,9 @@ function Case(){
     function handleRenderComplaintServed(e){
         e.preventDefault()
 
-       
-
         let dateServedMoment = moment({
             year: `${yearServedState}`, month: `${monthServedState}`, date: `${dateServedState}`
         })
-
 
         const newTriggerObject ={
             title: "Complaint Served",
@@ -131,67 +128,62 @@ function Case(){
             body: JSON.stringify(newTriggerObject)
         })
         .then(result => result.json())
-        .then(result => setNewTrigger(result))
+        .then(result => {
+            const newDeadlineObject = {
+                title: "File & Serve Demurrer",
+                deadline: dateServedMoment,
+                case_id: individualCase.id,
+                trigger_id: result.id
+            }
 
-        const newDeadlineObject = {
-            title: "File & Serve Demurrer",
-            deadline: dateServedMoment,
-            case_id: individualCase.id,
-            trigger_id: newTrigger.id
-        }
-// newDeadlineObject IS GIVING IS USING dateServedMoment, and that is taking from the form, but the month passed into the form corresponds to one month later in moment, so everything is 1 month after than the month expected
+            fetch(`/deadlines/`,{
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json",
+                },
+                body: JSON.stringify(newDeadlineObject)
+            })
+            .then(result => result.json())
+            .then(result => {
+                const milestonesForDemurrer = {
+                    m1: "Analyze Complaint", 
+                    m2: "Begin Drafting Demurrer", 
+                    m3: "Provide Draft Demurrer to Partner", 
+                    m4: "Provide Draft Demurrer to Client", 
+                    m5: "Meet and Confer With Opposing Counsel", 
+                    m6: "Draft Client Declaration, Counsel Declaration, Potential Request for Judicial Notice, and Proposed Order", 
+                    m7: "Finalize Demurrer & Related Documents for File and Service", 
+                    m8: "File and Serve Demurrer", 
+                    deadline_id: result.id
+                }
 
-        fetch(`/deadlines/`,{
-            method: "POST",
-            headers: {
-                "Content-Type" : "application/json",
-            },
-            body: JSON.stringify(newDeadlineObject)
+                fetch(`/milestones_for_demurrers`,{
+                    method: "POST",
+                    headers: {
+                        "Content-Type" : "application/json",
+                    },
+                    body: JSON.stringify(milestonesForDemurrer)
+                })
+                .then(result => result.json())
+
+                const milestonesIfDemurrerDelay = {
+                    m1: "NOTE: You are getting this warning because Milestones For Demurrer have not been met. Change in strategy!", 
+                    m2: "Ask Opposing Counsel for a 30-day extension to Responsive Pleading Deadline.  Confirm extension in writing via e-mail and store for your records.", 
+                    m3: "If Opposing Counsel does not grant extension, file an Answer on the Responsive Pleading Deadline, making avialable the option to file a Motion for Judgment on the Pleadings. Inform client that same arguments and theories for demurrer are avaialble in the form of a Motion for Judgment on the Pleadings, which can be drafted, filed, and served immediately.", 
+                    m4: "Pray for forgiveness",
+                    deadline_id: result.id
+                }
+
+                fetch(`/milestones_if_demurrer_delays`,{
+                    method: "POST",
+                    headers: {
+                        "Content-Type" : "application/json",
+                    },
+                    body: JSON.stringify(milestonesIfDemurrerDelay)
+                })
+                .then(result => result.json())
+            })
         })
-        .then(result => result.json())
-        .then(result => setNewDeadline(result))
-
-
-        const milestonesForDemurrer = {
-            m1: "Analyze Complaint", 
-            m2: "Begin Drafting Demurrer", 
-            m3: "Provide Draft Demurrer to Partner", 
-            m4: "Provide Draft Demurrer to Client", 
-            m5: "Meet and Confer With Opposing Counsel", 
-            m6: "Draft Client Declaration, Counsel Declaration, Potential Request for Judicial Notice, and Proposed Order", 
-            m7: "Finalize Demurrer & Related Documents for File and Service", 
-            m8: "File and Serve Demurrer", 
-            deadline_id: newDeadline.id
-        }
-
-        fetch(`/milestones_for_demurrers`,{
-            method: "POST",
-            headers: {
-                "Content-Type" : "application/json",
-            },
-            body: JSON.stringify(milestonesForDemurrer)
-        })
-        .then(result => result.json())
-        .then(result => console.log(result))
-
-        const milestonesIfDemurrerDelay = {
-            m1: "NOTE: You are getting this warning because Milestones For Demurrer have not been met. Change in strategy!", 
-            m2: "Ask Opposing Counsel for a 30-day extension to Responsive Pleading Deadline.  Confirm extension in writing via e-mail and store for your records.", 
-            m3: "If Opposing Counsel does not grant extension, file an Answer on the Responsive Pleading Deadline, making avialable the option to file a Motion for Judgment on the Pleadings. Inform client that same arguments and theories for demurrer are avaialble in the form of a Motion for Judgment on the Pleadings, which can be drafted, filed, and served immediately.", 
-            m4: "Pray for forgiveness",
-            deadline_id: newDeadline.id
-        }
-
-        fetch(`/milestones_if_demurrer_delays`,{
-            method: "POST",
-            headers: {
-                "Content-Type" : "application/json",
-            },
-            body: JSON.stringify(milestonesIfDemurrerDelay)
-        })
-        .then(result => result.json())
-        .then(result => console.log(result))
-
     } 
 
 
@@ -465,3 +457,84 @@ function Case(){
 
 
 export default Case;
+
+
+// let dateServedMoment = moment({
+//     year: `${yearServedState}`, month: `${monthServedState}`, date: `${dateServedState}`
+// })
+
+
+// const newTriggerObject ={
+//     title: "Complaint Served",
+//     date_served: dateServedMoment,
+//     method_of_service: "Personal Service / Hand"
+// }
+
+// fetch(`/triggers/`,{
+//     method: "POST",
+//     headers: {
+//         "Content-Type" : "application/json",
+//     },
+//     body: JSON.stringify(newTriggerObject)
+// })
+// .then(result => result.json())
+// .then(result => setNewTrigger(result))
+
+// const newDeadlineObject = {
+//     title: "File & Serve Demurrer",
+//     deadline: dateServedMoment,
+//     case_id: individualCase.id,
+//     trigger_id: newTrigger.id
+// }
+// // newDeadlineObject IS GIVING IS USING dateServedMoment, and that is taking from the form, but the month passed into the form corresponds to one month later in moment, so everything is 1 month after than the month expected
+
+// fetch(`/deadlines/`,{
+//     method: "POST",
+//     headers: {
+//         "Content-Type" : "application/json",
+//     },
+//     body: JSON.stringify(newDeadlineObject)
+// })
+// .then(result => result.json())
+// .then(result => setNewDeadline(result))
+
+
+// const milestonesForDemurrer = {
+//     m1: "Analyze Complaint", 
+//     m2: "Begin Drafting Demurrer", 
+//     m3: "Provide Draft Demurrer to Partner", 
+//     m4: "Provide Draft Demurrer to Client", 
+//     m5: "Meet and Confer With Opposing Counsel", 
+//     m6: "Draft Client Declaration, Counsel Declaration, Potential Request for Judicial Notice, and Proposed Order", 
+//     m7: "Finalize Demurrer & Related Documents for File and Service", 
+//     m8: "File and Serve Demurrer", 
+//     deadline_id: newDeadline.id
+// }
+
+// fetch(`/milestones_for_demurrers`,{
+//     method: "POST",
+//     headers: {
+//         "Content-Type" : "application/json",
+//     },
+//     body: JSON.stringify(milestonesForDemurrer)
+// })
+// .then(result => result.json())
+// .then(result => console.log(result))
+
+// const milestonesIfDemurrerDelay = {
+//     m1: "NOTE: You are getting this warning because Milestones For Demurrer have not been met. Change in strategy!", 
+//     m2: "Ask Opposing Counsel for a 30-day extension to Responsive Pleading Deadline.  Confirm extension in writing via e-mail and store for your records.", 
+//     m3: "If Opposing Counsel does not grant extension, file an Answer on the Responsive Pleading Deadline, making avialable the option to file a Motion for Judgment on the Pleadings. Inform client that same arguments and theories for demurrer are avaialble in the form of a Motion for Judgment on the Pleadings, which can be drafted, filed, and served immediately.", 
+//     m4: "Pray for forgiveness",
+//     deadline_id: newDeadline.id
+// }
+
+// fetch(`/milestones_if_demurrer_delays`,{
+//     method: "POST",
+//     headers: {
+//         "Content-Type" : "application/json",
+//     },
+//     body: JSON.stringify(milestonesIfDemurrerDelay)
+// })
+// .then(result => result.json())
+// .then(result => console.log(result))
