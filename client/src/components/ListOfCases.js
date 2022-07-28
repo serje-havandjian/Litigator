@@ -1,3 +1,4 @@
+import { areArraysEqual } from "@mui/base"
 import React, { useState } from "react"
 import { components } from "react-big-calendar"
 import {List, Button, Dropdown} from "semantic-ui-react" 
@@ -5,7 +6,7 @@ import {List, Button, Dropdown} from "semantic-ui-react"
 
 
 function ListOfCases({lawsuits, setLawSuits}){
-    const [displayIndividualCase, setDisplayIndividualCase] = useState([])
+    const [displayIndividualCase, setDisplayIndividualCase] = useState({})
     const [value, setValue] = useState()
 
 
@@ -15,7 +16,7 @@ function ListOfCases({lawsuits, setLawSuits}){
         .then(result => setLawSuits(result))
     }
 
-    const renderLawsuitsInDropdown = lawsuits.map((lawsuit)=>{
+    const dropdownOptions = lawsuits.map((lawsuit)=>{
         return {
                 key: lawsuit.id,
                 text: lawsuit.name,
@@ -23,50 +24,102 @@ function ListOfCases({lawsuits, setLawSuits}){
                 }
     })
 
-    function handleDisplayIndividualCase(e, data){
-       setValue(data.value)
-       console.log({value}, "value state is equal to this")
-       
-       const individualCase = value.map((v)=>{
-           return v.value.map((value)=>{
-               return value.value
-           })
-       })
-
-       console.log(individualCase, "individual case is this")
-       setValue(individualCase)
-    }
-
-    let arrayOfCases = []
-
-    function handleClick(){
-        
-       value.map((v)=>{
-            fetch(`/cases/${value}`)
-            .then(result => result.json())
-            .then(result => arrayOfCases.push(result))
-        })
-
-        console.log(arrayOfCases, "this is array of cases after fetch")
-        setDisplayIndividualCase(arrayOfCases)
-
-        console.log(displayIndividualCase)
-        console.log(renderIndividualCase)
-    }
-
-      console.log(arrayOfCases, "this is array of cases after fetch")
-
-    console.log(displayIndividualCase)
-
-    const serjeWorkMagic = displayIndividualCase.map((individual)=>{
-        return individual.name
-    })
-
-    console.log(serjeWorkMagic)
     
-    const renderIndividualCase = lawsuits.filter((lawsuit)=>{
-        return lawsuit.name.includes(serjeWorkMagic)
-    })
+
+    function handleDisplayIndividualCase(e, data){
+        setValue(data.value)
+        
+    }
+
+    console.log({value}, "weird value object")
+    console.log(value, "value")
+    
+    // const individualCase = value.map((v)=>{
+    //     return v.value.map((value)=>{
+    //         return value.value
+    //     })
+    // })
+    // console.log(individualCase, "individual case is this")
+
+
+    
+        
+        
+        function handleClick(){
+
+           
+
+
+            let arrayOfCases = []
+            
+            // value.forEach((v)=>{
+            //     fetch(`/cases/${v}`)
+            //     .then(result => result.json())
+            //     .then(result => {
+            //         arrayOfCases.push(result)
+            //         console.log(arrayOfCases, "array of cases")
+            //     })
+            //     console.log(lawsuits)
+            // })
+
+            
+
+            value.forEach( async (v)=>{
+                const response = await fetch(`/cases/${v}`)
+                const data = await response.json()
+                arrayOfCases.push(data)
+            })
+
+            console.log(arrayOfCases)
+            
+
+
+            setLawSuits(arrayOfCases)
+            
+
+
+            // value.forEach((v)=>{
+            //     fetch(`/cases/${v}`)
+            //     .then(result => result.json())
+            //     .then(result => arrayOfCases.push(result))
+            // })
+            
+           
+
+      
+
+        
+
+
+           
+
+            // console.log(listOfcaseNames, "This is array of just case names")
+
+            // const anotherArray = []
+
+            // const renderIndividualCase = listOfcaseNames.map((caseName)=>{
+            //     return lawsuits.map((lawsuit)=>{
+            //         anotherArray.includes(lawsuit.name) === caseName ? console.log("test"): anotherArray.push(lawsuit)  
+            //         // if(anotherArray.includes(lawsuit.name) === serje === false ){
+            //         //     anotherArray.push(lawsuit)
+            //         // }
+            //     })
+            // })
+
+            // console.log(renderIndividualCase, "list of cases after being filtered")
+            // console.log(anotherArray, "another array")
+
+            // setLawSuits(anotherArray)
+            
+            // console.log(lawsuits, "all lawsuits")
+            
+        
+        }
+
+  
+
+   
+    
 
     
 
@@ -80,7 +133,7 @@ function ListOfCases({lawsuits, setLawSuits}){
             multiple
             search
             selection
-            options={renderLawsuitsInDropdown}>
+            options={dropdownOptions}>
         </Dropdown>
         <Button onClick={handleClick}>Search For Case</Button>
         <Button onClick={resetCaseList}>

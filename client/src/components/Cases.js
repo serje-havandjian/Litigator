@@ -25,7 +25,11 @@ function Case(){
     const [complaintServedOption, setComplaintServedOption] = useState(false)
     const [discoveryServedOption, setDiscoveryServedOption] = useState(false)
 
-    const [getUserEmail, setGetUserEmail] = useState()
+    const [editName, setEditName] = useState()
+    const [editCounsel, setEditCounsel] = useState()
+    const [editCaseFiled, setEditCaseFiled] = useState()
+    const [editCaseServed, setEditCaseServed] =useState()
+    const [editCaseId, setEditCaseId] = useState()
     
      
 
@@ -44,19 +48,16 @@ function Case(){
     }
 
     function handleCounselState(e){
-        
         setCounselState(e.target.value)
         console.log(counselState)
     }
 
     function handleDateCaseFiledState(e){
-      
         setDateCaseFiledState(e.target.value)
         console.log(dateCaseFiledState)
     }
 
     function handleDateComplaintServedDate(e){
-      
         setDateComplaintServedState(e.target.value)
         console.log(dateComplaintServedState)
     }
@@ -249,36 +250,89 @@ function Case(){
     
 
     function handleChosenTrigger(e){
-        
-        console.log(e.target.value)
+       
         if(e.target.value === "Complaint Served"){
             setComplaintServedOption(true)
-        } else{
-            setComplaintServedOption(false)
-        }
-
-        if (e.target.value = "Form Interrogatory Served"){
-            setDiscoveryServedOption(true)
-        } else{
             setDiscoveryServedOption(false)
+        } else {
+            setComplaintServedOption(false)
+            setDiscoveryServedOption(true)
         }
-
     }
 
+    function handleEditCaseName(e){
+        setEditName(e.target.value) 
+    }
+
+    function handleEditCaseCounsel(e){
+        setEditCounsel(e.target.value)
+    }
+
+    function handleEditCaseFiled(e){
+        setEditCaseFiled(e.target.value)
+    }
+
+    function handleEditCaseServed(e){
+        setEditCaseServed(e.target.value)
+    }
+ 
+    function handleEditCase(e){
+        e.preventDefault()
+        
+
+       let editCaseObject ={
+            name: editName,
+            counsel: editCounsel,
+            date_case_filed: editCaseFiled,
+            date_complaint_served: editCaseServed
+        }
+
+        fetch(`/cases/${editCaseId}`,{
+            method: "PATCH",
+            headers: {
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify(editCaseObject)
+        })
+        .then(result => result.json())
+        .then(() => fetch(`/cases/`))
+        .then(result => result.json()
+        .then(result => setLawSuit(result)))
+
+
+        fetch(`/cases/${editCaseId}`)
+        .then(result => result.json())
+        .then(result => console.log(result))
+    }
+ 
+    
+
+    function handleDelete(){
+        fetch(`/cases/${editCaseId}`,{
+            method: "DELETE"
+        })
+        .then(() => fetch(`/cases/`))
+        .then(result => result.json())
+        .then(result => setLawSuit(result))
+    }
 
 
     const renderLawSuit = lawsuit.map((lawsuit)=>{
 
-        return <div> 
+        return (<div> 
             <Card>
                 <List.Item>
-                    <Button onClick={(e)=>{
+                    <Button value={lawsuit.id} onClick={(e)=>{
                         displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true);
                         fetch(`/cases/${e.target.id}`)
                         .then(result => result.json())
                         .then(result => setIndividualCase(result))
 
-                        console.log(e)
+                        setEditName(lawsuit.name)
+                        setEditCounsel(lawsuit.counsel)
+                        setEditCaseFiled(lawsuit.date_case_filed)
+                        setEditCaseServed(lawsuit.date_complaint_served)
+                        setEditCaseId(e.target.value)
 
                     }} id={lawsuit.id}> Case Name: {lawsuit.name} </Button>
                 </List.Item> 
@@ -287,8 +341,68 @@ function Case(){
                 <p>Date Complaint Served: {lawsuit.date_complaint_served}</p>
 
                     {/* FORM USED TO BE HERE AND NOW IT IS IN THE RETURN */}
+                
+            </Card> 
+        </div>
+        )
+    })
 
-                    {complaintServedOption ? 
+ 
+
+
+
+    return(
+        <>
+            <h1>Cases</h1>
+            <div>{renderLawSuit}</div>
+            <div> 
+                <Form> 
+                    {displayEditForm ? 
+                        <select onChange={handleChosenTrigger} class="ui dropdown" >
+                                <option >Triggers</option>
+                                <option >Complaint Served</option>
+                                <option  >Form Interrogatory Served</option>
+                        </select>  : null}
+                </Form>
+            </div>
+            <div>
+                {displayEditForm ?  <> 
+                    <>
+            <h1> Edit Your Case </h1>
+                <Form onSubmit={handleEditCase}>
+                    <Form.Input 
+                    onChange={handleEditCaseName}
+                    value={editName}
+                    label="Name" 
+                    placeholder="Enter Case Name Here" 
+                     />
+                    <Form.Input 
+                    onChange={handleEditCaseCounsel}
+                    value={editCounsel}
+                    label="Counsel" 
+                    placeholder="Enter Opposing Counsel Here" 
+                    />
+                    <Form.Input 
+                    onChange={handleEditCaseFiled}
+                    value={editCaseFiled}
+                    label="Date Case Filed" 
+                    placeholder="Enter Date Case Filed Here" 
+                     />
+                    <Form.Input 
+                    onChange={handleEditCaseServed}
+                    value={editCaseServed}
+                    label="Date Complaint Served" 
+                    placeholder="Enter Date Complaint Served Here" 
+                     />
+                    <Button >Edit Your Case </Button>
+                </Form>
+
+                <Button onClick={handleDelete}> Delet Your Case </Button>
+            </>
+        </> : null}
+            </div>
+            <div>
+            {complaintServedOption ? 
                     <Form onSubmit={handleRenderComplaintServed}>
                         < Form.Input 
                         onChange={handleYearDocumentServed}
@@ -305,7 +419,9 @@ function Case(){
                         <Button >Submit</Button>
                     </Form>
                     : null}
-                    {discoveryServedOption ? 
+            </div>
+            <div>
+            {discoveryServedOption ? 
                     // add onSubmit={handleRenderDiscoveryServed} to Form below
                     <Form onSubmit={handleRenderDiscoveryServed} >
                         < Form.Input 
@@ -323,18 +439,9 @@ function Case(){
                         <Button>Submit</Button>
                     </Form>
                     : null}
-            </Card> 
             </div>
-            
-    })
-
-
-
-    return(
-        <>
-            <h1>Cases</h1>
-            <div>{renderLawSuit}</div>
             <div id="createNewCase">
+                <h1> Create A New Case</h1>
                 <Form succes onSubmit={createNewCase}>
                     <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleNameState} />
                     <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState}/>
@@ -347,20 +454,7 @@ function Case(){
                     />
                     <Button>Submit</Button>
                 </Form>
-            </div>
-
-            <div>
-            {/* THIS NEEDS WORK */}
-            <Form> 
-            {displayEditForm ? <select onChange={handleChosenTrigger} class="ui dropdown" >
-                            <option >Triggers</option>
-                            <option >Complaint Served</option>
-                            <option  >Form Interrogatory Served</option>
-                        </select> : null}
-            </Form>
-            </div>
-           
-    
+            </div>    
             <div>
                 <Email lawsuit={lawsuit} />
             </div>

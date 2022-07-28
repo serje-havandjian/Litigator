@@ -41,8 +41,7 @@ function CalendarComponent(){
     
 //Rendering Milestones
 
-    let eventsArray = []
-
+    let eventsArray = [] 
     lawsuits.map((lawsuit)=>{
         eventsArray.push({
             title: `${lawsuit.name}`,

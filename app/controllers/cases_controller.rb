@@ -23,7 +23,7 @@ class CasesController < ApplicationController
 
     def destroy
         oneCase = Case.find(params[:id])
-        oneCase.destroy
+        oneCase.destroy 
         head 
     end
 
