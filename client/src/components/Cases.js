@@ -389,7 +389,7 @@ function Case(){
                     <Button >Edit Your Case </Button>
                 </Form>
 
-                <Button onClick={handleDelete}> Delet Your Case </Button>
+                <Button onClick={handleDelete}> Delete Your Case </Button>
             </>
         </> : null}
             </div>
