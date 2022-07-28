@@ -25,8 +25,7 @@ function ListOfCases({lawsuits, setLawSuits}){
         })
 
     
-     let arrayOfCases = []
-
+ 
      function handleDisplayIndividualCase(e, data){
         setValue(data.value)
     }
