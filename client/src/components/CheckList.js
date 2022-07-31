@@ -33,11 +33,8 @@ function CheckList({lawsuits, myMoment, setMyMoment}){
     })
 
     const displayDemurrerChecklist = lawsuits.map((lawsuit)=>{
-
-
         return lawsuit.deadlines.map((deadline)=>{
             const deadlineDate = moment(deadline.deadline)
-
 
             if (checkBox===true && myMoment < deadlineDate.subtract(15, "days")) {
                 

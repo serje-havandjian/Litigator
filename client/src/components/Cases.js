@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { Button, Card, Form, Message, List, Confirm } from 'semantic-ui-react'
+import { Button, Card, Form, Message, List, Label, Segment, Menu, Icon, Reveal } from 'semantic-ui-react'
 import moment from "moment"
 import Email from "./Email"
 
@@ -31,10 +31,6 @@ function Case(){
     const [openState, setOpenState] = useState(true)
     
      
-
-
-
-
     useEffect(()=>{
         fetch("/cases")
         .then(result => result.json())
@@ -61,8 +57,6 @@ function Case(){
         console.log(dateComplaintServedState)
     }
 
-
-
     function createNewCase(e){
         e.preventDefault()
 
@@ -88,7 +82,6 @@ function Case(){
         e.target.reset();
 
     }
-
 
     function handleYearDocumentServed(e){
         setYearDocumentServed(e.target.value)
@@ -185,10 +178,6 @@ function Case(){
         })
     } 
 
-
-
-
-
     function handleRenderDiscoveryServed(e){
         e.preventDefault()
         console.log(e)
@@ -237,8 +226,6 @@ function Case(){
         .then(result => setNewDeadline(result))
 
     }
-
-    
 
     function handleChosenTrigger(e){
        
@@ -296,8 +283,6 @@ function Case(){
         .then(result => console.log(result))
     }
  
-    
-
     function handleDelete(){
         fetch(`/cases/${editCaseId}`,{
             method: "DELETE"
@@ -306,30 +291,61 @@ function Case(){
         .then(result => result.json())
         .then(result => setLawSuit(result))
     }
-
+    
+    const nextDeadline = lawsuit.map((lawsuit)=>{
+        return lawsuit.deadlines.map((deadline)=>{
+            return (`${deadline.title}: ${deadline.deadline} `)
+        })
+    })
+    
+    
+    
+   
 
     const renderLawSuit = lawsuit.map((lawsuit)=>{
 
-        return (<div> 
-            <Card>
-                <List.Item>
-                    <Button value={lawsuit.id} onClick={(e)=>{
-                        displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true);
-                        fetch(`/cases/${e.target.id}`)
-                        .then(result => result.json())
-                        .then(result => setIndividualCase(result))
+        return (
+        
+        <div> 
+            <Card  >
+                <Reveal animated="move up">
+                    <Reveal.Content visible>
+                            <div className="casebutton">
+                                <Icon name="balance scale" color="teal"></Icon>
+                            </div>
+                            
+                            
+                        <div className="caseList">
+                            <p>Opposing Counsel: {lawsuit.counsel}</p>
+                            <p>Date Case Filed: {lawsuit.date_case_filed}</p>
+                            <p>Date Complaint Served: {lawsuit.date_complaint_served}</p>
+                        </div>
+                    </Reveal.Content>
+                    <Reveal.Content hidden>
 
-                        setEditName(lawsuit.name)
-                        setEditCounsel(lawsuit.counsel)
-                        setEditCaseFiled(lawsuit.date_case_filed)
-                        setEditCaseServed(lawsuit.date_complaint_served)
-                        setEditCaseId(e.target.value)
+                    <p> Upcoming Deadlines: {nextDeadline}</p>
+                       
+                    </Reveal.Content>
+                
+                </Reveal>
 
-                    }} id={lawsuit.id}> Case Name: {lawsuit.name} </Button>
-                </List.Item> 
-                <p>Opposing Counsel: {lawsuit.counsel}</p>
-                <p>Date Case Filed:{lawsuit.date_case_filed}</p>
-                <p>Date Complaint Served: {lawsuit.date_complaint_served}</p>                
+                <Button value={lawsuit.id} onClick={(e)=>{
+                                displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true);
+                                fetch(`/cases/${e.target.id}`)
+                                .then(result => result.json())
+                                .then(result => setIndividualCase(result))
+
+                                setEditName(lawsuit.name)
+                                setEditCounsel(lawsuit.counsel)
+                                setEditCaseFiled(lawsuit.date_case_filed)
+                                setEditCaseServed(lawsuit.date_complaint_served)
+                                setEditCaseId(e.target.value)
+
+
+                            }} id={lawsuit.id}>{lawsuit.name} </Button>
+
+                    
+                
             </Card> 
         </div>
         )
@@ -346,7 +362,13 @@ function Case(){
     return(
         <>
             <h1>Cases</h1>
-            <div>{renderLawSuit}</div>
+            <Menu compact>
+                <Menu.Item as="a" columns={3}>
+                    
+                        {renderLawSuit}
+                   
+                </Menu.Item>
+            </Menu>
             <div id="renderlawsuits">
                 <Card.Group> 
                     {displayEditForm ? 
@@ -401,12 +423,14 @@ function Case(){
                         <Card fluid color="blue" header="Edit Your Case">
                             <h1> Edit Your Case </h1>
                             <Form onSubmit={handleEditCase}>
+                                <Form.Field required>
                                 <Form.Input 
                                 onChange={handleEditCaseName}
                                 value={editName}
                                 label="Name" 
                                 placeholder="Enter Case Name Here" 
                                 />
+                                </Form.Field>
                                 <Form.Input 
                                 onChange={handleEditCaseCounsel}
                                 value={editCounsel}
@@ -467,7 +491,7 @@ function Case(){
 
 export default Case;
 
-
+// Old Code, use as example of what not to do!
 // let dateServedMoment = moment({
 //     year: `${yearServedState}`, month: `${monthServedState}`, date: `${dateServedState}`
 // })

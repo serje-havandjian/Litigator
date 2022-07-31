@@ -1,16 +1,23 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:'Uchen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+    font-weight: bold;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-image: url(https://clipart.world/wp-content/uploads/2021/04/Gavel-clipart-transparent.png);
+  background-repeat: no-repeat;
+
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+.ui {
+  font-family: 'Uchen' !important;
+  font-weight: bold;
 }
+
+
 
 .Calendar{
   height: 1000px;
@@ -24,4 +31,25 @@ code {
 #renderlawsuits{
   margin: auto;
   width: 50%;
+}
+
+.ui.card,
+.ui.cards>.card {
+  background-color: rgba(27, 105, 231, 0.267);
+}
+
+.button{
+  color: #000;
+}
+
+.casebutton{
+  text-align: center;
+}
+
+.label{
+  background-color: rgba(27, 105, 231, 0.267)
+}
+
+.caseList{
+  background-color: gray;
 }
