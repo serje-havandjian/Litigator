@@ -62,7 +62,7 @@ function Email({lawsuit}){
 
         <>
         <Form.Input id="myText" value={emailText} type="hidden"/>
-            <Button onClick={sendMail}>Email Your Cases and Tasks To Yourself</Button>
+            <Button color="blue" onClick={sendMail}>Email Your Cases and Tasks To Yourself</Button>
         <Form />
         </>
     )

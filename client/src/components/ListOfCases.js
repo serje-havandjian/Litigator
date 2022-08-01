@@ -117,8 +117,9 @@ function ListOfCases({lawsuits, setLawSuits}){
             selection
             options={dropdownOptions}>
         </Dropdown>
-        <Button onClick={handleClick}>Search For Case</Button>
-        <Button onClick={resetCaseList}> Display All Cases </Button>
+        <br></br>
+        <Button color="blue" onClick={handleClick}>Search For Case</Button>
+        <Button color="youtube" onClick={resetCaseList}> Display All Cases </Button>
         </div>
     )
 }

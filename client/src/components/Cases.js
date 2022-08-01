@@ -307,7 +307,7 @@ function Case(){
                     <Grid.Row >
                         <Grid.Column>
                             <Card >
-                                <Button value={lawsuit.id} onClick={(e)=>{
+                                <Button color="blue" value={lawsuit.id} onClick={(e)=>{
                                                     displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true);
                                                     fetch(`/cases/${e.target.id}`)
                                                     .then(result => result.json())
@@ -383,7 +383,7 @@ function Case(){
                                             onChange={handleDateDocumentServed}
                                             label="Date Complaint Served" 
                                             placeholder="Enter Date Of Service" />
-                                            <Button >Submit</Button>
+                                            <Button color="blue" >Submit</Button>
                                         </Form>
                                 : null}
                             </div>
@@ -403,7 +403,7 @@ function Case(){
                                             onChange={handleDateDocumentServed}
                                             label="Date Discovery Served" 
                                             placeholder="Enter Date Of Service" />
-                                            <Button>Submit</Button>
+                                            <Button color="blue">Submit</Button>
                                         </Form>
                                     : null}
                             </div>
@@ -437,7 +437,7 @@ function Case(){
                                 label="Date Complaint Served" 
                                 placeholder="Enter Date Complaint Served Here" 
                                 />
-                                <Button >Edit Your Case </Button>
+                                <Button color="blue" >Edit Your Case </Button>
                             </Form>
                         </Card>
                         <Card fluid color="orange" header="Delete Your Case">
@@ -464,7 +464,7 @@ function Case(){
                             header="Case Completed"
                             content="New Case Entered, Happy Hunting!"
                             />
-                            <Button>Submit</Button>
+                            <Button color="blue">Submit</Button>
                         </Form>
                 </Card>
             </div>    
