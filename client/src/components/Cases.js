@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"
-import { Button, Card, Form, Message, List, Label, Segment, Menu, Icon, Reveal } from 'semantic-ui-react'
+import { Button, Card, Form, Message, List, Label, Segment, Menu, Icon, Reveal, Grid } from 'semantic-ui-react'
 import moment from "moment"
 import Email from "./Email"
 
@@ -300,75 +300,63 @@ function Case(){
     
     
     
-   
-
     const renderLawSuit = lawsuit.map((lawsuit)=>{
-
         return (
-        
-        <div> 
-            <Card  >
-                <Reveal animated="move up">
-                    <Reveal.Content visible>
-                            <div className="casebutton">
-                                <Icon name="balance scale" color="teal"></Icon>
-                            </div>
-                            
-                            
-                        <div className="caseList">
-                            <p>Opposing Counsel: {lawsuit.counsel}</p>
-                            <p>Date Case Filed: {lawsuit.date_case_filed}</p>
-                            <p>Date Complaint Served: {lawsuit.date_complaint_served}</p>
-                        </div>
-                    </Reveal.Content>
-                    <Reveal.Content hidden>
+            <div className="renderLawsuit"> 
+                <Grid text container >
+                    <Grid.Row >
+                        <Grid.Column>
+                            <Card >
+                                <Button value={lawsuit.id} onClick={(e)=>{
+                                                    displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true);
+                                                    fetch(`/cases/${e.target.id}`)
+                                                    .then(result => result.json())
+                                                    .then(result => setIndividualCase(result))
 
-                    <p> Upcoming Deadlines: {nextDeadline}</p>
-                       
-                    </Reveal.Content>
-                
-                </Reveal>
-
-                <Button value={lawsuit.id} onClick={(e)=>{
-                                displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true);
-                                fetch(`/cases/${e.target.id}`)
-                                .then(result => result.json())
-                                .then(result => setIndividualCase(result))
-
-                                setEditName(lawsuit.name)
-                                setEditCounsel(lawsuit.counsel)
-                                setEditCaseFiled(lawsuit.date_case_filed)
-                                setEditCaseServed(lawsuit.date_complaint_served)
-                                setEditCaseId(e.target.value)
-
-
-                            }} id={lawsuit.id}>{lawsuit.name} </Button>
-
-                    
-                
-            </Card> 
-        </div>
+                                                    setEditName(lawsuit.name)
+                                                    setEditCounsel(lawsuit.counsel)
+                                                    setEditCaseFiled(lawsuit.date_case_filed)
+                                                    setEditCaseServed(lawsuit.date_complaint_served)
+                                                    setEditCaseId(e.target.value)
+                                                }} id={lawsuit.id}>{lawsuit.name} 
+                                </Button>
+                                <Reveal animated="move up">
+                                    <Reveal.Content visible>
+                                            
+                                        <div className="caseList">
+                                            <div className="casebutton">
+                                                <Icon name="balance scale" color="teal"></Icon>
+                                            </div>
+                                            <p>Opposing Counsel: {lawsuit.counsel}</p>
+                                            <p>Date Case Filed: {lawsuit.date_case_filed}</p>
+                                            <p>Date Complaint Served: {lawsuit.date_complaint_served}</p>
+                                        </div>
+                                    </Reveal.Content>
+                                    <Reveal.Content hidden>
+                                    <p> Upcoming Deadlines: {nextDeadline}</p>
+                                    </Reveal.Content>
+                                
+                                </Reveal>
+                            </Card>
+                        </Grid.Column> 
+                    </Grid.Row>
+                </Grid>
+            </div>
         )
     })
 
  
     function handleOpen(){
-
         openState ? setOpenState(false) : setOpenState(true)
-        
     }
 
 
     return(
         <>
             <h1>Cases</h1>
-            <Menu compact>
-                <Menu.Item as="a" columns={3}>
-                    
-                        {renderLawSuit}
-                   
-                </Menu.Item>
-            </Menu>
+            <Grid columns={3} >
+                {renderLawSuit}
+            </Grid>
             <div id="renderlawsuits">
                 <Card.Group> 
                     {displayEditForm ? 
@@ -462,25 +450,25 @@ function Case(){
                     : null}
                 </Card.Group>
             </div>
-            
-            
             <div id="createNewCase">
                 <br></br>
-                <h1> Create A New Case</h1>
-                <Form succes onSubmit={createNewCase}>
-                    <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleNameState} />
-                    <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState}/>
-                    <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} />
-                    <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} />
-                    <Message
-                    success
-                    header="Case Completed"
-                    content="New Case Entered, Happy Hunting!"
-                    />
-                    <Button>Submit</Button>
-                </Form>
+                <Card fluid color="orange">
+                    <h1> Create A New Case</h1>
+                        <Form succes onSubmit={createNewCase}>
+                            <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleNameState} />
+                            <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState}/>
+                            <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} />
+                            <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} />
+                            <Message
+                            success
+                            header="Case Completed"
+                            content="New Case Entered, Happy Hunting!"
+                            />
+                            <Button>Submit</Button>
+                        </Form>
+                </Card>
             </div>    
-            <div>
+            <div className="emailButton">
                 <Email lawsuit={lawsuit} />
             </div>
             

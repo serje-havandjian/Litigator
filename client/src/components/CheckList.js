@@ -75,10 +75,10 @@ function CheckList({lawsuits, myMoment, setMyMoment}){
 
     
    return( 
-        <>
-       <div> {displayAnswerChecklist} </div>
-       <div>{displayDemurrerChecklist}</div>
-        </>
+        <div className="checklist">
+            <div> {displayAnswerChecklist} </div>
+            <div>{displayDemurrerChecklist}</div>
+        </div>
     )
 
 }

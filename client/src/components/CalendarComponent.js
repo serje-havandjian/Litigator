@@ -32,12 +32,6 @@ function CalendarComponent(){
     }
  
 
-
-    
-
-   
-
-
     
 //Rendering Milestones
 
@@ -288,7 +282,7 @@ function CalendarComponent(){
 
     return(
         <>
-            <h1>Calendar</h1>
+            <h1 >Calendar</h1>
             <div className="Calendar">
                 <Calendar
                 localizer={localizer}
@@ -299,16 +293,11 @@ function CalendarComponent(){
                 />
             </div>
 
-            <div>
+            <div className="tasklistWrap">
                 <Button primary id="momentButton" onClick={handleMoment}>Moment Button</Button>
                 <Button secondary onClick={resetMoment}>Reset Moment Button</Button>
-            </div>
-
-            <div>
+          
                <ListOfCases lawsuits={lawsuits} setLawSuits={setLawSuits} />
-            </div>
-
-            <div>
                 <CheckList myMoment={myMoment} setMyMoment={setMyMoment} lawsuits={lawsuits} />
             </div>
             

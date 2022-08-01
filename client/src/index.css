@@ -19,11 +19,6 @@ body {
 
 
 
-.Calendar{
-  height: 1000px;
-  width: 50%;
-}
-
 .List{
   width: 20%;
 }
@@ -35,7 +30,7 @@ body {
 
 .ui.card,
 .ui.cards>.card {
-  background-color: rgba(27, 105, 231, 0.267);
+  background-color: rgba(247, 247, 247, 0.267);
 }
 
 .button{
@@ -52,4 +47,56 @@ body {
 
 .caseList{
   background-color: gray;
+  width: 300px;
+  margin-bottom: 5%;
+}
+
+.renderLawsuit{
+  flex-wrap: wrap;
+  flex-wrap: 1;
+  width: 400px;
+}
+
+#createNewCase{
+  margin: auto;
+  width: 30%;
+}
+
+.emailButton{
+  width: 50%;
+  margin: auto;
+  padding-left: 10%;
+}
+
+.Calendar{
+  flex-wrap: wrap;
+  flex-wrap: 1;
+  height: 1000px;
+  width: 60%;
+  float: right;
+}
+
+.caseSearch{
+  flex-wrap: wrap;
+  flex-wrap: 1;
+  width: 60%;
+}
+
+.checklist{
+  flex-wrap: wrap;
+  flex-wrap: 1;
+  width: 100%;
+  background-color: rgba(27, 116, 157, 0.536)
+}
+
+.calendarWrap{
+  flex-wrap: wrap;
+  flex-wrap: 1;
+  width: 40%;
+}
+
+.tasklistWrap{
+  flex-wrap: wrap;
+  flex-wrap: 1;
+  width: 40%;
 }

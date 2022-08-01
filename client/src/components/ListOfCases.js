@@ -24,21 +24,11 @@ function ListOfCases({lawsuits, setLawSuits}){
                     }
         })
 
-    
  
      function handleDisplayIndividualCase(e, data){
         setValue(data.value)
     }
 
-    console.log(value)
-
-    
-    // const individualCase = value.map((v)=>{
-    //     return v.value.map((value)=>{
-    //         return value.value
-    //     })
-    // })
-    // console.log(individualCase, "individual case is this")
 
         
         function handleClick(){
@@ -116,7 +106,7 @@ function ListOfCases({lawsuits, setLawSuits}){
     
 
     return(
-        <>
+        <div className="caseSearch">
         <Dropdown 
             name = "Category Search"
             onChange={handleDisplayIndividualCase}
@@ -129,7 +119,7 @@ function ListOfCases({lawsuits, setLawSuits}){
         </Dropdown>
         <Button onClick={handleClick}>Search For Case</Button>
         <Button onClick={resetCaseList}> Display All Cases </Button>
-        </>
+        </div>
     )
 }
 
