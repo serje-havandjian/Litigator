@@ -47,7 +47,7 @@ body {
 }
 
 .caseList{
-  background-color: #9df5d9;
+  background-color: #c6ffcb;
   width: 300px;
   margin-bottom: 5%;
 }
@@ -100,9 +100,6 @@ body {
   flex-wrap: wrap;
   flex-wrap: 1;
   width: 40%;
-  background-color: rgba(250, 250, 250, 0.721)
+  background-color: rgba(255, 255, 255, 0.721)
 }
 
-.tets{
-  font-size: large;
-}

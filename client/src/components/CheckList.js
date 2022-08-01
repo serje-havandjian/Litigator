@@ -32,19 +32,21 @@ function CheckList({lawsuits, myMoment, setMyMoment}){
     const displayDemurrerChecklist = lawsuits.map((lawsuit)=>{
         return lawsuit.deadlines.map((deadline)=>{
             const deadlineDate = moment(deadline.deadline)
+            console.log(deadlineDate)
             if (checkBox===true && myMoment < deadlineDate.subtract(15, "days")) {
                 return deadline.milestones_for_demurrers.map((m)=>{
+                    const deadlineDate = moment(deadline.deadline)
                     if(m !==[]){
                         return <>
                         <h1>{lawsuit.name}</h1>
-                        <Checkbox label={`${m.m1} By ${deadlineDate.subtract(25, "days")}`}> </Checkbox>
-                        <Checkbox label={`${m.m2} By ${deadlineDate.subtract(20, "days")}`}></Checkbox>
-                        <Checkbox label={`${m.m3} By ${deadlineDate.subtract(15, "days")}`}></Checkbox>
-                        <Checkbox onClick={handleClick} label={`${m.m4} By ${deadlineDate.subtract(10, "days")} Otherwise Strategy Will Change`}></Checkbox>
-                        <Checkbox label={m.m5}></Checkbox>
-                        <Checkbox label={m.m6}></Checkbox>
-                        <Checkbox label={m.m7}></Checkbox>
-                        <Checkbox label={m.m8}></Checkbox>
+                        <Checkbox label={`${m.m1} By ${deadlineDate.subtract(28, "days").format("dddd, MMM Do YYYY")}`}> </Checkbox>
+                        <Checkbox label={`${m.m2} By ${deadlineDate.add(3, "days").format("dddd, MMM Do YYYY")}`}></Checkbox>
+                        <Checkbox label={`${m.m3} By ${deadlineDate.add(11, "days").format("dddd, MMM Do YYYY")}`}></Checkbox>
+                        <Checkbox onClick={handleClick} label={`${m.m4} By ${deadlineDate.add(7, "days").format("dddd, MMM Do YYYY")} Otherwise Very Bad Things Will Happen And We Will Have To Change Strategy`}></Checkbox>
+                        <Checkbox label={`${m.m5} By ${deadlineDate.add(2, "days").format("dddd, MMM Do YYYY")}`}></Checkbox>
+                        <Checkbox label={`${m.m6} By ${deadlineDate.format("dddd, MMM Do YYYY")} `}></Checkbox>
+                        <Checkbox label={`${m.m7} By ${deadlineDate.add(3, "days").format("dddd, MMM Do YYYY")}`}></Checkbox>
+                        <Checkbox label={`${m.m8} On ${deadlineDate.add(1, "days").format("dddd, MMM Do YYYY")} `}></Checkbox>
                         </>
                     }
                 })
@@ -79,3 +81,6 @@ function CheckList({lawsuits, myMoment, setMyMoment}){
 }
 
 export default CheckList
+
+
+

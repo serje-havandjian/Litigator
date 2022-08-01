@@ -105,6 +105,8 @@ function Case(){
         let dateServedMoment = moment({
             year: `${yearServedState}`, month: `${monthServedState}`, date: `${dateServedState}`
         })
+        console.log(dateServedState)
+        console.log(dateServedMoment)
 
         const newTriggerObject ={
             title: "Complaint Served",
@@ -292,15 +294,16 @@ function Case(){
         .then(result => setLawSuit(result))
     }
     
-    const nextDeadline = lawsuit.map((lawsuit)=>{
-        return lawsuit.deadlines.map((deadline)=>{
-            return (`${deadline.title}: ${deadline.deadline} `)
-        })
-    })
+    // const nextDeadline = lawsuit.map((lawsuit)=>{
+    //     return lawsuit.deadlines.map((deadline)=>{
+    //         return (`${deadline.title}: ${deadline.deadline} `)
+    //     })
+    // })
     
     
     
     const renderLawSuit = lawsuit.map((lawsuit)=>{
+        const dateFiled = moment(lawsuit.date_case_filed)
         return (
             <div className="renderLawsuit"> 
                 <Grid text container >
@@ -328,16 +331,17 @@ function Case(){
                                                 <Icon name="balance scale" color="teal"></Icon>
                                             </div>
                                             <p>Opposing Counsel: {lawsuit.counsel}</p>
-                                            <p>Date Case Filed: {lawsuit.date_case_filed}</p>
-                                            <p>Date Complaint Served: {lawsuit.date_complaint_served}</p>
+                                            <p>Date Case Filed: {dateFiled.format("dddd, MMM do YYYY")}</p>
+                                            <p>Date Complaint Served: {moment(lawsuit.date_complaint_served).format("dddd, MMM do YYYY")}</p>
                                         </div>
                                     </Reveal.Content>
                                     <Reveal.Content hidden>
                                         
                                     <p> Upcoming Deadlines: {lawsuit.deadlines.map((deadline)=>{
+                                        const deadlineDate = moment(deadline.deadline)
                                         return (
                                             <div>
-                                            {deadline.title}-{deadline.deadline}
+                                            {deadline.title} by {deadlineDate.format("dddd, MMMM Do YYYY")}
                                             </div>
                                             )
                                     })}</p>
@@ -446,7 +450,7 @@ function Case(){
                         <Card fluid color="orange" header="Delete Your Case">
                         <div>
                             <h1>Delete Your Case</h1>
-                            <Button onClick={handleDelete}> Delete Your Case </Button>
+                            <Button color="youtube" onClick={handleDelete}> Delete Your Case </Button>
                         </div>
                         </Card>
                         </>

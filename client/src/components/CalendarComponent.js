@@ -16,9 +16,9 @@ import ListOfCases from "./ListOfCases.js"
 
 function CalendarComponent(){
 
-    const components = useMemo(()=>{
-        views:Object.keys(Views).map((k)=> Views[k])
-    })
+    // const components = useMemo(()=>{
+    //     views:Object.keys(Views).map((k)=> Views[k])
+    // })
     
 
     const localizer = momentLocalizer(moment)
@@ -64,7 +64,7 @@ function CalendarComponent(){
                 eventsArray.push({
                     title: `${lawsuit.name} - ${deadline.trigger.title}`,
                     start: deadlineDate,
-                    end: deadlineDate.subtract(30, "days"),
+                    end: deadlineDate.subtract(1, "month"),
                     up_down_ind: "X"
                 })
             })
@@ -287,7 +287,12 @@ function CalendarComponent(){
 
 
   
-
+const testEvents=[{
+    "title": "My Event",
+    "allDay": true,
+    "start": moment().toDate(),
+    "end": moment().add(4, "hours").toDate()
+}]
 
 
     return(
@@ -297,11 +302,11 @@ function CalendarComponent(){
                 <Calendar
                 // defaultDate={)}
                 localizer={localizer}
-                events={eventsArray} 
+                events={eventsArray}
+                // events={eventsArray} 
                 startAccessor="start"
                 endAccessor="end"
                 Views={Views}
-                components={components}
                 />
             </div>
 
