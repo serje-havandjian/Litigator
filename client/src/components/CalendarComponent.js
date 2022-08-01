@@ -54,8 +54,8 @@ function CalendarComponent(){
     lawsuits.map((lawsuit)=>{
         eventsArray.push({
             title: `${lawsuit.name}`,
-            start: new Date(`${lawsuit.date_case_filed}`).toISOString(),
-            end: new Date(`${lawsuit.date_case_filed}`).toISOString(),
+            start: `${lawsuit.date_case_filed}`,
+            end: `${lawsuit.date_case_filed}`,
             up_down_ind: "X"
         })
 
@@ -63,8 +63,8 @@ function CalendarComponent(){
                 const deadlineDate = moment(deadline.deadline)
                 eventsArray.push({
                     title: `${lawsuit.name} - ${deadline.trigger.title}`,
-                    start: new Date(deadlineDate).toISOString(),
-                    end: new Date(deadlineDate.subtract(30, "days")).toISOString(),
+                    start: deadlineDate,
+                    end: deadlineDate.subtract(30, "days"),
                     up_down_ind: "X"
                 })
             })
@@ -72,20 +72,20 @@ function CalendarComponent(){
             lawsuit.deadlines.map((deadline)=>{
                 eventsArray.push({
                     title: `${deadline.title}-${lawsuit.name}`,
-                    start: new Date(`${deadline.trigger.date_served}`).toISOString(),
-                    end: new Date(`${deadline.trigger.date_served}`).toISOString(),
+                    start: `${deadline.deadline}`,
+                    end: `${deadline.deadline}`,
                     up_down_ind: "X"
                 })
 
-                //I Don't think this does anything
-            lawsuit.deadlines.map((deadline)=>{
-                eventsArray.push({
-                    title: `${lawsuit.name}${deadline.title}`,
-                    start: new Date(`${deadline.trigger.date_served}`).toISOString(),
-                    end: new Date(`${deadline.trigger.date_served}`).toISOString(),
-                up_down_ind: "Y"
-                })
-            })
+            //     //I Don't think this does anything
+            // lawsuit.deadlines.map((deadline)=>{
+            //     eventsArray.push({
+            //         title: `${lawsuit.name}${deadline.title}`,
+            //         start: `${deadline.trigger.date_served}`,
+            //         end: `${deadline.trigger.date_served}`,
+            //     up_down_ind: "Y"
+            //     })
+            // })
 
 
             //start of rendering of Answer Milestones
@@ -94,8 +94,8 @@ function CalendarComponent(){
                 
                 eventsArray.push({
                     title: `${milestone.m1}-${lawsuit.name}`,
-                    start: new Date(deadlineDate).toISOString(),
-                    end: new Date(deadlineDate.subtract(25, "days")).toISOString(),
+                    start: deadlineDate,
+                    end: deadlineDate.subtract(25, "days"),
                     up_down_ind: "Y"
                 })                
             })
@@ -104,8 +104,8 @@ function CalendarComponent(){
 
                 eventsArray.push({
                     title: `${milestone.m2}-${lawsuit.name}`,
-                    start: new Date(deadlineDate).toISOString(),
-                    end: new Date(deadlineDate.subtract(20, "days")).toISOString(),
+                    start: deadlineDate,
+                    end: deadlineDate.subtract(20, "days"),
                     up_down_ind: "X"
                 })
 
@@ -115,8 +115,8 @@ function CalendarComponent(){
 
                 eventsArray.push({
                     title: `${milestone.m3}-${lawsuit.name}`,
-                    start: new Date(deadlineDate).toISOString(),
-                    end: new Date(deadlineDate.subtract(10, "days")).toISOString(),
+                    start: deadlineDate,
+                    end: deadlineDate.subtract(10, "days"),
                     up_down_ind: "Y"
                 })
 
@@ -126,8 +126,8 @@ function CalendarComponent(){
 
                 eventsArray.push({
                     title: `${milestone.m4}-${lawsuit.name}`,
-                    start: new Date(deadlineDate).toISOString(),
-                    end: new Date(deadlineDate.subtract(1, "days")).toISOString(),
+                    start: deadlineDate,
+                    end: deadlineDate.subtract(1, "days"),
                     up_down_ind: "Y"
                 })
 
@@ -147,9 +147,9 @@ function CalendarComponent(){
                     const deadlineDate = moment(deadline.deadline)
                     
                     eventsArray.push({
-                        title: `FUCK FUCK FUCK${milestone.m1}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(28, "days")).toISOString(),
+                        title: `${milestone.m1}-${lawsuit.name}`,
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(28, "days"),
                         up_down_ind: "Y"
                     })                
                 })
@@ -159,8 +159,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m2}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(25, "days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(25, "days"),
                         up_down_ind: "Y"
                     })                
                 });
@@ -170,8 +170,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m3}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(14, "days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(14, "days"),
                         up_down_ind: "Y"
                     })                
                 });
@@ -181,8 +181,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m4}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(7, "days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(7, "days"),
                         up_down_ind: "Y"
                     })                
                 });
@@ -192,8 +192,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m5}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(5, "days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(5, "days"),
                         up_down_ind: "Y"
                     })                
                 });
@@ -203,8 +203,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m6}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(5,"days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(5,"days"),
                     up_down_ind: "Y"
                     })                
                 });
@@ -214,8 +214,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m7}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(2, "days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(2, "days"),
                         up_down_ind: "Y"
                     })                
                 });
@@ -225,8 +225,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m8}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(1, "days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(1, "days"),
                         up_down_ind: "Y"
                     })                
                 })
@@ -239,8 +239,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m1}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(15, "days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(15, "days"),
                         up_down_ind: "Y"
                     })                
                 })
@@ -250,8 +250,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m2}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(15, "days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(15, "days"),
                         up_down_ind: "Y"
                     })                
                 })
@@ -261,8 +261,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m3}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(15, "days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(15, "days"),
                         up_down_ind: "Y"
                     })                
                 })
@@ -272,8 +272,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m4}-${lawsuit.name}`,
-                        start: new Date(deadlineDate).toISOString(),
-                        end: new Date(deadlineDate.subtract(15, "days")).toISOString(),
+                        start: deadlineDate,
+                        end: deadlineDate.subtract(15, "days"),
                         up_down_ind: "Y"
                     })                
                 })
@@ -295,7 +295,7 @@ function CalendarComponent(){
             <h1 >Calendar</h1>
             <div className="Calendar">
                 <Calendar
-                // defaultDate={new Date()}
+                // defaultDate={)}
                 localizer={localizer}
                 events={eventsArray} 
                 startAccessor="start"

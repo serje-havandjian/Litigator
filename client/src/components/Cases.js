@@ -145,7 +145,7 @@ function Case(){
                     m5: "Meet and Confer With Opposing Counsel", 
                     m6: "Draft Client Declaration, Counsel Declaration, Potential Request for Judicial Notice, and Proposed Order", 
                     m7: "Finalize Demurrer & Related Documents for File and Service", 
-                    m8: "File and Serve Demurrer", 
+                    m8: "File and Serve Demurrer Tomorrow", 
                     deadline_id: result.id
                 }
 
@@ -333,9 +333,15 @@ function Case(){
                                         </div>
                                     </Reveal.Content>
                                     <Reveal.Content hidden>
-                                    <p> Upcoming Deadlines: {nextDeadline}</p>
+                                        
+                                    <p> Upcoming Deadlines: {lawsuit.deadlines.map((deadline)=>{
+                                        return (
+                                            <div>
+                                            {deadline.title}-{deadline.deadline}
+                                            </div>
+                                            )
+                                    })}</p>
                                     </Reveal.Content>
-                                
                                 </Reveal>
                             </Card>
                         </Grid.Column> 
@@ -346,9 +352,6 @@ function Case(){
     })
 
  
-    function handleOpen(){
-        openState ? setOpenState(false) : setOpenState(true)
-    }
 
 
     return(
@@ -456,7 +459,7 @@ function Case(){
                     <h1> Create A New Case</h1>
                         <Form succes onSubmit={createNewCase}>
                             <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleNameState} />
-                            <Form.Input label="Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState}/>
+                            <Form.Input label="Opposing Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState}/>
                             <Form.Input label="Date Case Filed" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} />
                             <Form.Input label="Date Complaint Served" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} />
                             <Message

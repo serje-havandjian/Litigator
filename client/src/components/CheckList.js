@@ -15,9 +15,6 @@ function CheckList({lawsuits, myMoment, setMyMoment}){
 
     const displayAnswerChecklist = lawsuits.map((lawsuit)=>{
         return lawsuit.deadlines.map((deadline)=>{
-            const deadlineDate = moment(deadline.deadline)
-
-
             return deadline.milestones_for_answers.map((m)=>{
                 if(m !==[]){
                     return <>
@@ -35,9 +32,7 @@ function CheckList({lawsuits, myMoment, setMyMoment}){
     const displayDemurrerChecklist = lawsuits.map((lawsuit)=>{
         return lawsuit.deadlines.map((deadline)=>{
             const deadlineDate = moment(deadline.deadline)
-
             if (checkBox===true && myMoment < deadlineDate.subtract(15, "days")) {
-                
                 return deadline.milestones_for_demurrers.map((m)=>{
                     if(m !==[]){
                         return <>

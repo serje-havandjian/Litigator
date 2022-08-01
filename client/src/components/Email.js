@@ -48,8 +48,8 @@ function Email({lawsuit}){
                                     return `${m.m1}
                                             ${m.m2}
                                             ${m.m3}
-                                            ${m.m4}
-                                                `
+                                            ${m.m4}`
+                                        
                         })}`
                 })}`
     })
