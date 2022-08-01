@@ -16,9 +16,9 @@ import ListOfCases from "./ListOfCases.js"
 
 function CalendarComponent(){
 
-    // const components = useMemo(()=>{
-    //     views:Object.keys(Views).map((k)=> Views[k])
-    // })
+    const components = useMemo(()=>{
+        views:Object.keys(Views).map((k)=> Views[k])
+    })
     
 
     const localizer = momentLocalizer(moment)
@@ -302,7 +302,7 @@ const testEvents=[{
                 <Calendar
                 // defaultDate={)}
                 localizer={localizer}
-                events={eventsArray}
+                events={testEvents}
                 // events={eventsArray} 
                 startAccessor="start"
                 endAccessor="end"
