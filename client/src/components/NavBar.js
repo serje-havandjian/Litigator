@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { Button } from 'semantic-ui-react';
 
 function NavBar({user, setUser}){
     
@@ -21,15 +22,15 @@ function NavBar({user, setUser}){
             {user ? (
               <> 
                 <NavLink to="/">
-                  <button>Home</button>
+                  <Button color="blue">Home</Button>
                 </NavLink>
                 <NavLink to ="/cases">
-                  <button >Cases</button>
+                  <Button color="youtube" >Cases</Button>
                 </NavLink>
                   <NavLink to ="/calendar">
-                      <button>Calendar </button>
+                    <Button color="blue" >Calendar </Button>
                   </NavLink>
-                  <button onClick={handleLogoutClick}>Logout {user.username}!</button>
+                  <Button color="youtube" onClick={handleLogoutClick}>Logout!</Button>
               </>
             ) : (
               null

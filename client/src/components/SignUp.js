@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {Message, Form, Button, Segment, Grid} from "semantic-ui-react"
 
 function SignUp({setUser}){
 
@@ -27,11 +28,15 @@ function SignUp({setUser}){
 
 
       return (
-      <div>
-        <form onSubmit={handleSubmit}>
+      <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+        <Grid.Column style={{ maxWidth: 450 }}>
+        <Form onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
+        <Segment stacked>
         <label htmlFor="username">Enter Email Address</label>
-        <input
+        <Form.Input
+            fluid icon='user' 
+            iconPosition="left"
             type="text"
             id="username"
             autoComplete="off"
@@ -39,7 +44,10 @@ function SignUp({setUser}){
             onChange={(e) => setUsername(e.target.value)}
         />
         <label htmlFor="password">Password</label>
-        <input
+        <Form.Input
+            fluid
+            icon="lock"
+            iconPosition="left"
             type="password"
             id="password"
             value={password}
@@ -47,16 +55,24 @@ function SignUp({setUser}){
             autoComplete="current-password"
         />
         <label htmlFor="password">Password Confirmation</label>
-        <input
+        <Form.Input
+            fluid
+            icon="lock"
+            iconPosition="left"
             type="password"
             id="password_confirmation"
             value={passwordConfirmation}
             onChange={(e) => setPasswordConfirmation(e.target.value)}
             autoComplete="current-password"
         />
-        <button type="submit">Sign Up</button>
-        </form>
-    </div>
+        <Button type="submit">Sign Up</Button>
+        </Segment>
+        </Form>
+        <Message>
+          Already have an account? <a href="/login">Login here.</a>
+        </Message>
+      </Grid.Column>
+    </Grid >
   );
 
 }

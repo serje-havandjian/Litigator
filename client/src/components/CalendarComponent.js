@@ -52,10 +52,11 @@ function CalendarComponent(){
     let eventsArray = [] 
     console.log(eventsArray)
     lawsuits.map((lawsuit)=>{
+        const dateFiled = moment(lawsuit.date_case_filed)
         eventsArray.push({
-            title: `${lawsuit.name}`,
-            start: `${lawsuit.date_case_filed}`,
-            end: `${lawsuit.date_case_filed}`,
+            title: `${lawsuit.name} Case Filed`,
+            start: dateFiled.toDate(),
+            end: dateFiled.toDate(),
             up_down_ind: "X"
         })
 
@@ -63,17 +64,21 @@ function CalendarComponent(){
                 const deadlineDate = moment(deadline.deadline)
                 eventsArray.push({
                     title: `${lawsuit.name} - ${deadline.trigger.title}`,
-                    start: deadlineDate,
-                    end: deadlineDate.subtract(1, "month"),
+                    start: deadlineDate.subtract(30, "days").toDate(),
+                    end: deadlineDate.toDate(),
                     up_down_ind: "X"
                 })
             })
 
             lawsuit.deadlines.map((deadline)=>{
+                
+                const deadlineDate = moment(deadline.deadline)
+                console.log(deadline.deadline)
+                console.log(deadlineDate)
                 eventsArray.push({
                     title: `${deadline.title}-${lawsuit.name}`,
-                    start: `${deadline.deadline}`,
-                    end: `${deadline.deadline}`,
+                    start: deadlineDate.toDate(),
+                    end: deadlineDate.toDate(),
                     up_down_ind: "X"
                 })
 
@@ -88,14 +93,14 @@ function CalendarComponent(){
             // })
 
 
-            //start of rendering of Answer Milestones
+            // start of rendering of Answer Milestones
             deadline.milestones_for_answers.map((milestone)=>{
                 const deadlineDate = moment(deadline.deadline)
                 
                 eventsArray.push({
                     title: `${milestone.m1}-${lawsuit.name}`,
-                    start: deadlineDate,
-                    end: deadlineDate.subtract(25, "days"),
+                    start: deadlineDate.subtract(25, "days").toDate(),
+                    end: deadlineDate.toDate(),
                     up_down_ind: "Y"
                 })                
             })
@@ -104,8 +109,8 @@ function CalendarComponent(){
 
                 eventsArray.push({
                     title: `${milestone.m2}-${lawsuit.name}`,
-                    start: deadlineDate,
-                    end: deadlineDate.subtract(20, "days"),
+                    start: deadlineDate.subtract(20, "days").toDate(),
+                    end: deadlineDate.toDate(),
                     up_down_ind: "X"
                 })
 
@@ -115,8 +120,8 @@ function CalendarComponent(){
 
                 eventsArray.push({
                     title: `${milestone.m3}-${lawsuit.name}`,
-                    start: deadlineDate,
-                    end: deadlineDate.subtract(10, "days"),
+                    start: deadlineDate.subtract(10, "days").toDate(),
+                    end: deadlineDate.toDate(),
                     up_down_ind: "Y"
                 })
 
@@ -126,19 +131,19 @@ function CalendarComponent(){
 
                 eventsArray.push({
                     title: `${milestone.m4}-${lawsuit.name}`,
-                    start: deadlineDate,
-                    end: deadlineDate.subtract(1, "days"),
+                    start: deadlineDate.subtract(1, "days").toDate(),
+                    end: deadlineDate.toDate(),
                     up_down_ind: "Y"
                 })
 
             })
-            //end of rendering of Answer Milestones
+            // //end of rendering of Answer Milestones
 
 
 
             
-            // CONDITIONALLY RENDERING DEMURRER V. LATE DEMURRER MILSTONES
-            const deadlineDate = moment(deadline.deadline)
+            // // CONDITIONALLY RENDERING DEMURRER V. LATE DEMURRER MILSTONES
+            // const deadlineDate = moment(deadline.deadline)
 
             //START OF CONDITIONAL RENDER
 
@@ -148,8 +153,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m1}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(28, "days"),
+                        start: deadlineDate.subtract(28, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 })
@@ -159,8 +164,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m2}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(25, "days"),
+                        start: deadlineDate.subtract(25, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 });
@@ -170,8 +175,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m3}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(14, "days"),
+                        start: deadlineDate.subtract(14, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 });
@@ -181,8 +186,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m4}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(7, "days"),
+                        start: deadlineDate.subtract(7, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 });
@@ -192,8 +197,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m5}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(5, "days"),
+                        start: deadlineDate.subtract(5, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 });
@@ -203,8 +208,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m6}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(5,"days"),
+                        start: deadlineDate.subtract(5,"days").toDate(),
+                        end: deadlineDate.toDate(),
                     up_down_ind: "Y"
                     })                
                 });
@@ -214,8 +219,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m7}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(2, "days"),
+                        start: deadlineDate.subtract(2, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 });
@@ -225,8 +230,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m8}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(1, "days"),
+                        start: deadlineDate.subtract(1, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 })
@@ -239,8 +244,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m1}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(15, "days"),
+                        start: deadlineDate.subtract(15, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 })
@@ -250,8 +255,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m2}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(15, "days"),
+                        start: deadlineDate.subtract(15, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 })
@@ -261,8 +266,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m3}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(15, "days"),
+                        start: deadlineDate.subtract(15, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 })
@@ -272,8 +277,8 @@ function CalendarComponent(){
                     
                     eventsArray.push({
                         title: `${milestone.m4}-${lawsuit.name}`,
-                        start: deadlineDate,
-                        end: deadlineDate.subtract(15, "days"),
+                        start: deadlineDate.subtract(15, "days").toDate(),
+                        end: deadlineDate.toDate(),
                         up_down_ind: "Y"
                     })                
                 })
@@ -302,7 +307,7 @@ const testEvents=[{
                 <Calendar
                 // defaultDate={)}
                 localizer={localizer}
-                events={testEvents}
+                events={eventsArray}
                 // events={eventsArray} 
                 startAccessor="start"
                 endAccessor="end"

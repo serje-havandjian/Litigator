@@ -4,7 +4,7 @@ import moment from "moment"
 import Email from "./Email"
 
 
-function Case(){
+function Case({user}){
     const [lawsuit, setLawSuit ] = useState([])
     const [nameState, setNameState] = useState("")
     const [counselState, setCounselState] = useState("")
@@ -30,6 +30,7 @@ function Case(){
 
     const [openState, setOpenState] = useState(true)
     
+    console.log(user)
      
     useEffect(()=>{
         fetch("/cases")
@@ -178,6 +179,8 @@ function Case(){
                 .then(result => result.json())
             })
         })
+
+        e.target.reset()
     } 
 
     function handleRenderDiscoveryServed(e){

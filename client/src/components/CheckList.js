@@ -9,7 +9,6 @@ function CheckList({lawsuits, myMoment, setMyMoment}){
     const [checkBox, setCheckBox ] = useState(true)
 
     function handleClick(e){
-        console.log(myMoment)
         checkBox ? setCheckBox(false) : setCheckBox(true)
     }
 
