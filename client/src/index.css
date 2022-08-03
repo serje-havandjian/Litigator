@@ -76,6 +76,7 @@ body {
   height: 1000px;
   width: 60%;
   float: right;
+  margin-right: 5%;
 }
 
 .caseSearch{
@@ -87,7 +88,7 @@ body {
 .checklist{
   flex-wrap: wrap;
   flex-wrap: 1;
-  width: 100%;
+  width: 80%;
   
 }
 

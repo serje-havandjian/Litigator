@@ -30,6 +30,7 @@ function Case({user}){
 
     const [openState, setOpenState] = useState(true)
     
+    
     console.log(user)
      
     useEffect(()=>{
@@ -331,7 +332,11 @@ function Case({user}){
                                                     setEditCaseFiled(lawsuit.date_case_filed)
                                                     setEditCaseServed(lawsuit.date_complaint_served)
                                                     setEditCaseId(e.target.value)
+
+
+
                                                 }} id={lawsuit.id}>{lawsuit.name} 
+                                                
                                 </Button>
                                 <Reveal animated="move up">
                                     <Reveal.Content visible>
@@ -385,6 +390,8 @@ function Case({user}){
                                                     <option>Triggers</option>
                                                     <option>Complaint Served</option>
                                                     <option>Form Interrogatory Served</option>
+                                                    <option>Notice Of Deposition</option>
+                                                    <option>Trial Date</option>
                                             </select>
                                             <div>
                                                 {complaintServedOption ? 

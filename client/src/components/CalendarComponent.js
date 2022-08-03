@@ -6,6 +6,7 @@ import {Button, Image, List} from "semantic-ui-react"
 import events from "./Events"
 import CheckList from "./CheckList"
 import ListOfCases from "./ListOfCases.js"
+import { add } from "react-big-calendar/lib/utils/dates"
 
 //Ability to assign milestones to individual attorney
 // Attorney assigned this case gets an email (a pop up for now) that outlines what needs to happen, maybe even as a check list. 
@@ -45,11 +46,7 @@ function CalendarComponent(){
         setMyMoment(moment())
     }
 
-    function addOneDay(){
-        myMoment.add(1,"days")
-    }
-    
-
+   
     
 //Rendering Milestones
 
@@ -316,18 +313,15 @@ function CalendarComponent(){
                     // console.log(myMoment)
                     let backgroundColor = "white"
                     let color
-                    if(event.title.includes("File & Serve")===true && myMoment.subtract(20, "days") < event.start ){
+                    if(event.title.includes("Student")===true){
                         color = "green"
                         return {style:{color, backgroundColor}}
                     } else if(event.title.includes("Serje")===true){
                         color = "teal"
                         return{style:{color, backgroundColor}}
                     } else if(event.title.includes("Carbone")===true){
-                        color = "orange"
+                        color = "blue"
                         return{style:{color, backgroundColor}}                        
-                    } else{
-                        color = "red"
-                        return{style:{color, backgroundColor}}
                     }
                     // event.title.includes("Student") ? "red" : "teal";
                     // return {style: {backgroundColor}}
@@ -338,9 +332,6 @@ function CalendarComponent(){
             <div className="tasklistWrap">
                 <Button primary id="momentButton" onClick={handleMoment}>Moment Button</Button>
                 <Button secondary onClick={resetMoment}>Reset Moment Button</Button>
-                <Button onClick={()=>{
-                    setMyMoment(moment().add(1,"days"))
-                }} color="facebook">Add 1 Day</Button>
                 <span>{myMoment.format("dddd, MMM, Do YYYY")}</span>
                 <br></br>
                 <br></br>
