@@ -64,7 +64,7 @@ function CalendarComponent(){
                 const deadlineDate = moment(deadline.deadline)
                 eventsArray.push({
                     title: `${lawsuit.name} - ${deadline.trigger.title}`,
-                    start: deadlineDate.subtract(30, "days").toDate(),
+                    start: deadlineDate.subtract(1, "month").toDate(),
                     end: deadlineDate.toDate(),
                     up_down_ind: "X"
                 })

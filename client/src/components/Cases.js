@@ -65,8 +65,12 @@ function Case({user}){
             name: nameState,
             counsel: counselState,
             date_case_filed: dateCaseFiledState,
-            date_complaint_served: dateComplaintServedState
+            date_complaint_served: dateComplaintServedState,
+            user_id: user.id
         }
+
+        console.log(newCaseObject)
+        console.log(user.id)
         
         fetch(`/cases/`,{
             method: "POST",
@@ -334,7 +338,7 @@ function Case({user}){
                                             
                                         <div className="caseList">
                                             <div className="casebutton">
-                                                <Icon name="balance scale" color="teal"></Icon>
+                                                <Icon name="balance scale" color="black"></Icon>
                                             </div>
                                             <p>Opposing Counsel: {lawsuit.counsel}</p>
                                             <p>Date Case Filed: {dateFiled.format("dddd, MMM Do YYYY")}</p>

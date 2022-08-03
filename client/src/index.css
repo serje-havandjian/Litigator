@@ -45,12 +45,12 @@ body {
 }
 
 .caseList{
-  background-color: #cbd0cf;
+  background-color: #b1f1ff;
   width: 300px;
-  margin-bottom: 5%;
 }
 
 .renderLawsuit{
+  margin-top: .5%;
   flex-wrap: wrap;
   flex-wrap: 1;
   width: 400px;
