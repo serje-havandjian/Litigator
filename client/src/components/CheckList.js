@@ -10,6 +10,7 @@ function CheckList({lawsuits, myMoment, setMyMoment}){
 
     function handleClick(e){
         checkBox ? setCheckBox(false) : setCheckBox(true)
+        setMyMoment(moment().set("month", 12))
     }
 
     const displayAnswerChecklist = lawsuits.map((lawsuit)=>{

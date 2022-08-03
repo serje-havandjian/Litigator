@@ -306,7 +306,10 @@ function Case({user}){
     
     
     const renderLawSuit = lawsuit.map((lawsuit)=>{
+        console.log(lawsuit.name)
+        console.log(lawsuit.date_case_filed)
         const dateFiled = moment(lawsuit.date_case_filed)
+        console.log(dateFiled)
         return (
             <div className="renderLawsuit"> 
                 <Grid text container >
@@ -334,7 +337,7 @@ function Case({user}){
                                                 <Icon name="balance scale" color="teal"></Icon>
                                             </div>
                                             <p>Opposing Counsel: {lawsuit.counsel}</p>
-                                            <p>Date Case Filed: {dateFiled.format("dddd, MMM do YYYY")}</p>
+                                            <p>Date Case Filed: {dateFiled.format("dddd, MMM Do YYYY")}</p>
                                             <p>Date Complaint Served: {moment(lawsuit.date_complaint_served).format("dddd, MMM do YYYY")}</p>
                                         </div>
                                     </Reveal.Content>
@@ -364,116 +367,109 @@ function Case({user}){
     return(
         <>
             <h1>Cases</h1>
-            <Grid columns={3} >
+            <Grid >
                 {renderLawSuit}
             </Grid>
-            <div id="renderlawsuits">
-                <Card.Group> 
-                    <Grid textAlign="center" style={{height: "50vh"}} verticalAlign="middle" >
-                            <Grid.Column style={{maxWidth: 450}}>
-                    {displayEditForm ? 
-                        <>
-                        
-                                <Card fluid color="red" header="Select Trigger">
-                                    <h1>Select A Trigger To Display Deadlines And Milestones</h1> 
-                                    <select onChange={handleChosenTrigger} class="ui dropdown" >
-                                            <option>Triggers</option>
-                                            <option>Complaint Served</option>
-                                            <option>Form Interrogatory Served</option>
-                                    </select>
-                                    <div>
-                                        {complaintServedOption ? 
-                                                <Form onSubmit={handleRenderComplaintServed}>
-                                                    < Form.Input 
-                                                    onChange={handleYearDocumentServed}
-                                                    label="Year Complaint Served" 
-                                                    placeholder="Enter Year Of Service" />
-                                                    <Form.Input
-                                                    onChange={handleMonthDocumentServed}
-                                                    label="Month Complaint Served" 
-                                                    placeholder="Enter Month Of Service" />
-                                                    <Form.Input 
-                                                    onChange={handleDateDocumentServed}
-                                                    label="Date Complaint Served" 
-                                                    placeholder="Enter Date Of Service" />
-                                                    <Button color="blue" >Submit</Button>
-                                                </Form>
-                                        : null}
-                                    </div>
-                                    <div>
-                                        {discoveryServedOption ? 
-                                                // add onSubmit={handleRenderDiscoveryServed} to Form below
-                                                <Form onSubmit={handleRenderDiscoveryServed} >
-                                                    < Form.Input 
-                                                    onChange={handleYearDocumentServed}
-                                                    label="Year Discovery Served" 
-                                                    placeholder="Enter Year Of Service" />
-                                                    <Form.Input
-                                                    onChange={handleMonthDocumentServed}
-                                                    label="Month Discovery Served" 
-                                                    placeholder="Enter Month Of Service" />
-                                                    <Form.Input 
-                                                    onChange={handleDateDocumentServed}
-                                                    label="Date Discovery Served" 
-                                                    placeholder="Enter Date Of Service" />
-                                                    <Button color="blue">Submit</Button>
-                                                </Form>
-                                            : null}
-                                    </div>
-                                </Card>
-                    
-                        
-                                <Card fluid color="blue" header="Edit Your Case">
-                                    <h1> Edit Your Case </h1>
-                                    <Form onSubmit={handleEditCase}>
-                                        <Form.Field required>
-                                        <Form.Input 
-                                        onChange={handleEditCaseName}
-                                        value={editName}
-                                        label="Name" 
-                                        placeholder="Enter Case Name Here" 
-                                        />
-                                        </Form.Field>
-                                        <Form.Input 
-                                        onChange={handleEditCaseCounsel}
-                                        value={editCounsel}
-                                        label="Counsel" 
-                                        placeholder="Enter Opposing Counsel Here" 
-                                        />
-                                        <Form.Input 
-                                        onChange={handleEditCaseFiled}
-                                        value={editCaseFiled}
-                                        label="Date Case Filed" 
-                                        placeholder="Enter Date Case Filed Here" 
-                                        />
-                                        <Form.Input 
-                                        onChange={handleEditCaseServed}
-                                        value={editCaseServed}
-                                        label="Date Complaint Served" 
-                                        placeholder="Enter Date Complaint Served Here" 
-                                        />
-                                        <Button color="blue" >Edit Your Case </Button>
-                                    </Form>
-                                </Card>
-                           
-                        
-                                <Card fluid color="orange" header="Delete Your Case">
-                                <div>
-                                    <h1>Delete Your Case</h1>
-                                    <Button color="youtube" onClick={handleDelete}> Delete Your Case </Button>
-                                </div>
-                                </Card>
+            <div className="caseOptions">
+                    <Grid textAlign="center" verticalAlign="middle" >
+                        <Grid.Column style={{maxWidth: 550}}>
+                                {displayEditForm ? 
+                                    <>
+                                        <Card fluid color="red" header="Select Trigger">
+                                            <h1>Select A Trigger To Display Deadlines And Milestones</h1> 
+                                            <select onChange={handleChosenTrigger} class="ui dropdown" >
+                                                    <option>Triggers</option>
+                                                    <option>Complaint Served</option>
+                                                    <option>Form Interrogatory Served</option>
+                                            </select>
+                                            <div>
+                                                {complaintServedOption ? 
+                                                        <Form onSubmit={handleRenderComplaintServed}>
+                                                            < Form.Input 
+                                                            onChange={handleYearDocumentServed}
+                                                            label="Year Complaint Served" 
+                                                            placeholder="Enter Year Of Service" />
+                                                            <Form.Input
+                                                            onChange={handleMonthDocumentServed}
+                                                            label="Month Complaint Served" 
+                                                            placeholder="Enter Month Of Service" />
+                                                            <Form.Input 
+                                                            onChange={handleDateDocumentServed}
+                                                            label="Date Complaint Served" 
+                                                            placeholder="Enter Date Of Service" />
+                                                            <Button color="blue" >Submit</Button>
+                                                        </Form>
+                                                : null}
+                                            </div>
+                                            <div>
+                                                {discoveryServedOption ? 
+                                                        // add onSubmit={handleRenderDiscoveryServed} to Form below
+                                                        <Form onSubmit={handleRenderDiscoveryServed} >
+                                                            < Form.Input 
+                                                            onChange={handleYearDocumentServed}
+                                                            label="Year Discovery Served" 
+                                                            placeholder="Enter Year Of Service" />
+                                                            <Form.Input
+                                                            onChange={handleMonthDocumentServed}
+                                                            label="Month Discovery Served" 
+                                                            placeholder="Enter Month Of Service" />
+                                                            <Form.Input 
+                                                            onChange={handleDateDocumentServed}
+                                                            label="Date Discovery Served" 
+                                                            placeholder="Enter Date Of Service" />
+                                                            <Button color="blue">Submit</Button>
+                                                        </Form>
+                                                    : null}
+                                            </div>
+                                        </Card>
                             
-                        </>
-                    : null}
-                     </Grid.Column>
-                </Grid>
-                </Card.Group>
+                                
+                                        <Card fluid color="blue" header="Edit Your Case">
+                                            <h1> Edit Your Case </h1>
+                                            <Form onSubmit={handleEditCase}>
+                                                <Form.Field required>
+                                                <Form.Input 
+                                                onChange={handleEditCaseName}
+                                                value={editName}
+                                                label="Name" 
+                                                placeholder="Enter Case Name Here" 
+                                                />
+                                                </Form.Field>
+                                                <Form.Input 
+                                                onChange={handleEditCaseCounsel}
+                                                value={editCounsel}
+                                                label="Counsel" 
+                                                placeholder="Enter Opposing Counsel Here" 
+                                                />
+                                                <Form.Input 
+                                                onChange={handleEditCaseFiled}
+                                                value={editCaseFiled}
+                                                label="Date Case Filed" 
+                                                placeholder="Enter Date Case Filed Here" 
+                                                />
+                                                <Form.Input 
+                                                onChange={handleEditCaseServed}
+                                                value={editCaseServed}
+                                                label="Date Complaint Served" 
+                                                placeholder="Enter Date Complaint Served Here" 
+                                                />
+                                                <Button color="blue" >Edit Your Case </Button>
+                                            </Form>
+                                        </Card>
+                                        <Card fluid color="orange" header="Delete Your Case">
+                                        <div>
+                                            <h1>Delete Your Case</h1>
+                                            <Button color="youtube" onClick={handleDelete}> Delete Your Case </Button>
+                                        </div>
+                                        </Card>
+                                    </>
+                                : null}
+                        </Grid.Column>
+                    </Grid>
             </div>
-            <div id="createNewCase">
-                <br></br>
-                <Grid textAlign="center" style={{height: "50vh"}} verticalAlign="middle" >
-                            <Grid.Column style={{maxWidth: 450}}>
+            <div className="createNewCase">
+                <Grid textAlign="center" verticalAlign="middle" >
+                    <Grid.Column style={{maxWidth: 550}}>
                         <Card fluid color="orange">
                             <h1> Create A New Case</h1>
                                 <Form succes onSubmit={createNewCase}>

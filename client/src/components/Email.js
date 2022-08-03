@@ -18,7 +18,14 @@ function Email({lawsuit}){
     //    ADD OTHER TASKS AND MILESTONES TO THIS FOR EMAIL FUNCTIONALITY
 
     const emailText = lawsuit.map((lawsuit)=>{
-        return `Case Name: ${lawsuit.name}
+        return( 
+            
+            
+            `Case Name: ${lawsuit.name}
+
+
+
+                
                 Case Task: ${lawsuit.deadlines.map((deadline)=>{
                     return `${deadline.title}:
                     Case Milestones:
@@ -48,10 +55,13 @@ function Email({lawsuit}){
                                     return `${m.m1}
                                             ${m.m2}
                                             ${m.m3}
-                                            ${m.m4}`
+                                            ${m.m4}
+                                            
+                                            `
                                         
                         })}`
                 })}`
+            )
     })
 
 

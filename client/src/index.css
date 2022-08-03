@@ -17,15 +17,13 @@ body {
   font-weight: bold;
 }
 
-
-
 .List{
   width: 20%;
 }
 
 #renderlawsuits{
   margin: auto;
-  width: 50%;
+  margin-left: 35.5%;
   margin-bottom: 2%;
 }
 
@@ -47,7 +45,7 @@ body {
 }
 
 .caseList{
-  background-color: #c6ffcb;
+  background-color: #cbd0cf;
   width: 300px;
   margin-bottom: 5%;
 }
@@ -58,15 +56,18 @@ body {
   width: 400px;
 }
 
-#createNewCase{
-  margin: auto;
-  width: 30%;
+.caseOptions{
+  padding-top: 5%;
+  width: 100%;
+}
+.createNewCase{
+  padding-top: 5%;
+  width: 100%;
 }
 
 .emailButton{
-  width: 50%;
+  width: 15%;
   margin: auto;
-  padding-left: 10%;
 }
 
 .Calendar{
