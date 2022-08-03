@@ -312,6 +312,23 @@ const testEvents=[{
                 startAccessor="start"
                 endAccessor="end"
                 Views={Views}
+                eventPropGetter={(event)=>{
+                    console.log(event)
+                    let backgroundColor = "white"
+                    let color
+                    if(event.title.includes("Student")===true){
+                        color = "red"
+                        return {style:{color, backgroundColor}}
+                    } else if(event.title.includes("Serje")===true){
+                        color = "teal"
+                        return{style:{color, backgroundColor}}
+                    } else if(event.title.includes("Carbone")===true){
+                        color = "orange"
+                        return{style:{color, backgroundColor}}                        
+                    }
+                    // event.title.includes("Student") ? "red" : "teal";
+                    // return {style: {backgroundColor}}
+                }}
                 />
             </div>
 
