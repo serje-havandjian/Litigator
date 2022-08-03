@@ -44,7 +44,11 @@ function CalendarComponent(){
     function resetMoment(){
         setMyMoment(moment())
     }
- 
+
+    function addOneDay(){
+        myMoment.add(1,"days")
+    }
+    
 
     
 //Rendering Milestones
@@ -291,14 +295,8 @@ function CalendarComponent(){
     })//end of map on all Lawsuits state
 
 
-  
-const testEvents=[{
-    "title": "My Event",
-    "allDay": true,
-    "start": moment().toDate(),
-    "end": moment().add(4, "hours").toDate()
-}]
 
+    
 
     return(
         <>
@@ -313,11 +311,13 @@ const testEvents=[{
                 endAccessor="end"
                 Views={Views}
                 eventPropGetter={(event)=>{
-                    console.log(event)
+                    // console.log(event)
+                    // console.log(moment())
+                    // console.log(myMoment)
                     let backgroundColor = "white"
                     let color
-                    if(event.title.includes("Student")===true){
-                        color = "red"
+                    if(event.title.includes("File & Serve")===true && myMoment.subtract(20, "days") < event.start ){
+                        color = "green"
                         return {style:{color, backgroundColor}}
                     } else if(event.title.includes("Serje")===true){
                         color = "teal"
@@ -325,6 +325,9 @@ const testEvents=[{
                     } else if(event.title.includes("Carbone")===true){
                         color = "orange"
                         return{style:{color, backgroundColor}}                        
+                    } else{
+                        color = "red"
+                        return{style:{color, backgroundColor}}
                     }
                     // event.title.includes("Student") ? "red" : "teal";
                     // return {style: {backgroundColor}}
@@ -335,6 +338,10 @@ const testEvents=[{
             <div className="tasklistWrap">
                 <Button primary id="momentButton" onClick={handleMoment}>Moment Button</Button>
                 <Button secondary onClick={resetMoment}>Reset Moment Button</Button>
+                <Button onClick={()=>{
+                    setMyMoment(moment().add(1,"days"))
+                }} color="facebook">Add 1 Day</Button>
+                <span>{myMoment.format("dddd, MMM, Do YYYY")}</span>
                 <br></br>
                 <br></br>
                <ListOfCases lawsuits={lawsuits} setLawSuits={setLawSuits} />
