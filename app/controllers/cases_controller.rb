@@ -1,8 +1,11 @@
 class CasesController < ApplicationController
+    before_action :authorize
 
     def index
-        cases = Case.all
+        user = User.find(session[:user_id])
+        cases = user.cases
         render json: cases, include: "*.*", status: :ok
+
     end
 
     def show
@@ -30,7 +33,11 @@ class CasesController < ApplicationController
     private
 
     def case_params
-        params.permit(:name, :counsel, :date_case_filed, :date_complaint_served)
+        params.permit(:name, :counsel, :date_case_filed, :date_complaint_served, :user_id)
     end
+
+    def authorize
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+      end
 
 end
