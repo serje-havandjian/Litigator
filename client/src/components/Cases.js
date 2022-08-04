@@ -340,26 +340,26 @@ function Case({user}){
                                 </Button>
                                 <Reveal animated="move up">
                                     <Reveal.Content visible>
-                                            
-                                        <div className="caseList">
+                                    <div className="caseList">
                                             <div className="casebutton">
                                                 <Icon name="balance scale" color="black"></Icon>
                                             </div>
-                                            <p>Opposing Counsel: {lawsuit.counsel}</p>
-                                            <p>Date Case Filed: {dateFiled.format("dddd, MMM Do YYYY")}</p>
-                                            <p>Date Complaint Served: {moment(lawsuit.date_complaint_served).format("dddd, MMM do YYYY")}</p>
-                                        </div>
+                                            Upcoming Deadlines: {lawsuit.deadlines.map((deadline)=>{
+                                                const deadlineDate = moment(deadline.deadline)
+                                                    return (
+                                                        <div>
+                                                        {deadline.title} by {deadlineDate.format("dddd, MMMM Do YYYY")}
+                                                        </div>
+                                                    )
+                                        })}
+                                    </div>
                                     </Reveal.Content>
                                     <Reveal.Content hidden>
-                                        
-                                    <p> Upcoming Deadlines: {lawsuit.deadlines.map((deadline)=>{
-                                        const deadlineDate = moment(deadline.deadline)
-                                        return (
-                                            <div>
-                                            {deadline.title} by {deadlineDate.format("dddd, MMMM Do YYYY")}
-                                            </div>
-                                            )
-                                    })}</p>
+                                    <div className="behindCaseList" >
+                                        <p>Opposing Counsel: {lawsuit.counsel}</p>
+                                        <p>Date Case Filed: {dateFiled.format("dddd, MMM Do YYYY")}</p>
+                                        <p>Date Complaint Served: {moment(lawsuit.date_complaint_served).format("dddd, MMM do YYYY")}</p>
+                                    </div>
                                     </Reveal.Content>
                                 </Reveal>
                             </Card>

@@ -47,15 +47,6 @@ function Email({lawsuit}){
     })
 
 
-   console.log(emailText)
-
-   const testObject = {
-       caseName: emailText.caseName,
-       caseTask: emailText.caseTask
-   }
-
-   console.log(testObject)
-    
 
     return(
 

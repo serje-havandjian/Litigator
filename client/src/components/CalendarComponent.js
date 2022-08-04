@@ -51,7 +51,7 @@ function CalendarComponent(){
 //Rendering Milestones
 
     let eventsArray = [] 
-    console.log(eventsArray)
+   
     lawsuits.map((lawsuit)=>{
         const dateFiled = moment(lawsuit.date_case_filed)
         eventsArray.push({
@@ -74,8 +74,7 @@ function CalendarComponent(){
             lawsuit.deadlines.map((deadline)=>{
                 
                 const deadlineDate = moment(deadline.deadline)
-                console.log(deadline.deadline)
-                console.log(deadlineDate)
+             
                 eventsArray.push({
                     title: `${deadline.title}-${lawsuit.name}`,
                     start: deadlineDate.toDate(),
@@ -308,9 +307,7 @@ function CalendarComponent(){
                 endAccessor="end"
                 Views={Views}
                 eventPropGetter={(event)=>{
-                    // console.log(event)
-                    // console.log(moment())
-                    // console.log(myMoment)
+                    
                     let backgroundColor = "white"
                     let color
                     if(event.title.includes("Student")===true){

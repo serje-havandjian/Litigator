@@ -47,6 +47,7 @@ body {
 .caseList{
   background-color: #b1f1ff;
   width: 300px;
+  height: 140px;
 }
 
 .renderLawsuit{
@@ -54,6 +55,7 @@ body {
   flex-wrap: wrap;
   flex-wrap: 1;
   width: 400px;
+  height: 5%;
 }
 
 .caseOptions{
@@ -105,3 +107,6 @@ body {
   background-color: rgba(255, 255, 255, 0.721)
 }
 
+.behindCaseList{
+  margin-top: 5%;
+}
