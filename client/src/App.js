@@ -13,7 +13,7 @@ function App() {
   const [caseNames, setCaseName ] = useState([])
 
     useEffect(() => {
-      fetch("/me").then((r) => {
+      fetch("https://litigator.herokuapp.com/me").then((r) => {
         if (r.ok) {
           r.json().then((user) => setUser(user));
         }
@@ -22,7 +22,7 @@ function App() {
 
 
     useEffect(()=>{
-      fetch("/cases")
+      fetch("https://litigator.herokuapp.com/cases")
       .then(result => result.json())
       .then(result => setCaseName(result))
   },[])

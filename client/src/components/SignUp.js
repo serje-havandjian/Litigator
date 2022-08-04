@@ -9,7 +9,7 @@ function SignUp({setUser}){
 
     function handleSubmit(e) {
         e.preventDefault();
-        fetch("/signup", {
+        fetch("https://litigator.herokuapp.com/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -32,7 +32,7 @@ function CalendarComponent(){
 
 
     useEffect(()=>{
-        fetch("/cases")
+        fetch("https://litigator.herokuapp.com/cases")
         .then(result => result.json())
         .then(result => setLawSuits(result))
         

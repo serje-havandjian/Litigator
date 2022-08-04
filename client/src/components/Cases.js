@@ -34,7 +34,7 @@ function Case({user}){
     console.log(user)
      
     useEffect(()=>{
-        fetch("/cases")
+        fetch("https://litigator.herokuapp.com/cases")
         .then(result => result.json())
         .then(result => setLawSuit(result))
     },[])
@@ -73,7 +73,7 @@ function Case({user}){
         console.log(newCaseObject)
         console.log(user.id)
         
-        fetch(`/cases/`,{
+        fetch(`https://litigator.herokuapp.com/cases/`,{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
@@ -81,7 +81,7 @@ function Case({user}){
             body: JSON.stringify(newCaseObject)
         })
         .then(result => result.json())
-        .then(() => fetch(`/cases/`))
+        .then(() => fetch(`https://litigator.herokuapp.com/cases/`))
         .then(result => result.json()
         .then(result => setLawSuit(result)))
 
@@ -120,7 +120,7 @@ function Case({user}){
             method_of_service: "Personal Service / Hand"
         }
         
-        fetch(`/triggers/`,{
+        fetch(`https://litigator.herokuapp.com/triggers/`,{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
@@ -136,7 +136,7 @@ function Case({user}){
                 trigger_id: result.id
             }
 
-            fetch(`/deadlines/`,{
+            fetch(`https://litigator.herokuapp.com/deadlines/`,{
                 method: "POST",
                 headers: {
                     "Content-Type" : "application/json",
@@ -157,7 +157,7 @@ function Case({user}){
                     deadline_id: result.id
                 }
 
-                fetch(`/milestones_for_demurrers`,{
+                fetch(`https://litigator.herokuapp.com/milestones_for_demurrers`,{
                     method: "POST",
                     headers: {
                         "Content-Type" : "application/json",
@@ -174,7 +174,7 @@ function Case({user}){
                     deadline_id: result.id
                 }
 
-                fetch(`/milestones_if_demurrer_delays`,{
+                fetch(`https://litigator.herokuapp.com/milestones_if_demurrer_delays`,{
                     method: "POST",
                     headers: {
                         "Content-Type" : "application/json",
@@ -208,7 +208,7 @@ function Case({user}){
             method_of_service: "Personal Service / Hand"
         }
 
-        fetch(`/triggers/`,{
+        fetch(`https://litigator.herokuapp.com/triggers/`,{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
@@ -225,7 +225,7 @@ function Case({user}){
             trigger_id: newTrigger.id
         }
 
-        fetch(`/deadlines/`,{
+        fetch(`https://litigator.herokuapp.com/deadlines/`,{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
@@ -275,7 +275,7 @@ function Case({user}){
             date_complaint_served: editCaseServed
         }
 
-        fetch(`/cases/${editCaseId}`,{
+        fetch(`https://litigator.herokuapp.com/cases/${editCaseId}`,{
             method: "PATCH",
             headers: {
                 "Content-Type" : "application/json",
@@ -283,21 +283,21 @@ function Case({user}){
             body: JSON.stringify(editCaseObject)
         })
         .then(result => result.json())
-        .then(() => fetch(`/cases/`))
+        .then(() => fetch(`https://litigator.herokuapp.com/cases/`))
         .then(result => result.json()
         .then(result => setLawSuit(result)))
 
 
-        fetch(`/cases/${editCaseId}`)
+        fetch(`https://litigator.herokuapp.com/cases/${editCaseId}`)
         .then(result => result.json())
         .then(result => console.log(result))
     }
  
     function handleDelete(){
-        fetch(`/cases/${editCaseId}`,{
+        fetch(`https://litigator.herokuapp.com/cases/${editCaseId}`,{
             method: "DELETE"
         })
-        .then(() => fetch(`/cases/`))
+        .then(() => fetch(`https://litigator.herokuapp.com/cases/`))
         .then(result => result.json())
         .then(result => setLawSuit(result))
     }
@@ -323,7 +323,7 @@ function Case({user}){
                             <Card >
                                 <Button color="blue" value={lawsuit.id} onClick={(e)=>{
                                                     displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true);
-                                                    fetch(`/cases/${e.target.id}`)
+                                                    fetch(`https://litigator.herokuapp.com/cases/${e.target.id}`)
                                                     .then(result => result.json())
                                                     .then(result => setIndividualCase(result))
 
