@@ -7,6 +7,7 @@ import events from "./Events"
 import CheckList from "./CheckList"
 import ListOfCases from "./ListOfCases.js"
 import { add } from "react-big-calendar/lib/utils/dates"
+import Sidebar from "./Sidebar"
 
 //Ability to assign milestones to individual attorney
 // Attorney assigned this case gets an email (a pop up for now) that outlines what needs to happen, maybe even as a check list. 
@@ -26,13 +27,13 @@ function CalendarComponent(){
     const [lawsuits, setLawSuits ] = useState([])
     const [myMoment, setMyMoment] = useState(moment())
 
-// What's this do?
+
 
 
 
 
     useEffect(()=>{
-        fetch("https://litigator.herokuapp.com/cases")
+        fetch("/cases")
         .then(result => result.json())
         .then(result => setLawSuits(result))
         
@@ -296,47 +297,51 @@ function CalendarComponent(){
 
     return(
         <>
-            <h1 >Calendar</h1>
-            <div className="Calendar">
-                <Calendar
-                // defaultDate={)}
-                localizer={localizer}
-                events={eventsArray}
-                // events={eventsArray} 
-                startAccessor="start"
-                endAccessor="end"
-                Views={Views}
-                eventPropGetter={(event)=>{
-                    
-                    let backgroundColor = "white"
-                    let color
-                    if(event.title.includes("Student")===true){
-                        color = "green"
-                        return {style:{color, backgroundColor}}
-                    } else if(event.title.includes("Serje")===true){
-                        color = "teal"
-                        return{style:{color, backgroundColor}}
-                    } else if(event.title.includes("Carbone")===true){
-                        color = "blue"
-                        return{style:{color, backgroundColor}}                        
-                    }
-                    // event.title.includes("Student") ? "red" : "teal";
-                    // return {style: {backgroundColor}}
-                }}
-                />
-            </div>
-
-            <div className="tasklistWrap">
-                <Button primary id="momentButton" onClick={handleMoment}>Moment Button</Button>
-                <Button secondary onClick={resetMoment}>Reset Moment Button</Button>
-                <span>{myMoment.format("dddd, MMM, Do YYYY")}</span>
-                <br></br>
-                <br></br>
-               <ListOfCases lawsuits={lawsuits} setLawSuits={setLawSuits} />
-                <CheckList myMoment={myMoment} setMyMoment={setMyMoment} lawsuits={lawsuits} />
-            </div>
+            <div className="App" id="outer-container">
+                <Sidebar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
+                <div id="page-wrap">
             
-     
+                    <h1 >Calendar</h1>
+                    <div className="Calendar">
+                        <Calendar
+                        // defaultDate={)}
+                        localizer={localizer}
+                        events={eventsArray}
+                        // events={eventsArray} 
+                        startAccessor="start"
+                        endAccessor="end"
+                        Views={Views}
+                        eventPropGetter={(event)=>{
+                            
+                            let backgroundColor = "white"
+                            let color
+                            if(event.title.includes("Student")===true){
+                                color = "green"
+                                return {style:{color, backgroundColor}}
+                            } else if(event.title.includes("Serje")===true){
+                                color = "teal"
+                                return{style:{color, backgroundColor}}
+                            } else if(event.title.includes("Carbone")===true){
+                                color = "blue"
+                                return{style:{color, backgroundColor}}                        
+                            }
+                            // event.title.includes("Student") ? "red" : "teal";
+                            // return {style: {backgroundColor}}
+                        }}
+                        />
+                    </div>
+
+                    <div className="tasklistWrap">
+                        <Button primary id="momentButton" onClick={handleMoment}>Moment Button</Button>
+                        <Button secondary onClick={resetMoment}>Reset Moment Button</Button>
+                        <span>{myMoment.format("dddd, MMM, Do YYYY")}</span>
+                        <br></br>
+                        <br></br>
+                    <ListOfCases lawsuits={lawsuits} setLawSuits={setLawSuits} />
+                        <CheckList myMoment={myMoment} setMyMoment={setMyMoment} lawsuits={lawsuits} />
+                    </div>
+                </div>
+            </div>
         </>
     )
     }

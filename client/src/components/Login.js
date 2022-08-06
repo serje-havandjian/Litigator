@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 
 function Login({setUser}){
     const [ username, setUsername ] = useState("");
     const [ password, setPassword ] = useState("");
 
+
+    const history = useHistory()
+
     function handleSubmit(e) {
         e.preventDefault();
-        fetch("https://litigator.herokuapp.com/login", {
+        fetch("/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -16,11 +20,12 @@ function Login({setUser}){
         }).then((r) => {
           if (r.ok) {
             r.json().then((user) => setUser(user));
+            history.push("/cases")
           }
         });
     }
 
-    console.log(username)
+   
 
     return (   
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' >

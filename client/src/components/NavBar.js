@@ -8,7 +8,7 @@ function NavBar({user, setUser}){
     const history = useHistory()
 
     function handleLogoutClick() {
-      fetch("https://litigator.herokuapp.com/logout", { method: "DELETE" }).then((r) => {
+      fetch("/logout", { method: "DELETE" }).then((r) => {
         if (r.ok) {
           setUser(null);
           history.push("/login")

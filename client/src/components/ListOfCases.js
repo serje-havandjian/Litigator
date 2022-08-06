@@ -11,7 +11,7 @@ function ListOfCases({lawsuits, setLawSuits}){
 
 
     function resetCaseList(){
-        fetch("https://litigator.herokuapp.com/cases")
+        fetch("/cases")
         .then(result => result.json())
         .then(result => setLawSuits(result))
     }
