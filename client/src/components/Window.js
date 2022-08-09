@@ -137,7 +137,58 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
         e.target.reset()
     } 
 
+    // Function to render DISCOVERY SERVED DEADLINES (NOT YET WORKING!)
+    // function handleRenderDiscoveryServed(e){
+    //     e.preventDefault()
+    //     console.log(e)
+       
+    //     let dateServedObject = {
+    //         year: yearServedState,
+    //         month: monthServedState,
+    //         date: dateServedState
+    //     }
+
+    //     let dateServedMoment = moment({
+    //         year: `${dateServedObject.year}`, month: `${dateServedObject.month}`, date: `${dateServedObject.date}`
+    //     })
+
+    //     const newTriggerObject ={
+    //         title: "Discovery Served",
+    //         date_served: dateServedMoment,
+    //         method_of_service: "Personal Service / Hand"
+    //     }
+
+    //     fetch(`/triggers/`,{
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type" : "application/json",
+    //         },
+    //         body: JSON.stringify(newTriggerObject)
+    //     })
+    //     .then(result => result.json())
+    //     .then(result => setNewTrigger(result))
+
+    //     const newDeadlineObject = {
+    //         title: "Respond To Discovery",
+    //         deadline: dateServedMoment,
+    //         case_id: individualCase.id,
+    //         trigger_id: newTrigger.id
+    //     }
+
+    //     fetch(`/deadlines/`,{
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type" : "application/json",
+    //         },
+    //         body: JSON.stringify(newDeadlineObject)
+    //     })
+    //     .then(result => result.json())
+    //     .then(result => setNewDeadline(result))
+
+    // }
+
     function handleChosenTrigger(e){
+        
         displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true);
      
         if(e.target.value === "Complaint Served"){

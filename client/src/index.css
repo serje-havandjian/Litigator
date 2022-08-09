@@ -8,7 +8,7 @@ body {
 
   background-image: url(https://clipart.world/wp-content/uploads/2021/04/Gavel-clipart-transparent.png);
   background-repeat: no-repeat;
-  background-color: rgba(68, 63, 63, 0.735)
+  background-color: rgba(100, 100, 100, 0.735)
 }
 
 
@@ -51,6 +51,7 @@ body {
 }
 
 .renderLawsuit{
+  margin-left: 5%;
   margin-top: 5%;
   flex-wrap: wrap;
   flex-wrap: 1;
