@@ -297,49 +297,50 @@ function CalendarComponent(){
 
     return(
         <>
-            <div className="App" id="outer-container">
+            <div id="outer-container">
                 <Sidebar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
                 <div id="page-wrap">
-            
-                    <h1 >Calendar</h1>
-                    <div className="Calendar">
-                        <Calendar
-                        // defaultDate={)}
-                        localizer={localizer}
-                        events={eventsArray}
-                        // events={eventsArray} 
-                        startAccessor="start"
-                        endAccessor="end"
-                        Views={Views}
-                        eventPropGetter={(event)=>{
-                            
-                            let backgroundColor = "white"
-                            let color
-                            if(event.title.includes("Student")===true){
-                                color = "green"
-                                return {style:{color, backgroundColor}}
-                            } else if(event.title.includes("Serje")===true){
-                                color = "teal"
-                                return{style:{color, backgroundColor}}
-                            } else if(event.title.includes("Carbone")===true){
-                                color = "blue"
-                                return{style:{color, backgroundColor}}                        
-                            }
-                            // event.title.includes("Student") ? "red" : "teal";
-                            // return {style: {backgroundColor}}
-                        }}
-                        />
-                    </div>
-
-                    <div className="tasklistWrap">
-                        <Button primary id="momentButton" onClick={handleMoment}>Moment Button</Button>
-                        <Button secondary onClick={resetMoment}>Reset Moment Button</Button>
-                        <span>{myMoment.format("dddd, MMM, Do YYYY")}</span>
-                        <br></br>
-                        <br></br>
-                    <ListOfCases lawsuits={lawsuits} setLawSuits={setLawSuits} />
-                        <CheckList myMoment={myMoment} setMyMoment={setMyMoment} lawsuits={lawsuits} />
-                    </div>
+                   
+                        <div className="Calendar calendarWrap">
+                            <Calendar
+                            // defaultDate={)}
+                            localizer={localizer}
+                            events={eventsArray}
+                            // events={eventsArray} 
+                            startAccessor="start"
+                            endAccessor="end"
+                            Views={Views}
+                            eventPropGetter={(event)=>{
+                                
+                                let backgroundColor = "white"
+                                let color
+                                if(event.title.includes("Student")===true){
+                                    color = "green"
+                                    return {style:{color, backgroundColor}}
+                                } else if(event.title.includes("Serje")===true){
+                                    color = "teal"
+                                    return{style:{color, backgroundColor}}
+                                } else if(event.title.includes("Carbone")===true){
+                                    color = "blue"
+                                    return{style:{color, backgroundColor}}                        
+                                }
+                                // event.title.includes("Student") ? "red" : "teal";
+                                // return {style: {backgroundColor}}
+                            }}
+                            />
+                        
+                      
+          
+                      
+                            <Button primary id="momentButton" onClick={handleMoment}>Moment Button</Button>
+                            <Button secondary onClick={resetMoment}>Reset Moment Button</Button>
+                            <span>{myMoment.format("dddd, MMM, Do YYYY")}</span>
+                            <br></br>
+                            <br></br>
+                            <ListOfCases lawsuits={lawsuits} setLawSuits={setLawSuits} />
+                            <CheckList myMoment={myMoment} setMyMoment={setMyMoment} lawsuits={lawsuits} />
+                        </div>
+                   
                 </div>
             </div>
         </>
