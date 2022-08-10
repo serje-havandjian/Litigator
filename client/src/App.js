@@ -7,11 +7,15 @@ import SignUp from "./components/SignUp";
 import Calendar from "./components/CalendarComponent";
 import Cases from "./components/Cases";
 import Sidebar from "./components/Sidebar";
+import CaseWindow from "./components/CaseWindow";
 
 
 function App() {
   const [ user, setUser ] = useState(null);
-  const [caseNames, setCaseName ] = useState([])
+  const [lawsuits, setLawsuits ] = useState([])
+  const [singleCase, setSingleCase ] = useState([])
+
+  const [desperateCaseId, setDesperateCaseId] = useState()
 
     useEffect(() => {
       fetch("/me").then((r) => {
@@ -25,8 +29,37 @@ function App() {
     useEffect(()=>{
       fetch("/cases")
       .then(result => result.json())
-      .then(result => setCaseName(result))
+      .then(result => setLawsuits(result))
   },[])
+
+  let singleCaseId
+
+  function getCaseId(value, e){
+    
+    setDesperateCaseId(value)
+
+
+      // fetch(`/cases/${desperateCaseId}`)
+      // .then(result => result.json())
+      // .then(result => setSingleCase(result))
+
+      // console.log(singleCase)
+  }
+
+  singleCaseId = desperateCaseId
+  console.log(singleCaseId)
+
+
+
+  useEffect(()=>{
+    fetch(`/cases/${desperateCaseId}`)
+    .then(result => result.json())
+    .then(result => setSingleCase(result))
+},[])
+
+  console.log((`/cases/${desperateCaseId}`))
+  console.log(desperateCaseId, "desperate Id")
+  console.log(singleCase)
 
 
  
@@ -50,7 +83,10 @@ function App() {
                                       <Calendar user={user}/>
                                   </Route>
                                   <Route exact path ="/cases">
-                                    <Cases user={user} />
+                                    <Cases desperateCaseId={desperateCaseId} getCaseId={getCaseId} user={user} />
+                                  </Route>
+                                  <Route exact path="/CaseWindow">
+                                    <CaseWindow singleCaseId={singleCaseId} singleCase={singleCase} lawsuits={lawsuits} desperateCaseId={desperateCaseId} user={user}/>
                                   </Route>
                               </Switch>
                           ) : (

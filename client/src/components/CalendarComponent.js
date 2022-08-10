@@ -298,7 +298,7 @@ function CalendarComponent(){
     return(
         <>
             <div id="outer-container">
-                <Sidebar pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
+                <Sidebar right pageWrapId={"page-wrap"} outerContainerId={"outer-container"} />
                 <div id="page-wrap">
                    
                         <div className="Calendar calendarWrap">

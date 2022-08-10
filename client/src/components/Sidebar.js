@@ -34,7 +34,6 @@ function Sidebar({user, setUser}){
             <a className="menu-item" href="/Login" >
                 Login
             </a>
-            
         </Menu>
     )
 }

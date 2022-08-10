@@ -1,11 +1,19 @@
 import React from "react";
-import { Popup } from "semantic-ui-react"
+import { Popup, Form } from "semantic-ui-react"
 
-function Pop(){
+function Pop({handleDateCaseFiledState, desperateCaseId}){
+
+    console.log(desperateCaseId)
 
     return(
-        <Popup trigger={<button> Trigger</button>} position="right center">
-        <div>Popup content here !!</div>
+        <Popup trigger={
+            <Form>
+                <Form.Input label="Date Case Filed (YYY-MM-DD)" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState}>
+                </Form.Input >
+            </Form>
+        } position="right center">
+        <div>MAKE SURE DATE FORMAT IS: YYYY/MM/DD - 2022-10-01</div>
+       
       </Popup>
     )
 }
