@@ -121,7 +121,7 @@ function Case({user, getCaseId, desperateCaseId}){
                         <Grid.Column>
                             <Card >
                                 {/* used to be WindowApp */}
-                                <WindowApp lawsuit={lawsuit} onClick={(e)=>{
+                                <WindowApp displayEditForm={displayEditForm} setDisplayEditForm={setDisplayEditForm} setIndividualCase={setIndividualCase} lawsuit={lawsuit} individualCase={individualCase} setLawSuit={setLawSuit}  onClick={(e)=>{
                                     // e.preventDefault()
                                     // getCaseId(e.target.value, e)
                                     window.open("/CaseWindow", "caseId={e.target.value}","toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30")

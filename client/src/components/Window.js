@@ -24,7 +24,7 @@ const RenderInWindow = (props) => {
       function copyStyles(src, dest) {
         Array.from(src.styleSheets).forEach((styleSheet) => {
             const styleElement = styleSheet.ownerNode.cloneNode(true);
-            styleElement.href = styleSheet.href;
+            // styleElement.href = styleSheet.href;
             dest.head.appendChild(styleElement);
         });
         Array.from(src.fonts).forEach((font) => dest.fonts.add(font));
@@ -251,13 +251,13 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
         console.log(e.target.value)
         console.log(editCaseId)
 
-      }} id={lawsuit.id}> {lawsuitName}
+      }} id={lawsuit.id}> {lawsuit.name}
       </Button>
       <div >
             {open && 
             <RenderInWindow>
                     <Card fluid color="red" header="Select Trigger">
-                            <h1>{lawsuitName}</h1>
+                            <h1>{lawsuit.name}</h1>
                             <h1>Select A Trigger To Display Deadlines And Milestones</h1> 
                             <select onChange={handleChosenTrigger} class="ui dropdown" >
                                     <option>Triggers</option>
