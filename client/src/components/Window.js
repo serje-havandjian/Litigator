@@ -47,8 +47,6 @@ const RenderInWindow = (props) => {
 
 
 //This handles what is in pop up window
-
-
 function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, lawsuit, lawsuitName, individualCase, setLawSuit, value}) {
     
     const [complaintServedOption, setComplaintServedOption] = useState(false)
@@ -256,17 +254,22 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
       <div >
             {open && 
             <RenderInWindow>
+                <div id="popUp">
                     <Card fluid color="red" header="Select Trigger">
-                            <h1>{lawsuit.name}</h1>
-                            <h1>Select A Trigger To Display Deadlines And Milestones</h1> 
-                            <select onChange={handleChosenTrigger} class="ui dropdown" >
-                                    <option>Triggers</option>
-                                    <option>Complaint Served</option>
-                                    <option>Form Interrogatory Served</option>
-                                    <option>Notice Of Deposition</option>
-                                    <option>Trial Date</option>
-                            </select>
-                            <div>
+                            <div  >
+                                <h1>{lawsuit.name}</h1>
+                                <h1>Select A Trigger To Display Deadlines And Milestones</h1> 
+                                <div class="triggerOptions">
+                                    <select onChange={handleChosenTrigger} class="ui dropdown" >
+                                            <option>Triggers</option>
+                                            <option>Complaint Served</option>
+                                            <option>Form Interrogatory Served</option>
+                                            <option>Notice Of Deposition</option>
+                                            <option>Trial Date</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div >
                                 {complaintServedOption ? 
                                         <Form onSubmit={handleRenderComplaintServed}>
                                             < Form.Input 
@@ -285,7 +288,7 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
                                         </Form>
                                 : null}
                             </div>
-                            <div>
+                            <div >
                                 {discoveryServedOption ? 
                                         // add onSubmit={handleRenderDiscoveryServed} to Form below
                                         <Form onSubmit >
@@ -306,7 +309,7 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
                                     : null}
                             </div>
                     </Card>
-                    <div>
+                    <div >
                         <Card fluid color="blue" header="Edit Your Case">
                                     <h1> Edit Your Case </h1>
                                     <Form onSubmit={handleEditCase}>
@@ -346,6 +349,7 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
                                 </div>
                         </Card>
                     </div>
+                </div>
                 </RenderInWindow>}
         </div>
     </>

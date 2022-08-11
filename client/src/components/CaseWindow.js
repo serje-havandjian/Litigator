@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react"
 
+// THIS COMPONENT IS NOT USED ANYMORE.  WAS USED FOR TESTING POP UP WINDOW.  USE "WINDOW" INSTEAD FOR POP UP WINDOW
 
 
 function CaseWindow({caseId, caseName, user, desperateCaseId, lawsuits, singleCase, singleCaseId}){

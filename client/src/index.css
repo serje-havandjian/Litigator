@@ -200,3 +200,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background-color: ;
 } */
 
+#popUp{
+  margin-top: 10%;
+  margin-right: 17%;
+  margin-left: 15%;
+}
+
