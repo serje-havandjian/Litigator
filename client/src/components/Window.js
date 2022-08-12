@@ -18,7 +18,7 @@ const RenderInWindow = (props) => {
       newWindow.current = window.open(
         "",
         "",
-        "width=600,height=400,left=200,top=200"
+        "width=600,height=800,left=200,top=200"
       );
 
       function copyStyles(src, dest) {

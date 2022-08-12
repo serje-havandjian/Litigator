@@ -11,7 +11,6 @@ function CheckList({lawsuits, myMoment, setMyMoment}){
     function handleClick(e){
         checkBox ? setCheckBox(false) : setCheckBox(true)
         setMyMoment(moment().set("year", 2024))
-        
     }
 
     console.log(myMoment, "MY MOMENT")
@@ -38,7 +37,7 @@ function CheckList({lawsuits, myMoment, setMyMoment}){
             console.log(myMoment, "MY MOMENT")
             console.log(deadlineDate, "DEADLINE")
             // COMPARE line 17/38 myMoment to line 39 deadlineDate to resolve logic on line 40.  This controls conditional rendering
-            if (deadlineDate.subtract(15, "days") < myMoment ) {
+            if ( myMoment < deadlineDate.subtract(15, "days") ) {
                 return deadline.milestones_for_demurrers.map((m)=>{
                     const deadlineDate = moment(deadline.deadline)
                     if(m !==[]){

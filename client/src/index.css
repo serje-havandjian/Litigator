@@ -113,6 +113,14 @@ body {
   margin-top: 5%;
 }
 
+#popUp{
+  margin-top: 10%;
+  margin-right: 17%;
+  margin-left: 15%;
+}
+
+
+
 /* SIDEBAR STYLING */
 
 /* Position and sizing of burger button */
@@ -196,13 +204,33 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 
-/* #caseWindow{
-  background-color: ;
-} */
+/* Chatroom Styling */
 
-#popUp{
-  margin-top: 10%;
-  margin-right: 17%;
-  margin-left: 15%;
+#message-container {
+  width: 80%;
+  max-width: 1200px;
+}
+
+#message-container div {
+  background-color: #CCC;
+  padding: 5px;
+}
+
+#message-container div:nth-child(2n) {
+  background-color: #FFF;
+}
+
+#send-container {
+  position: fixed;
+  padding-bottom: 30px;
+  bottom: 0;
+  background-color: white;
+  max-width: 1200px;
+  width: 80%;
+  display: flex;
+}
+
+#message-input {
+  flex-grow: 1;
 }
 

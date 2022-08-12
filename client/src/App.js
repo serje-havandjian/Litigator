@@ -8,6 +8,7 @@ import Calendar from "./components/CalendarComponent";
 import Cases from "./components/Cases";
 import Sidebar from "./components/Sidebar";
 import CaseWindow from "./components/CaseWindow";
+import Chatroom from "./components/Chatroom";
 
 
 function App() {
@@ -55,6 +56,9 @@ function App() {
                                   </Route>
                                   <Route exact path ="/cases">
                                     <Cases user={user} />
+                                  </Route>
+                                  <Route exact path ="/chatroom">
+                                    <Chatroom />
                                   </Route>
                               </Switch>
                           ) : (
