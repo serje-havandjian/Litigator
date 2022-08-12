@@ -9,8 +9,9 @@ class CasesController < ApplicationController
     end
 
     def show
-        oneCase = Case.find(params[:id])
-        render json: oneCase, include: "*.*", status: :ok
+        oneCase = User.find(session[:user_id])
+        cases = oneCase.cases
+        render json: cases, include: "*.*", status: :ok
     end
 
     def create

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  mount ActionCable.server => "/cable"
+
   resources :milestones_if_demurrer_delays
   resources :milestones_for_answers
   resources :milestones_for_demurrers
