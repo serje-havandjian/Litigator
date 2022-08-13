@@ -7,11 +7,14 @@ import SignUp from "./components/SignUp";
 import Calendar from "./components/CalendarComponent";
 import Cases from "./components/Cases";
 import Sidebar from "./components/Sidebar";
+import CaseWindow from "./components/CaseWindow";
+import Chatroom from "./components/Chatroom";
 
 
 function App() {
   const [ user, setUser ] = useState(null);
-  const [caseNames, setCaseName ] = useState([])
+  const [lawsuits, setLawsuits ] = useState([])
+
 
     useEffect(() => {
       fetch("/me").then((r) => {
@@ -25,8 +28,10 @@ function App() {
     useEffect(()=>{
       fetch("/cases")
       .then(result => result.json())
-      .then(result => setCaseName(result))
+      .then(result => setLawsuits(result))
   },[])
+
+ 
 
 
  
@@ -51,6 +56,9 @@ function App() {
                                   </Route>
                                   <Route exact path ="/cases">
                                     <Cases user={user} />
+                                  </Route>
+                                  <Route exact path ="/chatroom">
+                                    <Chatroom />
                                   </Route>
                               </Switch>
                           ) : (
