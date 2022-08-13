@@ -34,7 +34,9 @@ function Sidebar({user, setUser}){
             <a className="menu-item" href="/Login" >
                 Login
             </a>
-            
+            <a className="menu-item" href="/Chatroom">
+                Chatroom
+            </a>
         </Menu>
     )
 }

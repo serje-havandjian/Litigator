@@ -5,10 +5,14 @@ import Email from "./Email"
 import Sidebar from "./Sidebar"
 import WindowApp from "./Window"
 import { createPortal } from "react-dom";
+import Pop from "./Popup"
+import CaseWindow from "./CaseWindow"
+import NewWindow from "react-new-window"
 
 
 
-function Case({user}){
+
+function Case({user, getCaseId, desperateCaseId}){
    
     const [lawsuit, setLawSuit ] = useState([])
     const [nameState, setNameState] = useState("")
@@ -34,7 +38,10 @@ function Case({user}){
     const [editCaseId, setEditCaseId] = useState()
 
     const [openState, setOpenState] = useState(true)
+
+    const [caseId, setCaseId] = useState([])
     
+    console.log(desperateCaseId)
     
  
      
@@ -94,6 +101,16 @@ function Case({user}){
 
     }
 
+    function handleOpenWindow(e){
+            // fetch(`/cases/${e.target.value}`)
+            // .then(result => result.json())
+            // .then(result => setCaseId(result))
+            setCaseId(e.target.value)
+            console.log(caseId)
+        window.open("/CaseWindow", "Popup","toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30")
+        // window.open(`/CaseWindows`, "href=http://localhost:4000/CaseWindow", "Popup","resizable=0 width=100, height=100, top=10")
+    }
+
     const renderLawSuit = lawsuit.map((lawsuit)=>{
         const dateFiled = moment(lawsuit.date_case_filed)
         const dateComplaintServed = moment(lawsuit.date_complaint_served)
@@ -103,7 +120,15 @@ function Case({user}){
                     <Grid.Row >
                         <Grid.Column>
                             <Card >
-                                <WindowApp displayEditForm={displayEditForm} setDisplayEditForm={setDisplayEditForm} setIndividualCase={setIndividualCase} lawsuit={lawsuit} individualCase={individualCase} lawsuitName={lawsuit.name} value={lawsuit.id} setLawSuit={setLawSuit}>
+                                {/* used to be WindowApp */}
+                                <WindowApp displayEditForm={displayEditForm} setDisplayEditForm={setDisplayEditForm} setIndividualCase={setIndividualCase} lawsuit={lawsuit} individualCase={individualCase} setLawSuit={setLawSuit}  onClick={(e)=>{
+                                    // e.preventDefault()
+                                    // getCaseId(e.target.value, e)
+                                    window.open("/CaseWindow", "caseId={e.target.value}","toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30")
+                                }}
+                                    // onClick={handleOpenWindow}
+                                    value={lawsuit.id}>
+                                    {lawsuit.name}
                                 </WindowApp> 
                                 <Reveal animated="move up">
                                     <Reveal.Content visible>
@@ -138,6 +163,10 @@ function Case({user}){
         )
     })
 
+    
+    
+
+    console.log(caseId)
 
     return(
         <>
@@ -147,7 +176,6 @@ function Case({user}){
                         <Grid >
                             {renderLawSuit}
                         </Grid>
-                        
                         <div className="createNewCase">
                             <Grid textAlign="center" verticalAlign="middle" >
                                 <Grid.Column style={{maxWidth: 550}}>
@@ -156,7 +184,8 @@ function Case({user}){
                                             <Form succes onSubmit={createNewCase}>
                                                 <Form.Input label="Name" placeholder="Enter Case Name Here" onChange={handleNameState} />
                                                 <Form.Input label="Opposing Counsel" placeholder="Enter Opposing Counsel Here" onChange={handleCounselState}/>
-                                                <Form.Input label="Date Case Filed (YYYY-MM-DD)" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} />
+                                                <Pop handleDateCaseFiledState={handleDateCaseFiledState} desperateCaseId={desperateCaseId} />
+                                                {/* <Form.Input label="Date Case Filed (YYYY-MM-DD)" placeholder="Enter Date Case Filed Here" onChange={handleDateCaseFiledState} /> */}
                                                 <Form.Input label="Date Complaint Served (YYYY-MM-DD)" placeholder="Enter Date Complaint Served Here" onChange={handleDateComplaintServedDate} />
                                                 <Message
                                                 success
