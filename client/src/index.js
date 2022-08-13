@@ -5,10 +5,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "react-big-calendar/lib/css/react-big-calendar.css"
+import actionCable from "actioncable"
+
+const CableApp = {}
+CableApp.cable = actionCable.createConsumer("ws://localhost:3000/cable")
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <App cable={CableApp.cable} />
   </BrowserRouter>,
   document.getElementById('root')
 );
