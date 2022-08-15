@@ -11,7 +11,7 @@ function Sidebar({user, setUser}){
         if (r.ok) {
           setUser(null);
           console.log('test')
-          history.push("https://litigator.herokuapp.com/login")
+          history.push("/login")
         }
       });
     }
