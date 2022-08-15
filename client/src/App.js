@@ -17,26 +17,18 @@ function App() {
 
 
     useEffect(() => {
-      fetch("/me").then((r) => {
+      fetch("http://localhost:3000/me").then((r) => {
         if (r.ok) {
           r.json().then((user) => setUser(user));
         }
       });
     }, []);
 
-
-
     useEffect(()=>{
-      fetch("/cases")
+      fetch("http://localhost:3000/cases")
       .then(result => result.json())
       .then(result => setLawsuits(result))
   },[])
-
- 
-
-  console.log(user)
-
- 
 
 
     return (
@@ -50,28 +42,28 @@ function App() {
                       <main>
                           {user ? (
                               <Switch>
-                                  <Route exact path="/">
+                                  <Route exact path="http://localhost:3000/">
                                       <Home setUser={setUser} user={user}/>
                                   </Route>
-                                  <Route exact path ="/calendar">
+                                  <Route exact path ="http://localhost:3000/calendar">
                                       <Calendar user={user}/>
                                   </Route>
-                                  <Route exact path ="/cases">
+                                  <Route exact path ="http://localhost:3000/cases">
                                     <Cases user={user} />
                                   </Route>
-                                  <Route exact path ="/chatroom">
+                                  <Route exact path ="http://localhost:3000/chatroom">
                                     <Chatroom />
                                   </Route>
                               </Switch>
                           ) : (
                           <Switch>
-                              <Route exact path="/signup">
+                              <Route exact path="http://localhost:3000/signup">
                                   <SignUp setUser={setUser} />
                               </Route>
-                              <Route exact path="/login">
+                              <Route exact path="http://localhost:3000/login">
                                   <Login setUser={setUser} />
                               </Route>
-                              <Route exact path="/">
+                              <Route exact path="http://localhost:3000/">
                                   <Home setUser={setUser} />
                               </Route>
                           </Switch>
