@@ -25,12 +25,13 @@ function Login({setUser}){
         });
     }
 
-   
 
     return (   
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' >
         <Grid.Column style={{maxWidth: 450}}>
         <h1>Login</h1>
+
+        <h2> Login using email: 'litigator.test', password: littest123 </h2>
             <Form onSubmit={handleSubmit}>
               <label htmlFor="username">Enter Email Address</label>
               <Segment stacked>

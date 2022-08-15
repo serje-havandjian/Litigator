@@ -25,6 +25,7 @@ function App() {
     }, []);
 
 
+
     useEffect(()=>{
       fetch("/cases")
       .then(result => result.json())
@@ -33,6 +34,7 @@ function App() {
 
  
 
+  console.log(user)
 
  
 

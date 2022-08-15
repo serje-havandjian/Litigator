@@ -7,7 +7,7 @@ import WindowApp from "./Window"
 import { createPortal } from "react-dom";
 import Pop from "./Popup"
 import CaseWindow from "./CaseWindow"
-import NewWindow from "react-new-window"
+
 
 
 
@@ -41,7 +41,7 @@ function Case({user, getCaseId, desperateCaseId}){
 
     const [caseId, setCaseId] = useState([])
     
-    console.log(desperateCaseId)
+    
     
  
      
