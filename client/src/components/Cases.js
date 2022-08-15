@@ -46,7 +46,7 @@ function Case({user, getCaseId, desperateCaseId}){
  
     
     useEffect(()=>{
-        fetch("http://localhost:3000/cases")
+        fetch("https://litigator.herokuapp.com/cases")
         .then(result => result.json())
         .then(result => setLawSuit(result))
     },[])
@@ -85,7 +85,7 @@ function Case({user, getCaseId, desperateCaseId}){
         console.log(newCaseObject)
         console.log(user.id)
         
-        fetch(`http://localhost:3000/cases/`,{
+        fetch(`https://litigator.herokuapp.com/cases/`,{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
@@ -93,7 +93,7 @@ function Case({user, getCaseId, desperateCaseId}){
             body: JSON.stringify(newCaseObject)
         })
         .then(result => result.json())
-        .then(() => fetch(`http://localhost:3000/cases/`))
+        .then(() => fetch(`https://litigator.herokuapp.com/cases/`))
         .then(result => result.json()
         .then(result => setLawSuit(result)))
 

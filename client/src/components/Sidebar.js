@@ -7,11 +7,11 @@ function Sidebar({user, setUser}){
     const history = useHistory()
 
     function handleLogoutClick() {
-      fetch("http://localhost:3000/logout", { method: "DELETE" }).then((r) => {
+      fetch("https://litigator.herokuapp.com/logout", { method: "DELETE" }).then((r) => {
         if (r.ok) {
           setUser(null);
           console.log('test')
-          history.push("http://localhost:3000/login")
+          history.push("https://litigator.herokuapp.com/login")
         }
       });
     }
@@ -22,19 +22,19 @@ function Sidebar({user, setUser}){
 
     return (
         <Menu>
-            <a className="menu-item" href="http://localhost:3000/cases" onClick={handleTest}>
+            <a className="menu-item" href="https://litigator.herokuapp.com/cases" onClick={handleTest}>
                 Cases
             </a>
-            <a className="menu-item" href="http://localhost:3000/calendar">
+            <a className="menu-item" href="https://litigator.herokuapp.com/calendar">
                 Calendar
             </a>
-            <a className="menu-item" href="http://localhost:3000/login" onClick={handleLogoutClick}>
+            <a className="menu-item" href="https://litigator.herokuapp.com/login" onClick={handleLogoutClick}>
                 Logout
             </a>
-            <a className="menu-item" href="http://localhost:3000/Login" >
+            <a className="menu-item" href="https://litigator.herokuapp.com/Login" >
                 Login
             </a>
-            <a className="menu-item" href="http://localhost:3000/Chatroom">
+            <a className="menu-item" href="https://litigator.herokuapp.com/Chatroom">
                 Chatroom
             </a>
         </Menu>

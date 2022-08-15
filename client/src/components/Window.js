@@ -81,7 +81,7 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
             method_of_service: "Personal Service / Hand"
         }
         
-        fetch(`http://localhost:3000/triggers/`,{
+        fetch(`https://litigator.herokuapp.com/triggers/`,{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
@@ -97,7 +97,7 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
                 trigger_id: result.id
             }
     
-            fetch(`http://localhost:3000/deadlines/`,{
+            fetch(`https://litigator.herokuapp.com/deadlines/`,{
                 method: "POST",
                 headers: {
                     "Content-Type" : "application/json",
@@ -118,7 +118,7 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
                     deadline_id: result.id
                 }
     
-                fetch(`http://localhost:3000/milestones_for_demurrers`,{
+                fetch(`https://litigator.herokuapp.com/milestones_for_demurrers`,{
                     method: "POST",
                     headers: {
                         "Content-Type" : "application/json",
@@ -135,7 +135,7 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
                     deadline_id: result.id
                 }
     
-                fetch(`http://localhost:3000/milestones_if_demurrer_delays`,{
+                fetch(`https://litigator.herokuapp.com/milestones_if_demurrer_delays`,{
                     method: "POST",
                     headers: {
                         "Content-Type" : "application/json",
@@ -203,7 +203,7 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
             date_complaint_served: editCaseServed
         }
 
-        fetch(`http://localhost:3000/cases/${editCaseId}`,{
+        fetch(`https://litigator.herokuapp.com/cases/${editCaseId}`,{
             method: "PATCH",
             headers: {
                 "Content-Type" : "application/json",
@@ -211,21 +211,21 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
             body: JSON.stringify(editCaseObject)
         })
         .then(result => result.json())
-        .then(() => fetch(`http://localhost:3000/cases/`))
+        .then(() => fetch(`https://litigator.herokuapp.com/cases/`))
         .then(result => result.json()
         .then(result => setLawSuit(result)))
 
 
-        fetch(`http://localhost:3000/cases/${editCaseId}`)
+        fetch(`https://litigator.herokuapp.com/cases/${editCaseId}`)
         .then(result => result.json())
         .then(result => console.log(result))
     }
     
     function handleDelete(){
-        fetch(`http://localhost:3000/cases/${editCaseId}`,{
+        fetch(`https://litigator.herokuapp.com/cases/${editCaseId}`,{
             method: "DELETE"
         })
-        .then(() => fetch(`http://localhost:3000/cases/`))
+        .then(() => fetch(`https://litigator.herokuapp.com/cases/`))
         .then(result => result.json())
         .then(result => setLawSuit(result))
     }
@@ -236,7 +236,7 @@ function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, laws
         setOpen(true)
         
         // displayEditForm ? setDisplayEditForm(false) : setDisplayEditForm(true);
-        fetch(`http://localhost:3000/cases/${e.target.id}`)
+        fetch(`https://litigator.herokuapp.com/cases/${e.target.id}`)
         .then(result => result.json())
         .then(result => setIndividualCase(result))
 

@@ -17,7 +17,7 @@ function App() {
 
 
     useEffect(() => {
-      fetch("http://localhost:3000/me").then((r) => {
+      fetch("https://litigator.herokuapp.com/me").then((r) => {
         if (r.ok) {
           r.json().then((user) => setUser(user));
         }
@@ -25,7 +25,7 @@ function App() {
     }, []);
 
     useEffect(()=>{
-      fetch("http://localhost:3000/cases")
+      fetch("https://litigator.herokuapp.com/cases")
       .then(result => result.json())
       .then(result => setLawsuits(result))
   },[])
@@ -42,28 +42,28 @@ function App() {
                       <main>
                           {user ? (
                               <Switch>
-                                  <Route exact path="http://localhost:3000/">
+                                  <Route exact path="/">
                                       <Home setUser={setUser} user={user}/>
                                   </Route>
-                                  <Route exact path ="http://localhost:3000/calendar">
+                                  <Route exact path ="/calendar">
                                       <Calendar user={user}/>
                                   </Route>
-                                  <Route exact path ="http://localhost:3000/cases">
+                                  <Route exact path ="/cases">
                                     <Cases user={user} />
                                   </Route>
-                                  <Route exact path ="http://localhost:3000/chatroom">
+                                  <Route exact path ="/chatroom">
                                     <Chatroom />
                                   </Route>
                               </Switch>
                           ) : (
                           <Switch>
-                              <Route exact path="http://localhost:3000/signup">
+                              <Route exact path="/signup">
                                   <SignUp setUser={setUser} />
                               </Route>
-                              <Route exact path="http://localhost:3000/login">
+                              <Route exact path="/login">
                                   <Login setUser={setUser} />
                               </Route>
-                              <Route exact path="http://localhost:3000/">
+                              <Route exact path="/">
                                   <Home setUser={setUser} />
                               </Route>
                           </Switch>
