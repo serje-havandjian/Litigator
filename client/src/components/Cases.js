@@ -21,29 +21,8 @@ function Case({user, getCaseId, desperateCaseId}){
     const [dateComplaintServedState, setDateComplaintServedState] = useState()
     const [displayEditForm, setDisplayEditForm ] = useState(false)
     const [individualCase, setIndividualCase] = useState([])
-    const [complaintState, setComplaintState] = useState()
-    const [newTrigger, setNewTrigger] = useState()
-    const [newDeadline, setNewDeadline] = useState()
-    const [yearServedState, setYearDocumentServed] = useState()
-    const [monthServedState, setMonthServedState] = useState()
-    const [dateServedState, setDateServedState] = useState()
-    
-    const [complaintServedOption, setComplaintServedOption] = useState(false)
-    const [discoveryServedOption, setDiscoveryServedOption] = useState(false)
 
-    const [editName, setEditName] = useState()
-    const [editCounsel, setEditCounsel] = useState()
-    const [editCaseFiled, setEditCaseFiled] = useState()
-    const [editCaseServed, setEditCaseServed] =useState()
-    const [editCaseId, setEditCaseId] = useState()
-
-    const [openState, setOpenState] = useState(true)
-
-    const [caseId, setCaseId] = useState([])
     
-    
-    
- 
     
     useEffect(()=>{
         fetch("https://litigator.herokuapp.com/cases")
@@ -101,15 +80,15 @@ function Case({user, getCaseId, desperateCaseId}){
 
     }
 
-    function handleOpenWindow(e){
-            // fetch(`/cases/${e.target.value}`)
-            // .then(result => result.json())
-            // .then(result => setCaseId(result))
-            setCaseId(e.target.value)
-            console.log(caseId)
-        window.open("/CaseWindow", "Popup","toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30")
-        // window.open(`/CaseWindows`, "href=http://localhost:4000/CaseWindow", "Popup","resizable=0 width=100, height=100, top=10")
-    }
+    // function handleOpenWindow(e){
+    //         fetch(`/cases/${e.target.value}`)
+    //         .then(result => result.json())
+    //         .then(result => setCaseId(result))
+    //         setCaseId(e.target.value)
+    //         console.log(caseId)
+    //     window.open("/CaseWindow", "Popup","toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=580, height=600, top=30")
+    //     window.open(`/CaseWindows`, "href=http://localhost:4000/CaseWindow", "Popup","resizable=0 width=100, height=100, top=10")
+    // }
 
     const renderLawSuit = lawsuit.map((lawsuit)=>{
         const dateFiled = moment(lawsuit.date_case_filed)
@@ -163,10 +142,6 @@ function Case({user, getCaseId, desperateCaseId}){
         )
     })
 
-    
-    
-
-    console.log(caseId)
 
     return(
         <>

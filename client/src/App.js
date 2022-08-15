@@ -13,7 +13,7 @@ import Chatroom from "./components/Chatroom";
 
 function App() {
   const [ user, setUser ] = useState(null);
-  const [lawsuits, setLawsuits ] = useState([])
+
 
   
     useEffect(() => {
@@ -24,11 +24,7 @@ function App() {
       });
     }, []);
 
-    useEffect(()=>{
-      fetch("https://litigator.herokuapp.com/cases")
-      .then(result => result.json())
-      .then(result => setLawsuits(result))
-  },[])
+
 
 
     return (
