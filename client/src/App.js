@@ -5,7 +5,7 @@ import NavBar from "./components/NavBar";
 import Home from './components/Home';
 import SignUp from "./components/SignUp";
 import Calendar from "./components/CalendarComponent";
-import Cases from "./components/Cases";
+import Cases from "./components/Case";
 import Sidebar from "./components/Sidebar";
 import CaseWindow from "./components/CaseWindow";
 import Chatroom from "./components/Chatroom";
@@ -51,7 +51,7 @@ function App() {
                                     <Chatroom />
                                   </Route>
                                   <Route exact path="/login">
-                                    <Login setUser={setUser} />
+                                    <Login />
                                   </Route>
                               </Switch>
                           ) : (
