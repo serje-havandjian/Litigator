@@ -60,7 +60,7 @@ function Login({setUser}){
               </Segment>
             </Form>
             <Message>
-              New to us? <a href="/signup">Sign up here.</a>
+              New to us? <a href="http://localhost:3000/signup">Sign up here.</a>
             </Message>
         </Grid.Column>
     </Grid>

@@ -22,19 +22,19 @@ function Sidebar({user, setUser}){
 
     return (
         <Menu>
-            <a className="menu-item" href="/cases" onClick={handleTest}>
+            <a className="menu-item" href="http://localhost:3000/cases" onClick={handleTest}>
                 Cases
             </a>
-            <a className="menu-item" href="/calendar">
+            <a className="menu-item" href="http://localhost:3000/calendar">
                 Calendar
             </a>
-            <a className="menu-item" href="/login" onClick={handleLogoutClick}>
+            <a className="menu-item" href="http://localhost:3000/login" onClick={handleLogoutClick}>
                 Logout
             </a>
-            <a className="menu-item" href="/Login" >
+            <a className="menu-item" href="http://localhost:3000/Login" >
                 Login
             </a>
-            <a className="menu-item" href="/Chatroom">
+            <a className="menu-item" href="http://localhost:3000/Chatroom">
                 Chatroom
             </a>
         </Menu>
