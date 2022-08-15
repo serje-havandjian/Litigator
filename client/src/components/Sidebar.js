@@ -10,7 +10,6 @@ function Sidebar({user, setUser}){
       fetch("https://litigator.herokuapp.com/logout", { method: "DELETE" }).then((r) => {
         if (r.ok) {
           setUser(null);
-          console.log('test')
           history.push("/login")
         }
       });
@@ -25,7 +24,7 @@ function Sidebar({user, setUser}){
             <a className="menu-item" href="/calendar">
                 Calendar
             </a>
-            <a className="menu-item" href="/login" onClick={handleLogoutClick}>
+            <a className="menu-item" onClick={handleLogoutClick} href="/login">
                 Logout
             </a>
             <a className="menu-item" href="/login" >
