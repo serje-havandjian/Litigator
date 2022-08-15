@@ -15,7 +15,7 @@ function App() {
   const [ user, setUser ] = useState(null);
   const [lawsuits, setLawsuits ] = useState([])
 
-
+  
     useEffect(() => {
       fetch("https://litigator.herokuapp.com/me").then((r) => {
         if (r.ok) {
@@ -53,6 +53,9 @@ function App() {
                                   </Route>
                                   <Route exact path ="/chatroom">
                                     <Chatroom />
+                                  </Route>
+                                  <Route exact path="/login">
+                                    <Login setUser={setUser} />
                                   </Route>
                               </Switch>
                           ) : (
