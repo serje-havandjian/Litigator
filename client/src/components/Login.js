@@ -11,7 +11,7 @@ function Login({setUser}){
 
     function handleSubmit(e) {
         e.preventDefault();
-        fetch("/login", {
+        fetch("http://localhost:3000/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -20,7 +20,7 @@ function Login({setUser}){
         }).then((r) => {
           if (r.ok) {
             r.json().then((user) => setUser(user));
-            history.push("/cases")
+            history.push("http://localhost:3000/cases")
           }
         });
     }

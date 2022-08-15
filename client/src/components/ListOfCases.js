@@ -11,7 +11,7 @@ function ListOfCases({lawsuits, setLawSuits}){
 
 
     function resetCaseList(){
-        fetch("/cases")
+        fetch("http://localhost:3000/cases")
         .then(result => result.json())
         .then(result => setLawSuits(result))
     }

@@ -8,10 +8,10 @@ function NavBar({user, setUser}){
     const history = useHistory()
 
     function handleLogoutClick() {
-      fetch("/logout", { method: "DELETE" }).then((r) => {
+      fetch("http://localhost:3000/logout", { method: "DELETE" }).then((r) => {
         if (r.ok) {
           setUser(null);
-          history.push("/login")
+          history.push("http://localhost:3000/login")
         }
       });
     }

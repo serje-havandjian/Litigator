@@ -3,8 +3,6 @@ import { Popup, Form } from "semantic-ui-react"
 
 function Pop({handleDateCaseFiledState, desperateCaseId}){
 
-    console.log(desperateCaseId)
-
     return(
         <Popup trigger={
             <Form>

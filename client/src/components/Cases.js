@@ -44,9 +44,9 @@ function Case({user, getCaseId, desperateCaseId}){
     
     
  
-     
+    
     useEffect(()=>{
-        fetch("/cases")
+        fetch("http://localhost:3000/cases")
         .then(result => result.json())
         .then(result => setLawSuit(result))
     },[])
@@ -85,7 +85,7 @@ function Case({user, getCaseId, desperateCaseId}){
         console.log(newCaseObject)
         console.log(user.id)
         
-        fetch(`/cases/`,{
+        fetch(`http://localhost:3000/cases/`,{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
@@ -93,7 +93,7 @@ function Case({user, getCaseId, desperateCaseId}){
             body: JSON.stringify(newCaseObject)
         })
         .then(result => result.json())
-        .then(() => fetch(`/cases/`))
+        .then(() => fetch(`http://localhost:3000/cases/`))
         .then(result => result.json()
         .then(result => setLawSuit(result)))
 
