@@ -16,10 +16,9 @@ function Sidebar({user, setUser}){
     }
 
 
-
     return (
         <Menu>
-            <a className="menu-item" href="/cases">
+            <a className="menu-item" href="/case">
                 Cases
             </a>
             <a className="menu-item" href="/calendar">

@@ -9,6 +9,7 @@ import Cases from "./components/Case";
 import Sidebar from "./components/Sidebar";
 import CaseWindow from "./components/CaseWindow";
 import Chatroom from "./components/Chatroom";
+import Case from "./components/Case";
 
 
 function App() {
@@ -44,8 +45,8 @@ function App() {
                                   <Route exact path ="/calendar">
                                       <Calendar user={user}/>
                                   </Route>
-                                  <Route exact path ="/cases">
-                                    <Cases user={user} />
+                                  <Route exact path ="/case">
+                                    <Case user={user} />
                                   </Route>
                                   <Route exact path ="/chatroom">
                                     <Chatroom />
