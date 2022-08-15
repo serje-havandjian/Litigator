@@ -16,25 +16,22 @@ function Sidebar({user, setUser}){
       });
     }
 
-    function handleTest(){
-        console.log('test')
-    }
 
     return (
         <Menu>
-            <a className="menu-item" href="https://litigator.herokuapp.com/cases" onClick={handleTest}>
+            <a className="menu-item" href="/cases" onClick={handleTest}>
                 Cases
             </a>
-            <a className="menu-item" href="https://litigator.herokuapp.com/calendar">
+            <a className="menu-item" href="/calendar">
                 Calendar
             </a>
-            <a className="menu-item" href="https://litigator.herokuapp.com/login" onClick={handleLogoutClick}>
+            <a className="menu-item" href="/login" onClick={handleLogoutClick}>
                 Logout
             </a>
-            <a className="menu-item" href="https://litigator.herokuapp.com/Login" >
+            <a className="menu-item" href="/login" >
                 Login
             </a>
-            <a className="menu-item" href="https://litigator.herokuapp.com/Chatroom">
+            <a className="menu-item" href="/chatroom">
                 Chatroom
             </a>
         </Menu>
