@@ -22,6 +22,9 @@ const RenderInWindow = (props) => {
       );
       newWindow.current.document.body.appendChild(container);
       const curWindow = newWindow.current;
+
+      copyStyles(window.document, newWindow.current.document);
+
       return () => curWindow.close();
     }
   }, [container]);
@@ -38,7 +41,7 @@ function copyStyles(src, dest) {
     Array.from(src.fonts).forEach((font) => dest.fonts.add(font));
     }
 
-copyStyles(window.document, newWindow.current.document);
+
 
 
 //This handles what is in pop up window
