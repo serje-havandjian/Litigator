@@ -42,10 +42,6 @@ const RenderInWindow = (props) => {
 };
 
 
-
-
-
-
 //This handles what is in pop up window
 function WindowApp({displayEditForm, setDisplayEditForm, setIndividualCase, lawsuit, lawsuitName, individualCase, setLawSuit, value}) {
     
