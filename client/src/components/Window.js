@@ -20,18 +20,6 @@ const RenderInWindow = (props) => {
         "",
         "width=600,height=800,left=200,top=200"
       );
-
-      function copyStyles(src, dest) {
-        Array.from(src.styleSheets).forEach((styleSheet) => {
-            const styleElement = styleSheet.ownerNode.cloneNode(true);
-            styleElement.href = styleSheet.href;
-            dest.head.appendChild(styleElement);
-        });
-        Array.from(src.fonts).forEach((font) => dest.fonts.add(font));
-        }
-
-        copyStyles(window.document, newWindow.current.document);
-
       newWindow.current.document.body.appendChild(container);
       const curWindow = newWindow.current;
       return () => curWindow.close();
@@ -40,6 +28,17 @@ const RenderInWindow = (props) => {
 
   return container && createPortal(props.children, container);
 };
+
+function copyStyles(src, dest) {
+    Array.from(src.styleSheets).forEach((styleSheet) => {
+        const styleElement = styleSheet.ownerNode.cloneNode(true);
+        styleElement.href = styleSheet.href;
+        dest.head.appendChild(styleElement);
+    });
+    Array.from(src.fonts).forEach((font) => dest.fonts.add(font));
+    }
+
+copyStyles(window.document, newWindow.current.document);
 
 
 //This handles what is in pop up window
